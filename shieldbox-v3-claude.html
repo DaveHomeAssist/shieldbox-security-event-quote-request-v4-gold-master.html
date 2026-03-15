@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShieldBox Security | Event Quote Request</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       VARIABLES
+    ========================================================= */
+    :root {
+      --bg:          #f7f4ef;
+      --surface:     #ffffff;
+      --surface-2:   #f0ece4;
+      --ink:         #1a1714;
+      --ink-2:       #4a4239;
+      --ink-3:       #8a8278;
+      --ink-4:       #b5ada3;
+      --line:        #ddd8cf;
+      --line-2:      #ccc5b8;
+      --accent:      #8b2920;
+      --accent-hi:   #a63228;
+      --accent-dim:  rgba(139,41,32,.07);
+      --amber:       #9a6b1a;
+      --amber-dim:   rgba(154,107,26,.08);
+      --amber-line:  rgba(154,107,26,.25);
+      --green:       #2d6a4f;
+      --green-dim:   rgba(45,106,79,.08);
+      --green-line:  rgba(45,106,79,.25);
+      --blue:        #2a6496;
+      --blue-dim:    rgba(42,100,150,.08);
+      --blue-line:   rgba(42,100,150,.25);
+      --radius:      3px;
+      --font-serif:  'Libre Baskerville', Georgia, serif;
+      --font-sans:   'Libre Franklin', sans-serif;
+      --font-mono:   'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* =========================================================
+       FOCUS STYLES
+    ========================================================= */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* =========================================================
+       TOP BAR
+    ========================================================= */
+    .topbar {
+      background: var(--ink);
+      color: var(--bg);
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-wordmark {
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .topbar-wordmark svg { opacity: .7; }
+
+    .topbar-sep {
+      width: 1px;
+      height: 16px;
+      background: rgba(255,255,255,.15);
+    }
+
+    .topbar-doc {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      font-weight: 500;
+    }
+
+    .topbar-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-meta {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: rgba(255,255,255,.35);
+    }
+
+    .topbar-status {
+      font-family: var(--font-sans);
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .topbar-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* =========================================================
+       PAGE WRAPPER
+    ========================================================= */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 48px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 32px;
+      margin-bottom: 36px;
+    }
+
+    .overline {
+      font-family: var(--font-sans);
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.01em;
+      margin-bottom: 14px;
+    }
+
+    .hero-sub {
+      font-size: .92rem;
+      color: var(--ink-3);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 500;
+      color: var(--ink-3);
+      padding: 5px 12px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .instruction-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      padding: 14px 16px;
+    }
+
+    .instruction-box p {
+      font-size: .82rem;
+      color: var(--ink-3);
+      line-height: 1.6;
+    }
+
+    .instruction-box strong { color: var(--ink); }
+
+    /* =========================================================
+       INTERNAL NOTE
+    ========================================================= */
+    .note-banner {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-line);
+      border-left: 3px solid var(--amber);
+      padding: 12px 16px;
+      margin-bottom: 40px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .note-icon {
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .note-label {
+      font-family: var(--font-sans);
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 3px;
+    }
+
+    .note-text {
+      font-size: .82rem;
+      color: var(--ink-2);
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       SECTIONS
+    ========================================================= */
+    .section { margin-bottom: 48px; }
+
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sec-tag {
+      font-family: var(--font-sans);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(139,41,32,.18);
+      width: 26px;
+      height: 26px;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .sec-tag svg { width: 12px; height: 12px; fill: var(--accent); }
+
+    .sec-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .sec-badge {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--ink-3);
+      letter-spacing: .06em;
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       CARD / BLOCK
+    ========================================================= */
+    .block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    /* =========================================================
+       PROPERTY GRID (Business Record)
+    ========================================================= */
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .prop-cell {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    .prop-cell:nth-child(3n) { border-right: none; }
+
+    .prop-key {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 4px;
+    }
+
+    .prop-val {
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .prop-val a { color: var(--blue); }
+
+    .prop-cell.no-bottom { border-bottom: none; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-sans);
+      font-size: .7rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 2px;
+      letter-spacing: .03em;
+    }
+
+    .badge-amber {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-line);
+      color: var(--amber);
+    }
+
+    .badge-blue {
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-line);
+      color: var(--blue);
+    }
+
+    .notes-area {
+      padding: 16px 18px;
+      background: var(--surface-2);
+      border-top: 1px solid var(--line);
+    }
+
+    .notes-key {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 6px;
+    }
+
+    .notes-val {
+      font-size: .88rem;
+      color: var(--ink-2);
+      line-height: 1.75;
+    }
+
+    /* =========================================================
+       FIELD GRID (Client & Event)
+    ========================================================= */
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .f-cell {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    .f-cell:nth-child(2n) { border-right: none; }
+    .f-cell.span2 { grid-column: 1 / -1; border-right: none; }
+    .f-cell.last-row { border-bottom: none; }
+
+    .f-key {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 4px;
+    }
+
+    .f-val {
+      font-size: .92rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .f-val a { color: var(--blue); }
+
+    .f-val-lg {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 2px;
+    }
+
+    .pill-yes {
+      background: var(--green-dim);
+      border: 1px solid var(--green-line);
+      color: var(--green);
+    }
+
+    /* =========================================================
+       SCHEDULE TABLE
+    ========================================================= */
+    .sched-wrap { overflow-x: auto; }
+
+    .sched-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .sched-table thead tr {
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--line-2);
+    }
+
+    .sched-table th {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      padding: 10px 16px;
+      text-align: left;
+    }
+
+    .sched-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+      font-size: .88rem;
+    }
+
+    .sched-table tr:last-child td { border-bottom: none; }
+    .sched-table tbody tr:hover td { background: rgba(0,0,0,.015); }
+
+    .t-phase { font-weight: 600; color: var(--ink); }
+    .t-phase.warn { color: var(--amber); }
+
+    .t-tag {
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      color: var(--ink-2);
+    }
+
+    .t-tag.warn { color: var(--amber); }
+    .t-dur { font-family: var(--font-mono); font-size: .75rem; color: var(--ink-3); }
+    .t-note { font-size: .82rem; color: var(--ink-3); }
+
+    .t-confirmed {
+      font-family: var(--font-sans);
+      font-size: .66rem;
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-dim);
+      border: 1px solid var(--green-line);
+      padding: 1px 8px;
+      border-radius: 2px;
+    }
+
+    /* =========================================================
+       SCOPE
+    ========================================================= */
+    .scope-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .scope-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      cursor: pointer;
+      transition: background .1s;
+      user-select: none;
+    }
+
+    .scope-item:nth-child(2n) { border-right: none; }
+    .scope-item:nth-last-child(-n+2) { border-bottom: none; }
+    .scope-item:hover { background: rgba(0,0,0,.015); }
+    .scope-item[aria-checked="true"] { background: var(--accent-dim); }
+
+    .scope-chk {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--line-2);
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .1s;
+    }
+
+    .scope-item[aria-checked="true"] .scope-chk {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .scope-chk svg {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      opacity: 0;
+      transition: opacity .1s;
+    }
+
+    .scope-item[aria-checked="true"] .scope-chk svg { opacity: 1; }
+
+    .scope-name {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .scope-desc {
+      font-size: .8rem;
+      color: var(--ink-3);
+      line-height: 1.5;
+    }
+
+    .scope-hint {
+      font-size: .82rem;
+      color: var(--ink-3);
+      margin-bottom: 12px;
+    }
+
+    /* =========================================================
+       RISK
+    ========================================================= */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .risk-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+    }
+
+    .risk-cell:nth-child(2n) { border-right: none; }
+    .risk-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+    .risk-label {
+      font-size: .88rem;
+      color: var(--ink-2);
+      font-weight: 500;
+    }
+
+    .risk-lv {
+      font-family: var(--font-sans);
+      font-size: .66rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding: 3px 10px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .lv-high {
+      background: var(--accent-dim);
+      border: 1px solid rgba(139,41,32,.22);
+      color: var(--accent-hi);
+    }
+
+    .lv-medium {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-line);
+      color: var(--amber);
+    }
+
+    .lv-low {
+      background: var(--green-dim);
+      border: 1px solid var(--green-line);
+      color: var(--green);
+    }
+
+    .rec-box {
+      background: var(--surface-2);
+      border-top: 1px solid var(--line);
+      padding: 20px 20px 18px;
+    }
+
+    .rec-head {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .rec-rows { display: flex; flex-direction: column; gap: 8px; }
+
+    .rec-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .88rem;
+    }
+
+    .rec-role { color: var(--ink-2); }
+
+    .rec-n {
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 1px 9px;
+      border-radius: 2px;
+    }
+
+    .rec-foot {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: .75rem;
+      color: var(--ink-4);
+      font-style: italic;
+    }
+
+    /* =========================================================
+       BILLING
+    ========================================================= */
+    .billing-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .bill-opt {
+      padding: 22px 20px;
+      border-right: 1px solid var(--line);
+      cursor: pointer;
+      transition: background .1s;
+      position: relative;
+    }
+
+    .bill-opt:last-child { border-right: none; }
+    .bill-opt:hover { background: rgba(0,0,0,.015); }
+    .bill-opt[aria-checked="true"] { background: var(--accent-dim); }
+
+    .bill-opt[aria-checked="true"]::after {
+      content: 'Selected';
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-family: var(--font-sans);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .bill-type {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 8px;
+    }
+
+    .bill-price {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .bill-unit {
+      font-size: .82rem;
+      color: var(--ink-3);
+    }
+
+    .billing-note {
+      padding: 14px 20px;
+      background: var(--surface-2);
+      border-top: 1px solid var(--line);
+      font-size: .82rem;
+      color: var(--ink-3);
+      line-height: 1.65;
+    }
+
+    /* =========================================================
+       PROMISE
+    ========================================================= */
+    .promise-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 32px 28px;
+    }
+
+    .promise-eyebrow {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .promise-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 22px;
+    }
+
+    .promise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .promise-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .p-chk {
+      width: 20px;
+      height: 20px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(139,41,32,.2);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .p-chk svg {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .promise-text {
+      font-size: .88rem;
+      color: var(--ink-2);
+      line-height: 1.65;
+    }
+
+    .promise-text strong { color: var(--ink); }
+
+    .promise-copy {
+      font-size: .88rem;
+      color: var(--ink-3);
+      line-height: 1.8;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+    /* =========================================================
+       NEXT STEPS
+    ========================================================= */
+    .next-block {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 40px 36px;
+      text-align: center;
+    }
+
+    .next-eyebrow {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .45;
+      margin-bottom: 10px;
+    }
+
+    .next-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .next-body {
+      font-size: .92rem;
+      opacity: .65;
+      max-width: 500px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+
+    .next-body a {
+      color: inherit;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      border: none;
+      border-radius: 2px;
+      padding: 14px 32px;
+      cursor: pointer;
+      transition: background .12s;
+    }
+
+    .cta-btn:hover { background: var(--accent-hi); }
+    .cta-btn:active { transform: scale(.98); }
+    .cta-btn svg { width: 14px; height: 14px; fill: #fff; }
+
+    .next-foot {
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      opacity: .3;
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    .site-footer {
+      border-top: 2px solid var(--ink);
+      padding: 28px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .footer-co {
+      font-family: var(--font-serif);
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .footer-det {
+      font-size: .78rem;
+      color: var(--ink-3);
+      line-height: 1.9;
+    }
+
+    .footer-det a { color: var(--ink-3); }
+
+    .footer-disc {
+      font-size: .72rem;
+      color: var(--ink-4);
+      text-align: right;
+      line-height: 1.8;
+    }
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--green-line);
+      border-left: 3px solid var(--green);
+      padding: 12px 16px;
+      font-size: .82rem;
+      color: var(--ink-2);
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .2s ease, transform .2s ease;
+      pointer-events: none;
+      max-width: 300px;
+      line-height: 1.5;
+    }
+
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast strong { display: block; color: var(--green); font-size: .78rem; font-weight: 600; margin-bottom: 2px; }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; gap: 24px; }
+      .wrap { padding: 32px 20px 60px; }
+    }
+
+    @media (max-width: 620px) {
+      h1 { font-size: 1.6rem; }
+      .prop-grid { grid-template-columns: 1fr 1fr; }
+      .prop-cell:nth-child(2n) { border-right: none; }
+      .prop-cell:nth-child(3n) { border-right: 1px solid var(--line); }
+      .field-grid { grid-template-columns: 1fr; }
+      .f-cell { border-right: none; }
+      .scope-grid { grid-template-columns: 1fr; }
+      .scope-item { border-right: none; }
+      .risk-grid { grid-template-columns: 1fr; }
+      .risk-cell { border-right: none; }
+      .billing-row { grid-template-columns: 1fr; }
+      .bill-opt { border-right: none; border-bottom: 1px solid var(--line); }
+      .bill-opt:last-child { border-bottom: none; }
+      .hero-chips { gap: 6px; }
+      .chip { font-size: .66rem; padding: 4px 9px; }
+    }
+
+    /* =========================================================
+       PRINT
+    ========================================================= */
+    @media print {
+      .topbar, #toast, .note-banner { display: none !important; }
+      .cta-btn { display: none; }
+
+      body { background: #fff; color: #111; font-size: 13px; }
+
+      .wrap { padding: 0; max-width: 100%; }
+
+      .block, .promise-block { border-color: #ccc; }
+      .next-block { background: #222; }
+
+      .hero { border-bottom-color: #111; }
+      .sec-head { border-bottom-color: #ccc; }
+      .site-footer { border-top-color: #111; }
+
+      @page { margin: 18mm 16mm; }
+      .block, .section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-wordmark">
+      <svg width="18" height="20" viewBox="0 0 24 26" fill="none" aria-hidden="true">
+        <path d="M12 1L2 5.5V13C2 18.5 6.5 23.5 12 25C17.5 23.5 22 18.5 22 13V5.5L12 1Z" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.35)" stroke-width="1.3"/>
+        <rect x="7.5" y="10" width="9" height="1.6" rx="0.8" fill="rgba(255,255,255,.5)"/>
+        <rect x="7.5" y="13" width="6.5" height="1.6" rx="0.8" fill="rgba(255,255,255,.35)"/>
+        <rect x="7.5" y="16" width="9" height="1.6" rx="0.8" fill="rgba(255,255,255,.5)"/>
+      </svg>
+      ShieldBox Security
+    </div>
+    <div class="topbar-sep"></div>
+    <span class="topbar-doc">Event Quote Request</span>
+    <div class="topbar-right">
+      <span class="topbar-meta">SBX-2026-0314-001</span>
+      <span class="topbar-status">Active</span>
+    </div>
+  </header>
+
+  <!-- PAGE -->
+  <main class="wrap">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-left">
+        <div class="overline">ShieldBox Security &middot; Philadelphia, PA</div>
+        <h1>Event Quote<br>Request</h1>
+        <p class="hero-sub">Complete this intake form to receive a formal security proposal. ShieldBox reviews every event personally and returns a detailed quote within 24 hours. All rates, staffing, and scope are tailored to your specific event.</p>
+        <div class="hero-chips">
+          <span class="chip">March 14, 2026</span>
+          <span class="chip">24-Hour Turnaround</span>
+          <span class="chip"><span class="dot"></span> Active Intake</span>
+          <span class="chip">SBX-2026-0314-001</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="instruction-box">
+          <p><strong>How to use:</strong> Send this page link to the client, or export as PDF. Pre-filled values are mock data for design review &mdash; replace with live intake data before sending to a real prospect.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- INTERNAL NOTE -->
+    <div class="note-banner" role="note">
+      <span class="note-icon" aria-hidden="true">&#9888;</span>
+      <div>
+        <div class="note-label">Internal Ops Note</div>
+        <div class="note-text">Pre-filled values are mock data for design review. Replace with live intake data before sending to a real prospect. Insurance certificate and venue security addendum required before proposal is finalized.</div>
+      </div>
+    </div>
+
+    <!-- BUSINESS RECORD -->
+    <section class="section" id="record">
+      <div class="sec-head">
+        <div class="sec-tag">
+          <svg viewBox="0 0 16 16"><path d="M2 2h4v4H2V2zm0 8h4v4H2v-4zm8-8h4v4h-4V2zm0 8h4v4h-4v-4z"/></svg>
+        </div>
+        <h2 class="sec-title">Business Record</h2>
+        <span class="sec-badge">CRM &middot; Auto-generated</span>
+      </div>
+      <div class="block">
+        <div class="prop-grid">
+          <div class="prop-cell">
+            <div class="prop-key">Created</div>
+            <div class="prop-val">March 14, 2026</div>
+          </div>
+          <div class="prop-cell">
+            <div class="prop-key">Email</div>
+            <div class="prop-val"><a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a></div>
+          </div>
+          <div class="prop-cell">
+            <div class="prop-key">Industry</div>
+            <div class="prop-val">Security</div>
+          </div>
+          <div class="prop-cell">
+            <div class="prop-key">Phone</div>
+            <div class="prop-val"><a href="tel:+12155550148">(215) 555-0148</a></div>
+          </div>
+          <div class="prop-cell">
+            <div class="prop-key">Primary Contact</div>
+            <div class="prop-val">Carl Mercer</div>
+          </div>
+          <div class="prop-cell">
+            <div class="prop-key">Source</div>
+            <div class="prop-val">Website</div>
+          </div>
+          <div class="prop-cell no-bottom">
+            <div class="prop-key">Status</div>
+            <div class="prop-val"><span class="badge badge-amber">Prospect</span></div>
+          </div>
+          <div class="prop-cell no-bottom">
+            <div class="prop-key">Type</div>
+            <div class="prop-val"><span class="badge badge-blue">Lead</span></div>
+          </div>
+          <div class="prop-cell no-bottom">
+            <div class="prop-key">Website</div>
+            <div class="prop-val"><a href="https://shieldboxsecurity.co" target="_blank" rel="noopener">shieldboxsecurity.co</a></div>
+          </div>
+        </div>
+        <div class="notes-area">
+          <div class="notes-key">Intake Notes</div>
+          <p class="notes-val">Inbound website inquiry received March 14, 2026 via the ShieldBox quote request form. Client is planning a mid-size private music event at an indoor industrial venue in Philadelphia. Attendance, alcohol service, and VIP presence all confirmed at intake. Formal venue contact and client contract not yet on file. Insurance certificate and venue security addendum required before proposal is finalized. Awaiting confirmation of artist rider requirements for talent protection scope.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENT & EVENT -->
+    <section class="section" id="section-a">
+      <div class="sec-head">
+        <div class="sec-tag">A</div>
+        <h2 class="sec-title">Client &amp; Event Overview</h2>
+      </div>
+      <div class="block">
+        <div class="field-grid">
+          <div class="f-cell">
+            <div class="f-key">Organization Name</div>
+            <div class="f-val">Blackline Events Group</div>
+          </div>
+          <div class="f-cell">
+            <div class="f-key">Point of Contact</div>
+            <div class="f-val">Jenna Morales</div>
+          </div>
+          <div class="f-cell">
+            <div class="f-key">Email</div>
+            <div class="f-val"><a href="mailto:jenna@blacklineevents.co">jenna@blacklineevents.co</a></div>
+          </div>
+          <div class="f-cell">
+            <div class="f-key">Phone</div>
+            <div class="f-val">(267) 555-0192</div>
+          </div>
+          <div class="f-cell span2">
+            <div class="f-key">Event Name</div>
+            <div class="f-val f-val-lg">Spring Warehouse Sessions</div>
+          </div>
+          <div class="f-cell">
+            <div class="f-key">Event Type</div>
+            <div class="f-val">Private Music Event</div>
+          </div>
+          <div class="f-cell">
+            <div class="f-key">Expected Attendance</div>
+            <div class="f-val">450 guests</div>
+          </div>
+          <div class="f-cell span2">
+            <div class="f-key">Venue Address</div>
+            <div class="f-val">1425 American St, Philadelphia, PA 19147</div>
+          </div>
+          <div class="f-cell">
+            <div class="f-key">Venue Type</div>
+            <div class="f-val">Indoor Industrial Venue</div>
+          </div>
+          <div class="f-cell">
+            <div class="f-key">Venue Capacity</div>
+            <div class="f-val">600 (estimated)</div>
+          </div>
+          <div class="f-cell last-row">
+            <div class="f-key">Alcohol Served</div>
+            <div class="f-val"><span class="pill pill-yes">Yes</span></div>
+          </div>
+          <div class="f-cell last-row">
+            <div class="f-key">VIP or Talent Present</div>
+            <div class="f-val"><span class="pill pill-yes">Yes</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="section" id="section-b">
+      <div class="sec-head">
+        <div class="sec-tag">B</div>
+        <h2 class="sec-title">Schedule &amp; Logistics</h2>
+        <span class="sec-badge">March 28&ndash;29, 2026</span>
+      </div>
+      <div class="block">
+        <div class="sched-wrap">
+          <table class="sched-table" aria-label="Event schedule">
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Date</th>
+                <th>Window</th>
+                <th>Duration</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="t-phase">Load In / Setup</span></td>
+                <td><span class="t-tag">Mar 28</span></td>
+                <td><span class="t-tag">12:00 PM &ndash; 4:00 PM</span></td>
+                <td><span class="t-dur">4 hrs</span></td>
+                <td class="t-note">Gear staging, perimeter walk, vendor access</td>
+              </tr>
+              <tr>
+                <td><span class="t-phase">Doors Open</span></td>
+                <td><span class="t-tag">Mar 28</span></td>
+                <td><span class="t-tag">7:00 PM</span></td>
+                <td><span class="t-dur">&mdash;</span></td>
+                <td class="t-note">Entry screening active, front of house deployed</td>
+              </tr>
+              <tr>
+                <td><span class="t-phase">Event Coverage</span></td>
+                <td><span class="t-tag">Mar 28</span></td>
+                <td><span class="t-tag">6:30 PM &ndash; 12:30 AM</span></td>
+                <td><span class="t-dur">6 hrs</span></td>
+                <td class="t-note">Full staffing, all zones active, command post live</td>
+              </tr>
+              <tr>
+                <td><span class="t-phase">Load Out / Strike</span></td>
+                <td><span class="t-tag">Mar 29</span></td>
+                <td><span class="t-tag">12:30 AM &ndash; 2:30 AM</span></td>
+                <td><span class="t-dur">2 hrs</span></td>
+                <td class="t-note">Crowd egress control, vendor depart sweep</td>
+              </tr>
+              <tr>
+                <td><span class="t-phase warn">Overnight Watch</span></td>
+                <td><span class="t-tag warn">Mar 29</span></td>
+                <td><span class="t-tag warn">2:30 AM &ndash; 8:00 AM</span></td>
+                <td><span class="t-dur">5.5 hrs</span></td>
+                <td class="t-note"><span class="t-confirmed">Confirmed</span> 1 watch, equipment &amp; venue secure</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECURITY SCOPE -->
+    <section class="section" id="section-c">
+      <div class="sec-head">
+        <div class="sec-tag">C</div>
+        <h2 class="sec-title">Security Scope</h2>
+      </div>
+      <p class="scope-hint">Select all services applicable to this event. Pre-selection reflects confirmed scope from intake.</p>
+      <div class="block">
+        <div class="scope-grid" role="group" aria-label="Security services">
+
+          <div class="scope-item" tabindex="0" role="checkbox" aria-checked="true">
+            <div class="scope-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div>
+              <div class="scope-name">Access Control</div>
+              <div class="scope-desc">Managed entry and exit points with credential verification and guest list enforcement.</div>
+            </div>
+          </div>
+
+          <div class="scope-item" tabindex="0" role="checkbox" aria-checked="true">
+            <div class="scope-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div>
+              <div class="scope-name">Front of House</div>
+              <div class="scope-desc">Visible personnel at the main entrance managing crowd flow and first impressions.</div>
+            </div>
+          </div>
+
+          <div class="scope-item" tabindex="0" role="checkbox" aria-checked="false">
+            <div class="scope-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div>
+              <div class="scope-name">Perimeter Security</div>
+              <div class="scope-desc">Active patrol of the venue exterior and adjacent loading areas throughout the event.</div>
+            </div>
+          </div>
+
+          <div class="scope-item" tabindex="0" role="checkbox" aria-checked="true">
+            <div class="scope-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div>
+              <div class="scope-name">Talent / Executive Protection</div>
+              <div class="scope-desc">Dedicated close-protection for performers, VIP guests, or principals on site.</div>
+            </div>
+          </div>
+
+          <div class="scope-item" tabindex="0" role="checkbox" aria-checked="true">
+            <div class="scope-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div>
+              <div class="scope-name">Crowd Management</div>
+              <div class="scope-desc">Floor presence with trained personnel managing movement, queues, and incident response.</div>
+            </div>
+          </div>
+
+          <div class="scope-item" tabindex="0" role="checkbox" aria-checked="false">
+            <div class="scope-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div>
+              <div class="scope-name">Overnight Gear Watch</div>
+              <div class="scope-desc">Stationary overnight guard for venue equipment, staging, and production assets.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- RISK SNAPSHOT -->
+    <section class="section" id="section-d">
+      <div class="sec-head">
+        <div class="sec-tag">D</div>
+        <h2 class="sec-title">Security Risk Snapshot</h2>
+        <span class="sec-badge">Auto-scored</span>
+      </div>
+      <p class="scope-hint">Risk profile based on intake data. Final assessment may be revised after site walkthrough.</p>
+      <div class="block">
+        <div class="risk-grid" role="list">
+          <div class="risk-cell" role="listitem">
+            <span class="risk-label">Attendance (450 guests)</span>
+            <span class="risk-lv lv-medium">Medium</span>
+          </div>
+          <div class="risk-cell" role="listitem">
+            <span class="risk-label">Alcohol Service</span>
+            <span class="risk-lv lv-high">High</span>
+          </div>
+          <div class="risk-cell" role="listitem">
+            <span class="risk-label">Crowd Energy</span>
+            <span class="risk-lv lv-high">High</span>
+          </div>
+          <div class="risk-cell" role="listitem">
+            <span class="risk-label">VIP / Talent Present</span>
+            <span class="risk-lv lv-medium">Medium</span>
+          </div>
+          <div class="risk-cell" role="listitem">
+            <span class="risk-label">Venue Complexity</span>
+            <span class="risk-lv lv-medium">Medium</span>
+          </div>
+          <div class="risk-cell" role="listitem">
+            <span class="risk-label">Overall Risk Profile</span>
+            <span class="risk-lv lv-high">Moderate&ndash;High</span>
+          </div>
+        </div>
+        <div class="rec-box">
+          <div class="rec-head">Recommended Coverage &mdash; Spring Warehouse Sessions</div>
+          <div class="rec-rows">
+            <div class="rec-row">
+              <span class="rec-role">Site Lead (Owner Present)</span>
+              <span class="rec-n">&times;1</span>
+            </div>
+            <div class="rec-row">
+              <span class="rec-role">Event Security / Floor</span>
+              <span class="rec-n">&times;4</span>
+            </div>
+            <div class="rec-row">
+              <span class="rec-role">Entry Screeners</span>
+              <span class="rec-n">&times;2</span>
+            </div>
+            <div class="rec-row">
+              <span class="rec-role">Talent Protection</span>
+              <span class="rec-n">&times;1</span>
+            </div>
+            <div class="rec-row">
+              <span class="rec-role">Overnight Watch</span>
+              <span class="rec-n">&times;1</span>
+            </div>
+          </div>
+          <div class="rec-foot">* Fictional estimates for mockup only. Actual staffing determined after full site assessment and client consultation.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BILLING -->
+    <section class="section" id="section-e">
+      <div class="sec-head">
+        <div class="sec-tag">E</div>
+        <h2 class="sec-title">Billing Preference</h2>
+      </div>
+      <div class="block">
+        <div class="billing-row" id="billing-opts" role="radiogroup" aria-label="Billing model">
+          <div class="bill-opt" data-billing="hourly" tabindex="-1" role="radio" aria-checked="false">
+            <div class="bill-type">Hourly Rate</div>
+            <div class="bill-price">$42</div>
+            <div class="bill-unit">per guard / per hour</div>
+          </div>
+          <div class="bill-opt" data-billing="shift" tabindex="-1" role="radio" aria-checked="false">
+            <div class="bill-type">Per Guard / Shift</div>
+            <div class="bill-price">$325</div>
+            <div class="bill-unit">per 8-hour shift</div>
+          </div>
+          <div class="bill-opt" data-billing="flat" tabindex="0" role="radio" aria-checked="true">
+            <div class="bill-type">Flat Event Rate</div>
+            <div class="bill-price">$2,950</div>
+            <div class="bill-unit">all-inclusive</div>
+          </div>
+        </div>
+        <div class="billing-note">
+          Pricing reflects standard ShieldBox rates for this event tier. Final proposal pricing may vary based on confirmed headcount, site conditions, revised scope, or overnight extensions. A detailed line-item breakdown is included in the formal proposal.
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMISE -->
+    <section class="section" id="promise">
+      <div class="sec-head">
+        <div class="sec-tag">
+          <svg viewBox="0 0 16 16"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.5L8 12.5 3.1 15.2l.9-5.5-4-3.9L5.5 5z"/></svg>
+        </div>
+        <h2 class="sec-title">The ShieldBox Standard</h2>
+      </div>
+      <div class="promise-block">
+        <div class="promise-eyebrow">What You Get With Every Event</div>
+        <div class="promise-title">No Temp Agency Staffing. No Shortcuts.</div>
+        <div class="promise-list">
+          <div class="promise-item">
+            <div class="p-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div class="promise-text"><strong>Owner on site, every event.</strong> Carl Mercer leads from the floor. No delegate management, no subcontracted strangers.</div>
+          </div>
+          <div class="promise-item">
+            <div class="p-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div class="promise-text"><strong>Trained, in-house team.</strong> Every ShieldBox guard is vetted, trained, and familiar with our operational standards before setting foot on your event.</div>
+          </div>
+          <div class="promise-item">
+            <div class="p-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div class="promise-text"><strong>Clear chain of command.</strong> Every post knows their role, their escalation path, and their supervisor before doors open.</div>
+          </div>
+          <div class="promise-item">
+            <div class="p-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div class="promise-text"><strong>Direct coordination with venue staff.</strong> We work with your production team and venue contacts before the event, not during a problem.</div>
+          </div>
+          <div class="promise-item">
+            <div class="p-chk"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,8.5 11,1"/></svg></div>
+            <div class="promise-text"><strong>Proposal returned within 24 hours.</strong> You receive a detailed, itemized quote &mdash; not a template with your name swapped in.</div>
+          </div>
+        </div>
+        <p class="promise-copy">ShieldBox Security is not a mass staffing agency. We are a small, specialized team that takes on a limited number of events each month. That means your event gets our full attention &mdash; from initial intake through post-event debrief. Every client gets Carl&rsquo;s personal number. Every event gets a pre-site walkthrough when possible.</p>
+      </div>
+    </section>
+
+    <!-- NEXT STEPS -->
+    <section class="section" id="next">
+      <div class="sec-head">
+        <div class="sec-tag">
+          <svg viewBox="0 0 16 16"><path d="M0 2l16 6-16 6V9l10-1L0 7V2z"/></svg>
+        </div>
+        <h2 class="sec-title">Next Steps</h2>
+      </div>
+      <div class="next-block">
+        <div class="next-eyebrow">Ready to Move Forward?</div>
+        <div class="next-title">Request Your Formal Proposal</div>
+        <p class="next-body">
+          Send completed event details to <a href="mailto:quotes@shieldboxsecurity.co">quotes@shieldboxsecurity.co</a> or reply directly to your intake coordinator. A formal, itemized proposal will be returned within 24 hours.
+        </p>
+        <button class="cta-btn" id="cta-btn" type="button">
+          <svg viewBox="0 0 16 16"><path d="M0 2l16 6-16 6V9l10-1L0 7V2z"/></svg>
+          Request Formal Proposal
+        </button>
+        <div class="next-foot">Guaranteed 24-hour turnaround &middot; Ref: SBX-2026-0314-001</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-co">ShieldBox Security</div>
+        <div class="footer-det">
+          Philadelphia, PA<br>
+          <a href="https://shieldboxsecurity.co">shieldboxsecurity.co</a><br>
+          <a href="mailto:quotes@shieldboxsecurity.co">quotes@shieldboxsecurity.co</a><br>
+          <a href="tel:+12155550148">(215) 555-0148</a>
+        </div>
+      </div>
+      <div class="footer-disc">
+        ShieldBox Security &middot; Philadelphia Event Security<br>
+        Licensed &amp; Insured &middot; PA Act 235 Certified Team<br><br>
+        &#9888; Mockup concept for design and intake<br>
+        workflow review. All data is fictional.
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast" role="status" aria-live="polite">
+    <strong>Request Sent</strong>
+    Forwarded to quotes@shieldboxsecurity.co. Expect your formal proposal within 24 hours.
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    /* Scope toggles — driven by aria-checked attribute */
+    document.querySelectorAll('.scope-item[role="checkbox"]').forEach(function(el) {
+      function toggle() {
+        var checked = el.getAttribute('aria-checked') === 'true';
+        el.setAttribute('aria-checked', String(!checked));
+      }
+      el.addEventListener('click', toggle);
+      el.addEventListener('keydown', function(e) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+
+    /* Billing radio group — full arrow-key navigation */
+    (function() {
+      var opts = Array.from(document.querySelectorAll('.bill-opt[role="radio"]'));
+
+      function select(target) {
+        opts.forEach(function(o) {
+          o.setAttribute('aria-checked', 'false');
+          o.setAttribute('tabindex', '-1');
+        });
+        target.setAttribute('aria-checked', 'true');
+        target.setAttribute('tabindex', '0');
+        target.focus();
+      }
+
+      opts.forEach(function(opt) {
+        opt.addEventListener('click', function() { select(opt); });
+
+        opt.addEventListener('keydown', function(e) {
+          var idx = opts.indexOf(opt);
+          var next;
+
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            next = opts[(idx + 1) % opts.length];
+            select(next);
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            next = opts[(idx - 1 + opts.length) % opts.length];
+            select(next);
+          } else if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            select(opt);
+          }
+        });
+      });
+    })();
+
+    /* CTA toast */
+    (function() {
+      var toast = document.getElementById('toast');
+      var btn = document.getElementById('cta-btn');
+      var timer;
+
+      btn.addEventListener('click', function() {
+        clearTimeout(timer);
+        toast.classList.add('show');
+        timer = setTimeout(function() {
+          toast.classList.remove('show');
+        }, 4500);
+      });
+    })();
+  </script>
+
+</body>
+</html>

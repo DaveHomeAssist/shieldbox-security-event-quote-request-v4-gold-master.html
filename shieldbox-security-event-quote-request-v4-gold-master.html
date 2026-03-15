@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ShieldBox Security | Event Quote Request</title>
+  <title>ShieldBox Security | Philadelphia Event Security</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -80,15 +80,8 @@
       --warn: #b7934b;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       min-height: 100vh;
@@ -103,17 +96,9 @@
       text-decoration-color: color-mix(in srgb, var(--accent) 65%, transparent);
       text-underline-offset: 2px;
     }
+    a:hover { color: var(--accent); }
 
-    a:hover {
-      color: var(--accent);
-    }
-
-    button,
-    select,
-    input {
-      font: inherit;
-      color: inherit;
-    }
+    button, select, input { font: inherit; color: inherit; }
 
     :focus-visible {
       outline: 2px solid var(--accent);
@@ -122,192 +107,285 @@
     }
 
     .skip-link {
-      position: absolute;
-      left: -999px;
-      top: 8px;
-      z-index: 100;
+      position: absolute; left: -999px; top: 8px; z-index: 100;
+      border: 1px solid var(--line-strong); border-radius: 6px;
+      background: var(--surface); color: var(--ink);
+      padding: 8px 10px; font-size: 0.82rem; text-decoration: none;
+    }
+    .skip-link:focus-visible { left: 10px; }
+
+    /* =========================================================
+       SITE NAV
+    ========================================================= */
+    .site-nav {
+      position: sticky; top: 0; z-index: 80;
+      display: flex; align-items: center;
+      height: 56px; padding: 0 28px;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--ink);
+    }
+    .nav-brand:hover { color: var(--ink); }
+
+    .nav-wordmark {
+      font-family: "Libre Franklin", sans-serif;
+      font-size: 1.05rem; font-weight: 600;
+      letter-spacing: 0.02em; text-transform: lowercase;
+    }
+    .nav-wordmark span { color: var(--ink); font-weight: 700; }
+
+    .nav-links {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 24px;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--ink-soft); text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent); color: #fff !important;
+      padding: 7px 16px; border-radius: 4px;
+      font-weight: 600;
+    }
+    .nav-cta:hover { background: color-mix(in srgb, var(--accent) 82%, #000); }
+
+    /* =========================================================
+       LANDING HERO
+    ========================================================= */
+    .landing {
+      min-height: calc(100vh - 56px);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 60px 28px 80px;
+      position: relative;
+    }
+
+    .landing::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+    }
+
+    .hero-shield {
+      width: 72px; height: 72px;
+      margin-bottom: 28px; opacity: 0.6;
+    }
+
+    .hero-tagline {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .hero-h1 {
+      font-family: "Libre Baskerville", serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700; line-height: 1.12;
+      letter-spacing: -0.015em;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 300;
+      color: var(--ink-soft); line-height: 1.75;
+      max-width: 560px; margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border: none; border-radius: 4px;
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.14s;
+    }
+
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: color-mix(in srgb, var(--accent) 80%, #000); color: #fff; }
+
+    .btn-ghost {
+      background: transparent; color: var(--ink-soft);
       border: 1px solid var(--line-strong);
-      border-radius: 6px;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* =========================================================
+       TRUST STRIP
+    ========================================================= */
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .trust-item {
       background: var(--surface);
-      color: var(--ink);
-      padding: 8px 10px;
-      font-size: 0.82rem;
-      text-decoration: none;
+      padding: 28px 24px; text-align: center;
     }
 
-    .skip-link:focus-visible {
-      left: 10px;
+    .trust-num {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
     }
 
-    .wrap {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 44px 28px 72px;
+    .trust-label {
+      font-size: 0.74rem; font-weight: 500;
+      color: var(--ink-soft); letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
-    .theme-switcher {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      z-index: 60;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
+    /* =========================================================
+       SERVICES
+    ========================================================= */
+    .services {
+      max-width: 1080px; margin: 0 auto;
+      padding: 56px 28px;
+    }
+
+    .services-head {
+      text-align: center; margin-bottom: 36px;
+    }
+
+    .services-overline {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+
+    .services-title {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.6rem; font-weight: 700;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .svc-card {
+      background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 999px;
+      border-radius: var(--radius);
+      padding: 24px 20px;
+    }
+
+    .svc-icon {
+      font-size: 1.4rem; margin-bottom: 10px;
+    }
+
+    .svc-name {
+      font-size: 0.95rem; font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .svc-desc {
+      font-size: 0.84rem; color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       DIVIDER
+    ========================================================= */
+    .section-divider {
+      max-width: 1080px; margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    .section-divider hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--line), transparent);
+    }
+
+    /* =========================================================
+       QUOTE SECTION WRAPPER
+    ========================================================= */
+    .quote-section {
+      max-width: 1240px; margin: 0 auto;
+      padding: 56px 28px 72px;
+    }
+
+    .quote-intro {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .quote-intro-overline {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+
+    .quote-intro-title {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.6rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .quote-intro-sub {
+      font-size: 0.92rem; color: var(--ink-soft);
+      max-width: 560px; margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       THEME SWITCHER
+    ========================================================= */
+    .theme-switcher {
+      position: fixed; top: 16px; right: 16px; z-index: 60;
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--line); border-radius: 999px;
       background: var(--surface);
       box-shadow: var(--shadow-soft);
     }
 
     .theme-switcher label {
-      font-size: 0.66rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      font-weight: 600;
+      font-size: 0.66rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--ink-soft); font-weight: 600;
     }
 
     .theme-switcher select {
-      border: none;
-      background: transparent;
-      min-width: 100px;
-      font-size: 0.86rem;
-      cursor: pointer;
+      border: none; background: transparent;
+      min-width: 100px; font-size: 0.86rem; cursor: pointer;
     }
 
-    .hero {
-      border-bottom: 2px solid var(--ink);
-      padding-bottom: 24px;
-      margin-bottom: 22px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .overline {
-      font-size: 0.71rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .brand-row {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 4px;
-    }
-
-    .brand-mark {
-      width: 56px;
-      height: 56px;
-      flex-shrink: 0;
-    }
-
-    .brand-wordmark {
-      font-family: "Libre Baskerville", serif;
-      font-size: 1.75rem;
-      line-height: 1;
-      font-weight: 700;
-      text-transform: lowercase;
-      letter-spacing: -0.01em;
-    }
-
-    .brand-wordmark span {
-      color: var(--accent);
-    }
-
-    .brand-sub {
-      font-size: 0.78rem;
-      color: var(--ink-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-top: 4px;
-    }
-
-    h1 {
-      font-family: "Libre Baskerville", serif;
-      font-size: clamp(2.24rem, 4.6vw, 3.5rem);
-      line-height: 1.14;
-      letter-spacing: -0.015em;
-    }
-
-    .hero-sub {
-      max-width: 780px;
-      color: var(--ink-soft);
-      font-size: 0.98rem;
-      line-height: 1.75;
-    }
-
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding-top: 15px;
-      border-top: 1px solid var(--line);
-    }
-
-    .meta-chip {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 0.74rem;
-      color: var(--ink-soft);
-      background: var(--surface);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .meta-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--ok);
-    }
-
-    .ops-note {
-      border: 1px solid color-mix(in srgb, var(--warn) 35%, var(--line));
-      border-left: 3px solid var(--warn);
-      border-radius: var(--radius);
-      background: color-mix(in srgb, var(--warn) 8%, var(--surface));
-      padding: 13px 15px;
-      margin-bottom: 20px;
-    }
-
-    .ops-note-title {
-      font-size: 0.69rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--warn);
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .ops-note p {
-      color: var(--ink-soft);
-      font-size: 0.88rem;
-      line-height: 1.65;
-    }
-
+    /* =========================================================
+       LAYOUT (sidebar + stack)
+    ========================================================= */
     .layout {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 292px;
-      gap: 16px;
-      align-items: start;
+      gap: 16px; align-items: start;
     }
 
-    .stack {
-      display: grid;
-      gap: 22px;
-    }
+    .stack { display: grid; gap: 22px; }
 
     .side-stack {
-      position: sticky;
-      top: 56px;
-      display: grid;
-      gap: 16px;
+      position: sticky; top: 72px;
+      display: grid; gap: 16px;
     }
 
     .side-card {
@@ -315,43 +393,30 @@
       border-radius: var(--radius);
       background: var(--surface);
       padding: 13px 14px;
-      box-shadow: none;
     }
 
     .side-title {
-      font-size: 0.71rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--label-ink);
-      font-weight: 700;
-      margin-bottom: 8px;
+      font-size: 0.71rem; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--label-ink);
+      font-weight: 700; margin-bottom: 8px;
     }
 
     .side-list {
-      display: grid;
-      gap: 6px;
-      font-size: 0.86rem;
-      color: var(--ink-soft);
+      display: grid; gap: 6px;
+      font-size: 0.86rem; color: var(--ink-soft);
     }
 
-    .side-list a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .side-list a:hover {
-      color: var(--accent);
-    }
+    .side-list a { color: inherit; text-decoration: none; }
+    .side-list a:hover { color: var(--accent); }
 
     .summary-list {
-      margin-left: 18px;
-      display: grid;
-      gap: 5px;
-      color: var(--ink-soft);
-      font-size: 0.84rem;
-      line-height: 1.55;
+      margin-left: 18px; display: grid; gap: 5px;
+      color: var(--ink-soft); font-size: 0.84rem; line-height: 1.55;
     }
 
+    /* =========================================================
+       SECTION CARDS
+    ========================================================= */
     .section {
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -360,61 +425,44 @@
     }
 
     .section-head {
-      margin-top: 6px;
-      padding: 13px 15px;
+      margin-top: 6px; padding: 13px 15px;
       border-bottom: 1px solid var(--line);
       background: var(--surface-2);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
 
     .section-icon {
-      width: 24px;
-      height: 24px;
+      width: 24px; height: 24px;
       border-radius: 5px;
       border: 1px solid var(--line-strong);
-      background: var(--surface);
-      color: var(--accent);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.74rem;
-      font-weight: 700;
-      flex-shrink: 0;
+      background: var(--surface); color: var(--accent);
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 0.74rem; font-weight: 700; flex-shrink: 0;
     }
 
     .section-title {
       font-family: "Libre Baskerville", serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      line-height: 1.35;
+      font-size: 1.1rem; font-weight: 700; line-height: 1.35;
     }
 
     .section-note {
       margin-left: auto;
-      font-size: 0.66rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--ink-soft);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 3px 8px;
-      background: var(--surface);
+      font-size: 0.66rem; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--ink-soft);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px 8px; background: var(--surface);
     }
 
-    .section-body {
-      padding: 14px 15px;
-    }
+    .section-body { padding: 14px 15px; }
 
     .intro-copy {
-      color: var(--ink-soft);
-      font-size: 0.9rem;
-      line-height: 1.65;
-      margin-bottom: 12px;
+      color: var(--ink-soft); font-size: 0.9rem;
+      line-height: 1.65; margin-bottom: 12px;
     }
 
+    /* =========================================================
+       PROPERTY GRID
+    ========================================================= */
     .property-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -425,140 +473,87 @@
     .property {
       border-right: 1px solid var(--panel-border);
       border-bottom: 1px solid var(--panel-border);
-      padding: 12px;
-      min-height: 70px;
+      padding: 12px; min-height: 70px;
     }
 
     .property-label {
-      color: var(--label-ink);
-      font-size: 0.66rem;
-      text-transform: uppercase;
-      letter-spacing: 0.13em;
-      margin-bottom: 5px;
-      font-weight: 600;
+      color: var(--label-ink); font-size: 0.66rem;
+      text-transform: uppercase; letter-spacing: 0.13em;
+      margin-bottom: 5px; font-weight: 600;
     }
 
     .property-value {
-      font-size: 0.92rem;
-      color: var(--ink);
-      line-height: 1.4;
+      font-size: 0.92rem; color: var(--ink); line-height: 1.4;
     }
 
     .pill {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid var(--line-strong);
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 0.74rem;
-      color: var(--ink-soft);
-      background: var(--surface-2);
+      display: inline-flex; align-items: center;
+      border: 1px solid var(--line-strong); border-radius: 999px;
+      padding: 2px 8px; font-size: 0.74rem;
+      color: var(--ink-soft); background: var(--surface-2);
     }
 
     .notes-box {
       margin-top: 12px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface-2);
-      padding: 12px 13px;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--surface-2); padding: 12px 13px;
     }
 
     .notes-title {
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--label-ink);
-      margin-bottom: 5px;
-      font-weight: 700;
+      font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--label-ink);
+      margin-bottom: 5px; font-weight: 700;
     }
 
     .notes-copy {
-      color: var(--ink-soft);
-      font-size: 0.88rem;
-      line-height: 1.65;
+      color: var(--ink-soft); font-size: 0.88rem; line-height: 1.65;
     }
 
+    /* =========================================================
+       TABLES
+    ========================================================= */
     .simple-table-wrap {
       border: 1px solid var(--field-border);
-      border-radius: var(--radius);
-      overflow: auto;
+      border-radius: var(--radius); overflow: auto;
       background: var(--field-bg);
     }
 
-    .simple-table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 580px;
-    }
+    .simple-table { width: 100%; border-collapse: collapse; min-width: 580px; }
 
-    .simple-table th,
-    .simple-table td {
+    .simple-table th, .simple-table td {
       padding: 10px 12px;
       border-bottom: 1px solid var(--field-border);
-      text-align: left;
-      vertical-align: top;
+      text-align: left; vertical-align: top;
     }
 
     .simple-table th {
       background: color-mix(in srgb, var(--field-bg) 90%, var(--surface-2));
-      color: var(--label-ink);
-      font-size: 0.66rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
+      color: var(--label-ink); font-size: 0.66rem;
+      text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700;
     }
 
-    .simple-table td {
-      background: var(--field-bg);
-    }
+    .simple-table td { background: var(--field-bg); }
+    .simple-table tr:last-child td { border-bottom: none; }
 
-    .simple-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .value-muted {
-      color: var(--ink-soft);
-      font-size: 0.9rem;
-    }
-
-    .core-fields {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .core-chip {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 3px 9px;
-      font-size: 0.72rem;
-      color: var(--ink-soft);
-      background: var(--surface-2);
-    }
-
+    /* =========================================================
+       FORM
+    ========================================================= */
     .intake-form {
       margin-bottom: 12px;
       border: 1px solid var(--field-border);
       border-radius: var(--radius);
-      background: var(--field-bg);
-      padding: 12px;
+      background: var(--field-bg); padding: 12px;
     }
 
     .form-title {
-      font-size: 0.88rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--ink);
-      margin-bottom: 4px;
-      font-weight: 700;
+      font-size: 0.88rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--ink);
+      margin-bottom: 4px; font-weight: 700;
     }
 
     .form-help {
-      color: var(--ink-soft);
-      font-size: 0.82rem;
-      margin-bottom: 10px;
-      line-height: 1.55;
+      color: var(--ink-soft); font-size: 0.82rem;
+      margin-bottom: 10px; line-height: 1.55;
     }
 
     .form-grid {
@@ -567,28 +562,18 @@
       gap: 8px;
     }
 
-    .form-field {
-      display: grid;
-      gap: 4px;
-    }
+    .form-field { display: grid; gap: 4px; }
 
     .form-field label {
-      color: var(--label-ink);
-      font-size: 0.67rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 700;
+      color: var(--label-ink); font-size: 0.67rem;
+      text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;
     }
 
     .form-field input {
       width: 100%;
-      border: 1px solid var(--field-border);
-      border-radius: 6px;
-      background: var(--field-bg);
-      color: var(--ink);
-      padding: 8px 10px;
-      font-size: 0.87rem;
-      line-height: 1.4;
+      border: 1px solid var(--field-border); border-radius: 6px;
+      background: var(--field-bg); color: var(--ink);
+      padding: 8px 10px; font-size: 0.87rem; line-height: 1.4;
     }
 
     .form-field input::placeholder {
@@ -600,126 +585,122 @@
     }
 
     .form-actions {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      margin-top: 10px; display: flex;
+      align-items: center; gap: 10px; flex-wrap: wrap;
     }
 
     .tiny-action {
-      border: 1px solid var(--line-strong);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--ink-soft);
-      padding: 6px 11px;
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-      cursor: pointer;
+      border: 1px solid var(--line-strong); border-radius: 999px;
+      background: var(--surface); color: var(--ink-soft);
+      padding: 6px 11px; font-size: 0.74rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      font-weight: 700; cursor: pointer;
     }
-
-    .tiny-action:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
+    .tiny-action:hover { border-color: var(--accent); color: var(--accent); }
 
     .validation-msg {
-      font-size: 0.79rem;
-      color: var(--ink-soft);
-      line-height: 1.4;
+      font-size: 0.79rem; color: var(--ink-soft); line-height: 1.4;
+    }
+    .validation-msg.is-ok { color: var(--ok); }
+    .validation-msg.is-warn { color: var(--warn); }
+
+    .core-fields {
+      margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px;
     }
 
-    .validation-msg.is-ok {
-      color: var(--ok);
+    .core-chip {
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px 9px; font-size: 0.72rem;
+      color: var(--ink-soft); background: var(--surface-2);
     }
 
-    .validation-msg.is-warn {
-      color: var(--warn);
-    }
-
-    .check-grid {
-      display: grid;
-      gap: 8px;
-    }
+    /* =========================================================
+       CHECKBOXES
+    ========================================================= */
+    .check-grid { display: grid; gap: 8px; }
 
     .check-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border: 1px solid var(--line); border-radius: var(--radius);
       padding: 9px 11px;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 10px;
-      align-items: start;
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 10px; align-items: start;
       background: var(--surface);
     }
 
     .check-item input[type="checkbox"] {
-      accent-color: var(--accent);
-      margin-top: 2px;
+      accent-color: var(--accent); margin-top: 2px;
     }
 
     .check-label {
-      font-size: 0.9rem;
-      color: var(--ink);
-      font-weight: 700;
+      font-size: 0.9rem; color: var(--ink); font-weight: 700;
       letter-spacing: 0.01em;
     }
 
     .check-copy {
-      color: var(--ink-soft);
-      font-size: 0.84rem;
-      line-height: 1.55;
-      margin-top: 1px;
+      color: var(--ink-soft); font-size: 0.84rem;
+      line-height: 1.55; margin-top: 1px;
     }
 
     .tip-box {
       margin-top: 10px;
-      border: 1px solid var(--line);
-      border-left: 3px solid var(--accent);
-      border-radius: var(--radius);
-      background: var(--surface-2);
-      padding: 10px 12px;
-      color: var(--ink-soft);
-      font-size: 0.84rem;
-      line-height: 1.6;
+      border: 1px solid var(--line); border-left: 3px solid var(--accent);
+      border-radius: var(--radius); background: var(--surface-2);
+      padding: 10px 12px; color: var(--ink-soft);
+      font-size: 0.84rem; line-height: 1.6;
     }
 
+    /* Scope selected states */
+    #scope .check-item {
+      padding: 10px 12px; border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    #scope .check-item:hover {
+      border-color: color-mix(in srgb, var(--line-strong) 72%, var(--line));
+      background: color-mix(in srgb, var(--surface-2) 34%, var(--surface));
+    }
+
+    #scope .check-item:has(input:checked) {
+      border-color: color-mix(in srgb, var(--scope-selected-border) 88%, var(--line));
+      background: var(--scope-selected-bg);
+    }
+
+    #scope .check-item:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 42%, transparent);
+    }
+
+    #scope .check-item input[type="checkbox"] {
+      width: 18px; height: 18px; margin-top: 1px;
+      accent-color: var(--accent);
+    }
+
+    /* =========================================================
+       RISK
+    ========================================================= */
     .risk-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-      margin-bottom: 12px;
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px; margin-bottom: 12px;
     }
 
     .risk-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 9px 11px;
-      background: var(--surface);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 10px;
-      min-height: 46px;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 9px 11px; background: var(--surface);
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: 10px; min-height: 46px;
     }
 
     .risk-name {
       color: color-mix(in srgb, var(--ink) 78%, var(--ink-soft));
-      font-size: 0.86rem;
-      line-height: 1.35;
+      font-size: 0.86rem; line-height: 1.35;
     }
 
     .risk-level {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 0.67rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-weight: 600;
-      white-space: nowrap;
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px 8px; font-size: 0.67rem;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      font-weight: 600; white-space: nowrap;
     }
 
     .is-high {
@@ -749,82 +730,53 @@
     }
 
     .recommend-title {
-      color: var(--accent);
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-weight: 700;
-      margin-bottom: 8px;
+      color: var(--accent); font-size: 0.68rem;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      font-weight: 700; margin-bottom: 8px;
     }
 
-    .recommend-list {
-      display: grid;
-      gap: 7px;
-      margin-bottom: 10px;
-    }
+    .recommend-list { display: grid; gap: 7px; margin-bottom: 10px; }
 
     .recommend-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.92rem;
-      line-height: 1.45;
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 10px;
+      font-size: 0.92rem; line-height: 1.45;
     }
 
     .recommend-row span:last-child {
-      font-family: "Libre Baskerville", serif;
-      font-weight: 700;
+      font-family: "Libre Baskerville", serif; font-weight: 700;
     }
 
     .recommend-note {
       color: color-mix(in srgb, var(--ink-soft) 90%, var(--ink));
-      font-size: 0.8rem;
-      line-height: 1.62;
-      font-style: italic;
+      font-size: 0.8rem; line-height: 1.62; font-style: italic;
     }
 
+    /* =========================================================
+       BILLING
+    ========================================================= */
     .billing-table-wrap {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: auto;
-      margin-bottom: 10px;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: auto; margin-bottom: 10px;
     }
 
-    .billing-table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 700px;
-    }
+    .billing-table { width: 100%; border-collapse: collapse; min-width: 700px; }
 
-    .billing-table th,
-    .billing-table td {
+    .billing-table th, .billing-table td {
       padding: 10px 12px;
       border-bottom: 1px solid var(--line);
-      text-align: left;
-      vertical-align: middle;
+      text-align: left; vertical-align: middle;
     }
 
     .billing-table th {
-      background: var(--surface-2);
-      color: var(--ink-soft);
-      font-size: 0.66rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 700;
+      background: var(--surface-2); color: var(--ink-soft);
+      font-size: 0.66rem; text-transform: uppercase;
+      letter-spacing: 0.12em; font-weight: 700;
     }
 
-    .billing-table tr:last-child td {
-      border-bottom: none;
-    }
+    .billing-table tr:last-child td { border-bottom: none; }
 
-    .billing-row.is-selected {
-      background: transparent;
-    }
-
-    .billing-row td {
-      background: var(--surface);
-    }
+    .billing-row td { background: var(--surface); }
 
     .billing-row.is-selected td {
       background: var(--billing-selected-bg);
@@ -840,235 +792,145 @@
       border-right: 2px solid var(--billing-selected-border);
     }
 
-    .billing-model {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--ink);
-    }
+    .billing-model { font-weight: 600; font-size: 0.9rem; color: var(--ink); }
 
     .billing-desc {
-      color: var(--ink-soft);
-      font-size: 0.88rem;
-      line-height: 1.5;
+      color: var(--ink-soft); font-size: 0.88rem; line-height: 1.5;
     }
 
     .billing-choice {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
+      display: inline-flex; align-items: center;
+      gap: 6px; cursor: pointer;
     }
 
-    .billing-input {
-      accent-color: var(--accent);
-      width: 16px;
-      height: 16px;
-    }
+    .billing-input { accent-color: var(--accent); width: 16px; height: 16px; }
 
     .billing-choice-text {
-      border: 1px solid var(--line-strong);
-      border-radius: 999px;
-      background: var(--surface);
-      padding: 4px 10px;
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
+      font-size: 0.76rem; text-transform: uppercase;
+      letter-spacing: 0.08em; font-weight: 700;
       color: var(--ink-soft);
     }
 
     .billing-input:checked + .billing-choice-text {
-      border-color: var(--accent);
-      color: #ffffff;
-      background: var(--accent);
+      color: var(--accent);
     }
 
     .billing-note {
-      color: var(--ink-soft);
-      font-size: 0.86rem;
-      line-height: 1.65;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface-2);
-      padding: 10px 12px;
+      color: var(--ink-soft); font-size: 0.86rem; line-height: 1.65;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--surface-2); padding: 10px 12px;
     }
 
+    /* =========================================================
+       PROMISE
+    ========================================================= */
     .promise-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface-2);
-      padding: 15px;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--surface-2); padding: 15px;
     }
 
     .promise-title {
-      color: var(--accent);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-weight: 700;
-      margin-bottom: 8px;
+      color: var(--accent); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      font-weight: 700; margin-bottom: 8px;
     }
 
     .promise-lead {
       font-family: "Libre Baskerville", serif;
-      font-size: 1.2rem;
-      line-height: 1.46;
-      margin-bottom: 10px;
+      font-size: 1.2rem; line-height: 1.46; margin-bottom: 10px;
     }
 
     .promise-points {
-      display: grid;
-      gap: 6px;
-      margin-bottom: 10px;
-      color: var(--ink-soft);
-      font-size: 0.88rem;
+      display: grid; gap: 6px; margin-bottom: 10px;
+      color: var(--ink-soft); font-size: 0.88rem;
     }
 
     .promise-copy {
-      color: var(--ink-soft);
-      font-size: 0.87rem;
-      line-height: 1.68;
-      border-top: 1px solid var(--line);
-      padding-top: 10px;
+      color: var(--ink-soft); font-size: 0.87rem; line-height: 1.68;
+      border-top: 1px solid var(--line); padding-top: 10px;
     }
 
+    /* =========================================================
+       NEXT STEP
+    ========================================================= */
     .next-step {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border: 1px solid var(--line); border-radius: var(--radius);
       background: color-mix(in srgb, var(--surface) 92%, var(--surface-2));
       border-top: 2px solid var(--line-strong);
-      padding: 20px 18px 18px;
-      text-align: center;
+      padding: 20px 18px 18px; text-align: center;
     }
 
     .next-title {
       font-family: "Libre Baskerville", serif;
       font-size: clamp(1.72rem, 3.35vw, 2.28rem);
-      margin-bottom: 12px;
-      line-height: 1.28;
+      margin-bottom: 12px; line-height: 1.28;
     }
 
     .next-copy {
-      color: var(--ink-soft);
-      font-size: 0.91rem;
-      line-height: 1.7;
-      max-width: 700px;
-      margin: 0 auto 18px;
+      color: var(--ink-soft); font-size: 0.91rem; line-height: 1.7;
+      max-width: 700px; margin: 0 auto 18px;
     }
 
     .cta {
-      border: 1px solid var(--accent);
-      background: var(--accent);
-      color: #ffffff;
-      border-radius: 999px;
-      padding: 11px 22px;
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-weight: 700;
-      cursor: pointer;
+      border: 1px solid var(--accent); background: var(--accent); color: #fff;
+      border-radius: 999px; padding: 11px 22px;
+      font-size: 0.78rem; letter-spacing: 0.08em;
+      text-transform: uppercase; font-weight: 700; cursor: pointer;
       transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
     }
-
     .cta:hover {
-      background: color-mix(in srgb, var(--accent) 82%, #000000);
-      border-color: color-mix(in srgb, var(--accent) 82%, #000000);
+      background: color-mix(in srgb, var(--accent) 82%, #000);
+      border-color: color-mix(in srgb, var(--accent) 82%, #000);
     }
 
     .cta-secondary {
-      background: transparent;
-      color: var(--ink);
-      border-color: var(--line-strong);
+      background: transparent; color: var(--ink); border-color: var(--line-strong);
     }
-
     .cta-secondary:hover {
-      background: var(--surface-2);
-      color: var(--accent);
-      border-color: var(--accent);
+      background: var(--surface-2); color: var(--accent); border-color: var(--accent);
     }
 
     .next-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; flex-wrap: wrap; margin-top: 2px;
     }
 
     .next-turnaround {
-      margin-top: 12px;
-      color: var(--ink-soft);
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      margin-top: 12px; color: var(--ink-soft);
+      font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em;
     }
 
+    /* =========================================================
+       FOOTER
+    ========================================================= */
     .site-footer {
-      margin-top: 16px;
+      max-width: 1240px; margin: 0 auto;
+      padding: 28px 28px 40px;
       border-top: 1px solid var(--footer-divider);
-      padding-top: 14px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    #scope .check-item {
-      padding: 10px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.15s ease, border-color 0.15s ease;
-    }
-
-    #scope .check-item:hover {
-      border-color: color-mix(in srgb, var(--line-strong) 72%, var(--line));
-      background: color-mix(in srgb, var(--surface-2) 34%, var(--surface));
-    }
-
-    #scope .check-item:has(input:checked) {
-      border-color: color-mix(in srgb, var(--scope-selected-border) 88%, var(--line));
-      background: var(--scope-selected-bg);
-    }
-
-    #scope .check-item:focus-within {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 42%, transparent);
-    }
-
-    #scope .check-item input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin-top: 1px;
-      accent-color: var(--accent);
+      display: flex; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
     }
 
     .footer-brand {
-      color: var(--ink-soft);
-      font-size: 0.88rem;
-      line-height: 1.72;
+      color: var(--ink-soft); font-size: 0.88rem; line-height: 1.72;
     }
 
     .footer-name {
-      color: var(--ink);
-      font-family: "Libre Baskerville", serif;
-      font-size: 1rem;
-      margin-bottom: 4px;
+      color: var(--ink); font-family: "Libre Franklin", sans-serif;
+      font-size: 1rem; font-weight: 600; margin-bottom: 4px;
+      text-transform: lowercase;
     }
 
     .footer-note {
-      max-width: 360px;
-      color: var(--ink-soft);
-      font-size: 0.75rem;
-      line-height: 1.66;
-      text-align: right;
+      max-width: 360px; color: var(--ink-soft);
+      font-size: 0.75rem; line-height: 1.66; text-align: right;
     }
 
+    /* =========================================================
+       TOAST
+    ========================================================= */
     #toast {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 80;
+      position: fixed; right: 18px; bottom: 18px; z-index: 80;
       width: min(340px, calc(100vw - 26px));
       border: 1px solid color-mix(in srgb, var(--ok) 55%, var(--line));
       border-left: 3px solid var(--ok);
@@ -1077,117 +939,180 @@
       color: color-mix(in srgb, var(--ok) 72%, var(--ink));
       padding: 11px 12px;
       box-shadow: var(--shadow-soft);
-      opacity: 0;
-      transform: translateY(8px);
+      opacity: 0; transform: translateY(8px);
       pointer-events: none;
       transition: opacity 0.18s ease, transform 0.18s ease;
     }
 
-    #toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast strong { display: block; margin-bottom: 3px; }
 
-    #toast strong {
-      display: block;
-      margin-bottom: 3px;
-    }
-
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
     @media (max-width: 980px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .side-stack {
-        position: static;
-        order: -1;
-      }
-
-      .wrap {
-        padding: 24px 16px 56px;
-      }
-
+      .layout { grid-template-columns: 1fr; }
+      .side-stack { position: static; order: -1; }
       .theme-switcher {
-        position: static;
-        width: 100%;
-        justify-content: space-between;
-        margin-bottom: 14px;
+        position: static; width: 100%;
+        justify-content: space-between; margin-bottom: 14px;
       }
-
-      .risk-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-note {
-        text-align: left;
-        max-width: none;
-      }
-
-      .site-footer {
-        flex-direction: column;
-      }
+      .risk-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .footer-note { text-align: left; max-width: none; }
+      .site-footer { flex-direction: column; }
+      .services-grid { grid-template-columns: 1fr; }
     }
 
+    @media (max-width: 640px) {
+      .trust-strip { grid-template-columns: repeat(2, 1fr); }
+      .nav-links .nav-link-desktop { display: none; }
+    }
+
+    /* =========================================================
+       PRINT
+    ========================================================= */
     @media print {
       :root {
-        --bg: #ffffff;
-        --surface: #ffffff;
-        --surface-2: #f7f7f7;
-        --ink: #141414;
-        --ink-soft: #444444;
-        --line: #cfcfcf;
-        --line-strong: #b6b6b6;
-        --accent: #333333;
-        --accent-soft: #f0f0f0;
-        --ok: #444444;
-        --warn: #555555;
+        --bg: #fff; --surface: #fff; --surface-2: #f7f7f7;
+        --ink: #141414; --ink-soft: #444; --line: #cfcfcf;
+        --line-strong: #b6b6b6; --accent: #333; --accent-soft: #f0f0f0;
+        --ok: #444; --warn: #555;
       }
 
-      body {
-        background: #ffffff;
-      }
+      body { background: #fff; }
 
-      .theme-switcher,
-      .side-stack,
-      .next-actions,
-      #toast {
-        display: none !important;
-      }
+      .site-nav, .landing, .trust-strip, .services,
+      .section-divider, .quote-intro,
+      .theme-switcher, .side-stack, .next-actions,
+      #toast { display: none !important; }
 
-      .wrap {
-        max-width: none;
-        padding: 0;
-      }
+      .quote-section { padding: 0; max-width: none; }
 
-      .section,
-      .ops-note,
-      .promise-card,
-      .next-step {
-        break-inside: avoid;
-      }
+      .section, .promise-card, .next-step { break-inside: avoid; }
 
-      .billing-choice-text {
-        border-color: #8f8f8f;
-      }
+      .billing-choice-text { border-color: #8f8f8f; }
 
-      a {
-        color: inherit;
-      }
+      a { color: inherit; }
 
-      @page {
-        margin: 14mm;
-      }
+      @page { margin: 14mm; }
     }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#mainContent">Skip to main content</a>
+  <a class="skip-link" href="#quoteStart">Skip to quote request</a>
 
-  <main class="wrap" id="mainContent">
+  <!-- =========================================================
+       SITE NAV
+  ========================================================= -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <a class="nav-brand" href="#">
+      <svg width="24" height="28" viewBox="0 0 48 56" fill="none" aria-hidden="true">
+        <path d="M24 2C24 2 4 10 4 10V28C4 42 14 52 24 54C34 52 44 42 44 28V10L24 2Z" stroke="var(--ink)" stroke-width="1.8" fill="none" />
+        <path d="M24 10C24 10 10 16 10 16V28C10 38 16 46 24 48C32 46 38 38 38 28V16L24 10Z" stroke="var(--ink)" stroke-width="1.4" fill="none" opacity="0.55" />
+      </svg>
+      <span class="nav-wordmark">shield<span>box</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#services" class="nav-link-desktop">Services</a>
+      <a href="#quoteStart" class="nav-link-desktop">How It Works</a>
+      <a href="#quoteStart" class="nav-cta">Get a Quote</a>
+    </div>
+  </nav>
+
+  <!-- =========================================================
+       LANDING HERO
+  ========================================================= -->
+  <section class="landing">
+    <svg class="hero-shield" viewBox="0 0 48 56" fill="none" aria-hidden="true">
+      <path d="M24 2C24 2 4 10 4 10V28C4 42 14 52 24 54C34 52 44 42 44 28V10L24 2Z" stroke="var(--ink)" stroke-width="1.6" fill="none" opacity="0.45" />
+      <path d="M24 10C24 10 10 16 10 16V28C10 38 16 46 24 48C32 46 38 38 38 28V16L24 10Z" stroke="var(--ink)" stroke-width="1.2" fill="none" opacity="0.3" />
+    </svg>
+    <div class="hero-tagline">Philadelphia Event Security</div>
+    <h1 class="hero-h1">Private security for events that matter.</h1>
+    <p class="hero-sub">Owner-led coverage for private events, concerts, and corporate gatherings. No temp staffing. No subcontractors. One team, every time.</p>
+    <div class="hero-actions">
+      <a href="#quoteStart" class="btn btn-primary">Request a Quote</a>
+      <a href="#services" class="btn btn-ghost">Our Services</a>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       TRUST STRIP
+  ========================================================= -->
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-num">24hr</div>
+      <div class="trust-label">Quote Turnaround</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">100%</div>
+      <div class="trust-label">In-House Team</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">Act 235</div>
+      <div class="trust-label">PA Certified</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">Owner</div>
+      <div class="trust-label">On Site Every Event</div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       SERVICES
+  ========================================================= -->
+  <section class="services" id="services">
+    <div class="services-head">
+      <div class="services-overline">What We Do</div>
+      <h2 class="services-title">Event Security Services</h2>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card">
+        <div class="svc-icon">🚪</div>
+        <div class="svc-name">Access Control</div>
+        <div class="svc-desc">Credential verification, guest list enforcement, and managed entry for VIP areas and backstage.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">👥</div>
+        <div class="svc-name">Crowd Management</div>
+        <div class="svc-desc">High-density monitoring, queue management, and de-escalation by trained floor personnel.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🛡</div>
+        <div class="svc-name">Talent Protection</div>
+        <div class="svc-desc">Dedicated close-protection escorts for performers, VIP guests, and principals on site.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🔍</div>
+        <div class="svc-name">Front of House</div>
+        <div class="svc-desc">Entry screening, bag checks, and visible security presence managing first impressions.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🏗</div>
+        <div class="svc-name">Perimeter Patrol</div>
+        <div class="svc-desc">Active roaming patrols securing venue exterior and adjacent loading areas throughout the event.</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🌙</div>
+        <div class="svc-name">Overnight Watch</div>
+        <div class="svc-desc">Stationary overnight guard for venue equipment, staging, and production assets after hours.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr /></div>
+
+  <!-- =========================================================
+       QUOTE INTAKE
+  ========================================================= -->
+  <div class="quote-section" id="quoteStart">
+    <div class="quote-intro">
+      <div class="quote-intro-overline">Start Here</div>
+      <h2 class="quote-intro-title">Event Quote Request</h2>
+      <p class="quote-intro-sub">Fill out the details below and we'll return a tailored, itemized security proposal within 24 hours.</p>
+    </div>
+
     <div class="theme-switcher">
       <label for="themeSelect">Scheme</label>
       <select id="themeSelect" aria-label="Select color scheme">
@@ -1197,44 +1122,14 @@
       </select>
     </div>
 
-    <header class="hero">
-      <div class="overline">ShieldBox Client Portal - Event Intake</div>
-
-      <div class="brand-row">
-        <svg class="brand-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M32 4L10 14V30C10 45 20 56 32 60C44 56 54 45 54 30V14L32 4Z" stroke="var(--ink)" stroke-width="2.5" />
-          <path d="M32 13L18 20V30C18 40 24 48 32 52C40 48 46 40 46 30V20L32 13Z" stroke="var(--line-strong)" stroke-width="2.2" />
-        </svg>
-        <div>
-          <div class="brand-wordmark">shield<span>box</span></div>
-          <div class="brand-sub">Security</div>
-        </div>
-      </div>
-
-      <h1>ShieldBox Security | Event Quote Request</h1>
-      <p class="hero-sub">
-        First step toward a formal security proposal. Complete this intake sheet with schedule, scope, and preferred billing model. ShieldBox returns a tailored proposal within 24 hours.
-      </p>
-
-      <div class="meta-row">
-        <span class="meta-chip">Created: March 14, 2026</span>
-        <span class="meta-chip">Turnaround: 24 Hours</span>
-        <span class="meta-chip"><span class="meta-dot" aria-hidden="true"></span>Active Intake</span>
-        <span class="meta-chip">Ref: SBX-2026-0314-001</span>
-      </div>
-    </header>
-
-    <aside class="ops-note" aria-label="Demo notice">
-      <div class="ops-note-title">Demo Notice</div>
-      <p>This page is a public-facing concept mockup using fictional intake data for workflow review.</p>
-    </aside>
-
     <div class="layout">
       <div class="stack">
+
+        <!-- BUSINESS RECORD -->
         <section class="section" aria-labelledby="summaryHeading">
           <div class="section-head">
             <span class="section-icon">R</span>
-            <h2 id="summaryHeading" class="section-title">Business Record - ShieldBox Security</h2>
+            <h2 id="summaryHeading" class="section-title">Business Record</h2>
             <span class="section-note">Client Record</span>
           </div>
           <div class="section-body">
@@ -1276,16 +1171,14 @@
                 <div class="property-value"><a href="https://shieldboxsecurity.example" target="_blank" rel="noopener noreferrer">shieldboxsecurity.example</a></div>
               </div>
             </div>
-
             <div class="notes-box">
               <div class="notes-title">Intake Notes</div>
-              <p class="notes-copy">
-                Inbound website inquiry for a private music event in Philadelphia. Attendance, alcohol service, and VIP presence were confirmed. Venue addendum and COI requirements are still pending. This record uses fictional values for concept review.
-              </p>
+              <p class="notes-copy">Inbound website inquiry for a private music event in Philadelphia. Attendance, alcohol service, and VIP presence were confirmed. Venue addendum and COI requirements are still pending. This record uses fictional values for concept review.</p>
             </div>
           </div>
         </section>
 
+        <!-- CLIENT & EVENT -->
         <section class="section" id="overview" aria-labelledby="overviewHeading">
           <div class="section-head">
             <span class="section-icon">A</span>
@@ -1366,6 +1259,7 @@
           </div>
         </section>
 
+        <!-- SCHEDULE -->
         <section class="section" id="schedule" aria-labelledby="scheduleHeading">
           <div class="section-head">
             <span class="section-icon">B</span>
@@ -1373,7 +1267,6 @@
           </div>
           <div class="section-body">
             <p class="intro-copy">Please list the specific windows where ShieldBox presence is required.</p>
-
             <div class="check-grid" aria-label="Schedule coverage checklist">
               <label class="check-item">
                 <input type="checkbox" checked />
@@ -1382,7 +1275,6 @@
                   <span class="check-copy">Mar 28, 2026 | 12:00 PM - 4:00 PM</span>
                 </span>
               </label>
-
               <label class="check-item">
                 <input type="checkbox" checked />
                 <span>
@@ -1390,7 +1282,6 @@
                   <span class="check-copy">Mar 28, 2026 | 7:00 PM</span>
                 </span>
               </label>
-
               <label class="check-item">
                 <input type="checkbox" checked />
                 <span>
@@ -1398,7 +1289,6 @@
                   <span class="check-copy">Mar 28, 2026 | 6:30 PM - 12:30 AM</span>
                 </span>
               </label>
-
               <label class="check-item">
                 <input type="checkbox" checked />
                 <span>
@@ -1406,7 +1296,6 @@
                   <span class="check-copy">Mar 29, 2026 | 12:30 AM - 2:30 AM</span>
                 </span>
               </label>
-
               <label class="check-item">
                 <input type="checkbox" checked />
                 <span>
@@ -1415,13 +1304,13 @@
                 </span>
               </label>
             </div>
-
             <aside class="tip-box" aria-label="Schedule tip">
               Tip: Use the format Date | Start - End (example: Mar 28, 2026 | 12:00 PM - 4:00 PM).
             </aside>
           </div>
         </section>
 
+        <!-- SCOPE -->
         <section class="section" id="scope" aria-labelledby="scopeHeading">
           <div class="section-head">
             <span class="section-icon">C</span>
@@ -1429,7 +1318,6 @@
           </div>
           <div class="section-body">
             <p class="intro-copy">Select the primary functions required.</p>
-
             <div class="check-grid" aria-label="Security scope checklist">
               <label class="check-item">
                 <input type="checkbox" checked />
@@ -1438,7 +1326,6 @@
                   <span class="check-copy">VIP areas, backstage, and credentials.</span>
                 </span>
               </label>
-
               <label class="check-item">
                 <input type="checkbox" checked />
                 <span>
@@ -1446,7 +1333,6 @@
                   <span class="check-copy">Entry screening, bag checks, and metal detection.</span>
                 </span>
               </label>
-
               <label class="check-item">
                 <input type="checkbox" />
                 <span>
@@ -1454,7 +1340,6 @@
                   <span class="check-copy">Roaming patrols to secure the venue boundary.</span>
                 </span>
               </label>
-
               <label class="check-item">
                 <input type="checkbox" checked />
                 <span>
@@ -1462,7 +1347,6 @@
                   <span class="check-copy">Dedicated 1-on-1 escort for speakers or artists.</span>
                 </span>
               </label>
-
               <label class="check-item">
                 <input type="checkbox" checked />
                 <span>
@@ -1474,6 +1358,7 @@
           </div>
         </section>
 
+        <!-- RISK -->
         <section class="section" id="risk" aria-labelledby="riskHeading">
           <div class="section-head">
             <span class="section-icon">D</span>
@@ -1489,7 +1374,6 @@
               <div class="risk-item" role="listitem"><span class="risk-name">Venue Complexity</span><span class="risk-level is-medium">MEDIUM</span></div>
               <div class="risk-item" role="listitem"><span class="risk-name">Overall Profile</span><span class="risk-level is-high">MODERATE TO HIGH</span></div>
             </div>
-
             <div class="recommend-box">
               <div class="recommend-title">Recommended Coverage</div>
               <div class="recommend-list">
@@ -1503,6 +1387,7 @@
           </div>
         </section>
 
+        <!-- BILLING -->
         <section class="section" id="billing" aria-labelledby="billingHeading">
           <div class="section-head">
             <span class="section-icon">E</span>
@@ -1552,13 +1437,11 @@
                 </tbody>
               </table>
             </div>
-
-            <p class="billing-note">
-              Final proposal pricing may vary based on site conditions, revised scope, venue rules, and client-driven schedule changes.
-            </p>
+            <p class="billing-note">Final proposal pricing may vary based on site conditions, revised scope, venue rules, and client-driven schedule changes.</p>
           </div>
         </section>
 
+        <!-- PROMISE -->
         <section class="promise-card" id="promise" aria-labelledby="promiseHeading">
           <div class="promise-title" id="promiseHeading">The ShieldBox Promise</div>
           <p class="promise-lead">ShieldBox operates with a direct, in-house event team led on site by ownership.</p>
@@ -1568,39 +1451,22 @@
             <div>Fast coordination with venue and production contacts.</div>
             <div>Formal proposal returned within 24 hours.</div>
           </div>
-          <p class="promise-copy">
-            Unlike high-volume staffing agencies, ShieldBox operates as a focused team. This allows direct communication, tighter perimeter control, and consistent accountability through every phase of event operations.
-          </p>
+          <p class="promise-copy">Unlike high-volume staffing agencies, ShieldBox operates as a focused team. This allows direct communication, tighter perimeter control, and consistent accountability through every phase of event operations.</p>
         </section>
 
+        <!-- NEXT STEP -->
         <section class="next-step" id="next" aria-labelledby="nextHeading">
           <h2 class="next-title" id="nextHeading">Next Step</h2>
-          <p class="next-copy">
-            Email completed event details to <a href="mailto:quotes@shieldboxsecurity.example">quotes@shieldboxsecurity.example</a> or reply directly to your intake coordinator. A formal proposal is returned within <strong>24 hours</strong>.
-          </p>
+          <p class="next-copy">Email completed event details to <a href="mailto:quotes@shieldboxsecurity.example">quotes@shieldboxsecurity.example</a> or reply directly to your intake coordinator. A formal proposal is returned within <strong>24 hours</strong>.</p>
           <div class="next-actions">
             <button id="requestButton" class="cta" type="button">Request Formal Proposal</button>
             <button id="printButton" class="cta cta-secondary" type="button">Download as PDF</button>
           </div>
           <div class="next-turnaround">Guaranteed 24-hour turnaround | Ref: SBX-2026-0314-001</div>
         </section>
-
-        <footer class="site-footer">
-          <div class="footer-brand">
-            <div class="footer-name">ShieldBox Security</div>
-            Philadelphia, PA<br />
-            <a href="https://shieldboxsecurity.example" target="_blank" rel="noopener noreferrer">shieldboxsecurity.example</a><br />
-            <a href="mailto:quotes@shieldboxsecurity.example">quotes@shieldboxsecurity.example</a><br />
-            <a href="tel:+12155550148">(215) 555-0148</a>
-          </div>
-
-          <div class="footer-note">
-            Mockup concept for design and intake workflow review.<br />
-            All names, numbers, and operational values are fictional placeholders.
-          </div>
-        </footer>
       </div>
 
+      <!-- SIDEBAR -->
       <aside class="side-stack" aria-label="Quick reference">
         <section class="side-card" aria-labelledby="quickNavHeading">
           <h2 id="quickNavHeading" class="side-title">Quick Nav</h2>
@@ -1612,7 +1478,6 @@
             <a href="#next">5. Next Step</a>
           </nav>
         </section>
-
         <section class="side-card" aria-labelledby="summaryHeadingAside">
           <h2 id="summaryHeadingAside" class="side-title">Summary</h2>
           <ul class="summary-list">
@@ -1623,94 +1488,97 @@
         </section>
       </aside>
     </div>
-  </main>
+  </div>
 
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <div class="footer-name">ShieldBox Security</div>
+      Philadelphia, PA<br />
+      <a href="https://shieldboxsecurity.example" target="_blank" rel="noopener noreferrer">shieldboxsecurity.example</a><br />
+      <a href="mailto:quotes@shieldboxsecurity.example">quotes@shieldboxsecurity.example</a><br />
+      <a href="tel:+12155550148">(215) 555-0148</a>
+    </div>
+    <div class="footer-note">
+      Mockup concept for design and intake workflow review.<br />
+      All names, numbers, and operational values are fictional placeholders.
+    </div>
+  </footer>
+
+  <!-- TOAST -->
   <div id="toast" role="status" aria-live="polite" hidden>
     <strong>Demo Request Recorded</strong>
     This mockup does not send data. In production, intake details would route to proposal ops.
   </div>
 
+  <!-- JS -->
   <script>
     (() => {
+      /* Theme */
       const themeSelect = document.getElementById("themeSelect");
-      const themeStorageKey = `layout-theme:${location.pathname.split("/").pop() || "shieldbox-security-event-quote-request.html"}`;
+      const themeKey = `sb-theme:${location.pathname.split("/").pop() || "shieldbox"}`;
 
-      function applyTheme(value) {
-        if (value && value !== "default") {
-          document.body.dataset.theme = value;
-        } else {
-          document.body.removeAttribute("data-theme");
-        }
-        themeSelect.value = value || "default";
+      function applyTheme(v) {
+        if (v && v !== "default") { document.body.dataset.theme = v; }
+        else { document.body.removeAttribute("data-theme"); }
+        themeSelect.value = v || "default";
       }
 
-      applyTheme(localStorage.getItem(themeStorageKey) || "default");
-
-      themeSelect.addEventListener("change", (event) => {
-        const value = event.target.value;
-        localStorage.setItem(themeStorageKey, value);
-        applyTheme(value);
+      /* Clear any stale theme from older versions */
+      if (!["default","editorial","slate"].includes(localStorage.getItem(themeKey))) {
+        localStorage.removeItem(themeKey);
+      }
+      applyTheme(localStorage.getItem(themeKey) || "default");
+      themeSelect.addEventListener("change", e => {
+        localStorage.setItem(themeKey, e.target.value);
+        applyTheme(e.target.value);
       });
 
+      /* Form validation */
       const intakeForm = document.getElementById("intakeForm");
-      const validateIntakeButton = document.getElementById("validateIntakeButton");
-      const validationMessage = document.getElementById("validationMessage");
+      const validateBtn = document.getElementById("validateIntakeButton");
+      const valMsg = document.getElementById("validationMessage");
 
-      function setValidationMessage(text, state) {
-        validationMessage.textContent = text;
-        validationMessage.classList.remove("is-ok", "is-warn");
-        if (state) {
-          validationMessage.classList.add(state);
-        }
+      function setVal(text, state) {
+        valMsg.textContent = text;
+        valMsg.classList.remove("is-ok", "is-warn");
+        if (state) valMsg.classList.add(state);
       }
 
-      validateIntakeButton.addEventListener("click", () => {
-        const valid = intakeForm.checkValidity();
-        if (valid) {
-          setValidationMessage("All required intake fields are complete.", "is-ok");
-          return;
+      validateBtn.addEventListener("click", () => {
+        if (intakeForm.checkValidity()) {
+          setVal("All required intake fields are complete.", "is-ok");
+        } else {
+          setVal("Please complete required fields before proposal handoff.", "is-warn");
+          intakeForm.reportValidity();
         }
-
-        setValidationMessage("Please complete required fields before proposal handoff.", "is-warn");
-        intakeForm.reportValidity();
       });
 
       intakeForm.addEventListener("input", () => {
-        if (!validationMessage.textContent) {
-          return;
-        }
-        if (intakeForm.checkValidity()) {
-          setValidationMessage("All required intake fields are complete.", "is-ok");
-        } else {
-          setValidationMessage("Please complete required fields before proposal handoff.", "is-warn");
-        }
+        if (!valMsg.textContent) return;
+        if (intakeForm.checkValidity()) setVal("All required intake fields are complete.", "is-ok");
+        else setVal("Please complete required fields before proposal handoff.", "is-warn");
       });
 
+      /* Billing radios */
       const billingInputs = Array.from(document.querySelectorAll('input[name="billingModel"]'));
       const billingRows = Array.from(document.querySelectorAll(".billing-row"));
 
-      function syncBillingSelection() {
-        billingRows.forEach((row) => {
+      function syncBilling() {
+        billingRows.forEach(row => {
           const radio = row.querySelector('input[name="billingModel"]');
           const text = row.querySelector(".billing-choice-text");
-          const selected = Boolean(radio && radio.checked);
-          row.classList.toggle("is-selected", selected);
-          if (text) {
-            text.textContent = selected ? "Selected" : "Select";
-          }
+          const on = Boolean(radio && radio.checked);
+          row.classList.toggle("is-selected", on);
+          if (text) text.textContent = on ? "Selected" : "Select";
         });
       }
 
-      billingInputs.forEach((input) => {
-        input.addEventListener("change", syncBillingSelection);
-      });
+      billingInputs.forEach(i => i.addEventListener("change", syncBilling));
 
-      billingRows.forEach((row) => {
-        row.addEventListener("click", (event) => {
-          const target = event.target;
-          if (target instanceof Element && target.closest("input[type='radio']")) {
-            return;
-          }
+      billingRows.forEach(row => {
+        row.addEventListener("click", e => {
+          if (e.target.closest("input[type='radio']")) return;
           const radio = row.querySelector('input[name="billingModel"]');
           if (radio && !radio.checked) {
             radio.checked = true;
@@ -1719,32 +1587,23 @@
         });
       });
 
-      syncBillingSelection();
+      syncBilling();
 
-      const requestButton = document.getElementById("requestButton");
-      const printButton = document.getElementById("printButton");
+      /* CTA toast */
       const toast = document.getElementById("toast");
-      let toastTimeout;
+      let toastTimer;
 
-      function showToast() {
-        clearTimeout(toastTimeout);
+      document.getElementById("requestButton").addEventListener("click", () => {
+        clearTimeout(toastTimer);
         toast.hidden = false;
-        requestAnimationFrame(() => {
-          toast.classList.add("show");
-        });
-
-        toastTimeout = window.setTimeout(() => {
+        requestAnimationFrame(() => toast.classList.add("show"));
+        toastTimer = setTimeout(() => {
           toast.classList.remove("show");
-          window.setTimeout(() => {
-            toast.hidden = true;
-          }, 200);
+          setTimeout(() => { toast.hidden = true; }, 200);
         }, 2800);
-      }
-
-      requestButton.addEventListener("click", showToast);
-      printButton.addEventListener("click", () => {
-        window.print();
       });
+
+      document.getElementById("printButton").addEventListener("click", () => window.print());
     })();
   </script>
 </body>

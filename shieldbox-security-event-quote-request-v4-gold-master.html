@@ -556,7 +556,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      color: var(--sb-text-secondary);
+      color: var(--ink-soft);
     }
 
     .entry-step-num {
@@ -566,14 +566,14 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: var(--sb-accent-primary);
+      background: var(--accent);
       color: #fff;
       font-size: 12px;
       font-weight: 700;
     }
 
     .entry-step-label {
-      color: var(--sb-text-secondary);
+      color: var(--ink-soft);
       font-size: 13px;
     }
 
@@ -716,7 +716,7 @@
 
     .internal-record {
       opacity: 0.6;
-      border: 0.5px dashed var(--sb-border-default);
+      border: 0.5px dashed var(--line);
       border-radius: 8px;
       padding: 1rem;
     }
@@ -725,7 +725,7 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--sb-text-muted);
+      color: var(--label-ink);
       margin-bottom: 0.75rem;
     }
 
@@ -936,6 +936,11 @@
       font-weight: 600; white-space: nowrap;
     }
 
+    [data-risk="low"] { background: color-mix(in srgb, var(--ok) 20%, transparent); }
+    [data-risk="medium"] { background: color-mix(in srgb, var(--warn) 20%, transparent); }
+    [data-risk="high"] { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+    [data-risk="critical"] { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+
     .is-high {
       color: var(--accent);
       border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
@@ -1089,8 +1094,8 @@
     }
 
     .trust-block {
-      border-left: 3px solid var(--sb-accent-primary);
-      background: var(--sb-surface-inset);
+      border-left: 3px solid var(--accent);
+      background: var(--surface-2);
       border-radius: 8px;
       padding: 1rem 1.25rem;
     }
@@ -1111,7 +1116,7 @@
 
     .trust-note {
       font-size: 13px;
-      color: var(--sb-text-muted);
+      color: var(--label-ink);
     }
 
     /* =========================================================
@@ -1327,7 +1332,7 @@
       .quick-nav {
         position: sticky;
         top: 0;
-        background: var(--sb-surface-base);
+        background: var(--bg);
         z-index: 100;
         overflow-x: auto;
         white-space: nowrap;
@@ -1394,7 +1399,7 @@
       .billing-table tr {
         display: flex;
         flex-direction: column;
-        border: 1px solid var(--sb-border-default);
+        border: 1px solid var(--line);
         border-radius: 8px;
         margin-bottom: 0.75rem;
         padding: 0.75rem;
@@ -1964,25 +1969,25 @@
           <ul class="promise-points" role="list">
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 13L10 18L19 7" stroke="var(--sb-accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M5 13L10 18L19 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
               <span>Owner present on-site for every event.</span>
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 13L10 18L19 7" stroke="var(--sb-accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M5 13L10 18L19 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
               <span>Trained in-house team and clear chain of command.</span>
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 13L10 18L19 7" stroke="var(--sb-accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M5 13L10 18L19 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
               <span>Fast coordination with venue and production contacts.</span>
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 13L10 18L19 7" stroke="var(--sb-accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M5 13L10 18L19 7" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
               <span>Formal proposal returned within 24 hours.</span>
             </li>

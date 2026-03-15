@@ -2095,12 +2095,14 @@
 
       /* Form validation */
       const intakeForm = document.getElementById("intakeForm");
-      const validateBtn = document.getElementById("validateIntakeButton");
+      const validateBtn = document.getElementById("validate-btn");
       const valMsg = document.getElementById("validationMessage");
+      const validationLive = document.getElementById("validationLive");
       const requiredInputs = Array.from(intakeForm.querySelectorAll("input[required]"));
 
       function setVal(text, state) {
         valMsg.textContent = text;
+        if (validationLive) validationLive.textContent = text;
         valMsg.classList.remove("is-ok", "is-warn");
         if (state) valMsg.classList.add(state);
       }
@@ -2171,7 +2173,9 @@
         });
       });
 
-      validateBtn.addEventListener("click", () => validateIntakeForm(true));
+      if (validateBtn) {
+        validateBtn.addEventListener("click", () => validateIntakeForm(true));
+      }
 
       /* Billing radios */
       const billingInputs = Array.from(document.querySelectorAll('input[name="billingModel"]'));
@@ -2185,7 +2189,7 @@
           const on = Boolean(radio && radio.checked);
 
           row.classList.toggle("is-selected", on);
-          row.setAttribute("aria-selected", on ? "true" : "false");
+          row.setAttribute("aria-checked", on ? "true" : "false");
           if (text) text.textContent = on ? "Selected model" : "Select model";
           if (sr) sr.textContent = on ? "currently selected" : "";
         });

@@ -121,55 +121,22 @@
       border-radius: 4px;
     }
 
-    .demo-nav {
-      position: sticky;
-      top: 0;
-      z-index: 70;
-      display: flex;
-      align-items: center;
-      gap: 0;
-      height: 36px;
-      padding: 0 12px;
-      background: rgba(0, 0, 0, 0.82);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      overflow-x: auto;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    .demo-nav a {
-      color: rgba(255, 255, 255, 0.58);
-      text-decoration: none;
-      font-size: 0.7rem;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-      padding: 0 10px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-    }
-
-    .demo-nav a:hover {
-      color: rgba(255, 255, 255, 0.9);
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 8px;
+      z-index: 100;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 8px 10px;
+      font-size: 0.82rem;
       text-decoration: none;
     }
 
-    .demo-nav .demo-nav-home {
-      color: rgba(255, 255, 255, 0.74);
-      font-weight: 600;
-    }
-
-    .demo-nav .demo-nav-sep {
-      width: 1px;
-      height: 14px;
-      background: rgba(255, 255, 255, 0.14);
-      flex-shrink: 0;
-    }
-
-    .demo-nav a.demo-nav-active {
-      color: #ffffff;
-      font-weight: 600;
+    .skip-link:focus-visible {
+      left: 10px;
     }
 
     .wrap {
@@ -180,7 +147,7 @@
 
     .theme-switcher {
       position: fixed;
-      top: 48px;
+      top: 16px;
       right: 16px;
       z-index: 60;
       display: flex;
@@ -885,7 +852,20 @@
       line-height: 1.5;
     }
 
-    .billing-select {
+    .billing-choice {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .billing-input {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .billing-choice-text {
       border: 1px solid var(--line-strong);
       border-radius: 999px;
       background: var(--surface);
@@ -894,11 +874,10 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-weight: 700;
-      cursor: pointer;
       color: var(--ink-soft);
     }
 
-    .billing-select[aria-checked="true"] {
+    .billing-input:checked + .billing-choice-text {
       border-color: var(--accent);
       color: #ffffff;
       background: var(--accent);
@@ -1023,30 +1002,6 @@
       font-size: 0.74rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-    }
-
-    .prompt-note {
-      margin-top: 12px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface-2);
-      padding: 10px 12px;
-      text-align: left;
-    }
-
-    .prompt-title {
-      color: var(--accent);
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    .prompt-copy {
-      color: var(--ink-soft);
-      font-size: 0.84rem;
-      line-height: 1.6;
     }
 
     .site-footer {
@@ -1196,7 +1151,6 @@
         background: #ffffff;
       }
 
-      .demo-nav,
       .theme-switcher,
       .side-stack,
       .next-actions,
@@ -1216,7 +1170,7 @@
         break-inside: avoid;
       }
 
-      .billing-select {
+      .billing-choice-text {
         border-color: #8f8f8f;
       }
 
@@ -1231,28 +1185,9 @@
   </style>
 </head>
 <body>
-  <nav class="demo-nav" aria-label="Template navigation">
-    <a href="index.html" class="demo-nav-home">Layouts</a>
-    <div class="demo-nav-sep"></div>
-    <a href="prompt_engineering_ref.html" data-nav="prompt_engineering_ref.html">Prompt Eng</a>
-    <a href="live_event_gear_map.html" data-nav="live_event_gear_map.html">Event Gear</a>
-    <a href="home_automation_map.html" data-nav="home_automation_map.html">Home Auto</a>
-    <a href="layout_decision_matrix.html" data-nav="layout_decision_matrix.html">Decision Matrix</a>
-    <a href="layout_phase_roadmap.html" data-nav="layout_phase_roadmap.html">Roadmap</a>
-    <a href="layout_status_board.html" data-nav="layout_status_board.html">Status Board</a>
-    <a href="layout_directory_index.html" data-nav="layout_directory_index.html">Directory</a>
-    <a href="shieldbox-security-event-quote-request.html" data-nav="shieldbox-security-event-quote-request.html">ShieldBox</a>
-  </nav>
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
 
-  <script>
-    document.querySelectorAll(".demo-nav a[data-nav]").forEach((anchor) => {
-      if (location.pathname.endsWith(anchor.dataset.nav)) {
-        anchor.classList.add("demo-nav-active");
-      }
-    });
-  </script>
-
-  <main class="wrap">
+  <main class="wrap" id="mainContent">
     <div class="theme-switcher">
       <label for="themeSelect">Scheme</label>
       <select id="themeSelect" aria-label="Select color scheme">
@@ -1289,9 +1224,9 @@
       </div>
     </header>
 
-    <aside class="ops-note" aria-label="Internal note">
-      <div class="ops-note-title">Internal Note</div>
-      <p>Send this page link to the client, or export as PDF after the top section is customized.</p>
+    <aside class="ops-note" aria-label="Demo notice">
+      <div class="ops-note-title">Demo Notice</div>
+      <p>This page is a public-facing concept mockup using fictional intake data for workflow review.</p>
     </aside>
 
     <div class="layout">
@@ -1300,7 +1235,7 @@
           <div class="section-head">
             <span class="section-icon">R</span>
             <h2 id="summaryHeading" class="section-title">Business Record - ShieldBox Security</h2>
-            <span class="section-note">Mock CRM Record</span>
+            <span class="section-note">Client Record</span>
           </div>
           <div class="section-body">
             <div class="property-grid">
@@ -1310,7 +1245,7 @@
               </div>
               <div class="property">
                 <div class="property-label">Email</div>
-                <div class="property-value"><a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a></div>
+                <div class="property-value"><a href="mailto:intake@shieldboxsecurity.example">intake@shieldboxsecurity.example</a></div>
               </div>
               <div class="property">
                 <div class="property-label">Industry</div>
@@ -1338,14 +1273,14 @@
               </div>
               <div class="property">
                 <div class="property-label">Website</div>
-                <div class="property-value"><a href="https://shieldboxsecurity.co" target="_blank" rel="noopener noreferrer">shieldboxsecurity.co</a></div>
+                <div class="property-value"><a href="https://shieldboxsecurity.example" target="_blank" rel="noopener noreferrer">shieldboxsecurity.example</a></div>
               </div>
             </div>
 
             <div class="notes-box">
               <div class="notes-title">Intake Notes</div>
               <p class="notes-copy">
-                Inbound website inquiry for a private music event in Philadelphia. Attendance, alcohol service, and VIP presence were confirmed. Venue addendum and COI requirements are still pending. This asset is a mock client-facing intake layout generated from fictional values for workflow review.
+                Inbound website inquiry for a private music event in Philadelphia. Attendance, alcohol service, and VIP presence were confirmed. Venue addendum and COI requirements are still pending. This record uses fictional values for concept review.
               </p>
             </div>
           </div>
@@ -1371,7 +1306,7 @@
                 </div>
                 <div class="form-field">
                   <label for="fieldEmail">Email</label>
-                  <input id="fieldEmail" name="email" type="email" required value="jenna@blacklineevents.co" autocomplete="email" />
+                  <input id="fieldEmail" name="email" type="email" required value="jenna@blacklineevents.example" autocomplete="email" />
                 </div>
                 <div class="form-field">
                   <label for="fieldDate">Event Date</label>
@@ -1407,7 +1342,7 @@
                 <tbody>
                   <tr><td>Organization Name</td><td>Blackline Events Group</td></tr>
                   <tr><td>Point of Contact</td><td>Jenna Morales</td></tr>
-                  <tr><td>Email</td><td><a href="mailto:jenna@blacklineevents.co">jenna@blacklineevents.co</a></td></tr>
+                  <tr><td>Email</td><td><a href="mailto:jenna@blacklineevents.example">jenna@blacklineevents.example</a></td></tr>
                   <tr><td>Phone</td><td>(267) 555-0192</td></tr>
                   <tr><td>Event Name</td><td>Spring Warehouse Sessions</td></tr>
                   <tr><td>Event Type</td><td>Private Music Event</td></tr>
@@ -1547,12 +1482,12 @@
           </div>
           <div class="section-body">
             <div class="risk-grid" role="list" aria-label="Risk factors">
-              <div class="risk-item" role="listitem"><span class="risk-name">Attendance</span><span class="risk-level is-medium">Medium</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">Alcohol</span><span class="risk-level is-high">High</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">Crowd Energy</span><span class="risk-level is-high">High</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">VIP Presence</span><span class="risk-level is-medium">Medium</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">Venue Complexity</span><span class="risk-level is-medium">Medium</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">Overall Profile</span><span class="risk-level is-high">Moderate-High</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Attendance</span><span class="risk-level is-medium">MEDIUM</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Alcohol</span><span class="risk-level is-high">HIGH</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Crowd Energy</span><span class="risk-level is-high">HIGH</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">VIP Presence</span><span class="risk-level is-medium">MEDIUM</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Venue Complexity</span><span class="risk-level is-medium">MEDIUM</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Overall Profile</span><span class="risk-level is-high">MODERATE TO HIGH</span></div>
             </div>
 
             <div class="recommend-box">
@@ -1583,21 +1518,36 @@
                     <th scope="col">Selection</th>
                   </tr>
                 </thead>
-                <tbody id="billingRows" role="radiogroup" aria-label="Billing preference options">
+                <tbody id="billingRows" aria-label="Billing preference options">
                   <tr class="billing-row" data-model="hourly">
                     <td><div class="billing-model">Hourly Rate</div></td>
                     <td><div class="billing-desc">Best for flexible schedules ($42/hr per guard)</div></td>
-                    <td><button class="billing-select" role="radio" aria-checked="false" tabindex="-1" data-model="hourly" type="button">Select</button></td>
+                    <td>
+                      <label class="billing-choice">
+                        <input class="billing-input" type="radio" name="billingModel" value="hourly" />
+                        <span class="billing-choice-text">Select</span>
+                      </label>
+                    </td>
                   </tr>
                   <tr class="billing-row" data-model="person">
                     <td><div class="billing-model">Per Guard / Shift</div></td>
                     <td><div class="billing-desc">Fixed cost per guard per 8-hour shift ($325/pp)</div></td>
-                    <td><button class="billing-select" role="radio" aria-checked="false" tabindex="-1" data-model="person" type="button">Select</button></td>
+                    <td>
+                      <label class="billing-choice">
+                        <input class="billing-input" type="radio" name="billingModel" value="person" />
+                        <span class="billing-choice-text">Select</span>
+                      </label>
+                    </td>
                   </tr>
                   <tr class="billing-row is-selected" data-model="flat">
                     <td><div class="billing-model">Flat Event Rate</div></td>
                     <td><div class="billing-desc">All-inclusive single price for the full run ($2,950)</div></td>
-                    <td><button class="billing-select" role="radio" aria-checked="true" tabindex="0" data-model="flat" type="button">Selected</button></td>
+                    <td>
+                      <label class="billing-choice">
+                        <input class="billing-input" type="radio" name="billingModel" value="flat" checked />
+                        <span class="billing-choice-text">Selected</span>
+                      </label>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -1611,7 +1561,7 @@
 
         <section class="promise-card" id="promise" aria-labelledby="promiseHeading">
           <div class="promise-title" id="promiseHeading">The ShieldBox Promise</div>
-          <p class="promise-lead">We do not outsource.</p>
+          <p class="promise-lead">ShieldBox operates with a direct, in-house event team led on site by ownership.</p>
           <div class="promise-points">
             <div>Owner present on-site for every event.</div>
             <div>Trained in-house team and clear chain of command.</div>
@@ -1626,26 +1576,21 @@
         <section class="next-step" id="next" aria-labelledby="nextHeading">
           <h2 class="next-title" id="nextHeading">Next Step</h2>
           <p class="next-copy">
-            Tag <strong>@[Your Name]</strong> on this page or email completed details to <a href="mailto:quotes@shieldboxsecurity.co">quotes@shieldboxsecurity.co</a>. A formal proposal is returned within <strong>24 hours</strong>.
+            Email completed event details to <a href="mailto:quotes@shieldboxsecurity.example">quotes@shieldboxsecurity.example</a> or reply directly to your intake coordinator. A formal proposal is returned within <strong>24 hours</strong>.
           </p>
           <div class="next-actions">
             <button id="requestButton" class="cta" type="button">Request Formal Proposal</button>
             <button id="printButton" class="cta cta-secondary" type="button">Download as PDF</button>
           </div>
           <div class="next-turnaround">Guaranteed 24-hour turnaround | Ref: SBX-2026-0314-001</div>
-
-          <div class="prompt-note" id="prompt">
-            <div class="prompt-title">Prompt</div>
-            <p class="prompt-copy">Use your standalone HTML generation prompt to produce new client intake variants from this structure while preserving mock data and accessibility patterns.</p>
-          </div>
         </section>
 
         <footer class="site-footer">
           <div class="footer-brand">
             <div class="footer-name">ShieldBox Security</div>
             Philadelphia, PA<br />
-            <a href="https://shieldboxsecurity.co" target="_blank" rel="noopener noreferrer">shieldboxsecurity.co</a><br />
-            <a href="mailto:quotes@shieldboxsecurity.co">quotes@shieldboxsecurity.co</a><br />
+            <a href="https://shieldboxsecurity.example" target="_blank" rel="noopener noreferrer">shieldboxsecurity.example</a><br />
+            <a href="mailto:quotes@shieldboxsecurity.example">quotes@shieldboxsecurity.example</a><br />
             <a href="tel:+12155550148">(215) 555-0148</a>
           </div>
 
@@ -1665,7 +1610,6 @@
             <a href="#billing">3. Billing Preference</a>
             <a href="#promise">4. ShieldBox Promise</a>
             <a href="#next">5. Next Step</a>
-            <a href="#prompt">6. Prompt</a>
           </nav>
         </section>
 
@@ -1682,8 +1626,8 @@
   </main>
 
   <div id="toast" role="status" aria-live="polite" hidden>
-    <strong>Request Sent</strong>
-    Intake details have been queued for proposal prep. Expect a formal quote within 24 hours.
+    <strong>Demo Request Recorded</strong>
+    This mockup does not send data. In production, intake details would route to proposal ops.
   </div>
 
   <script>
@@ -1742,76 +1686,40 @@
         }
       });
 
-      const scopeCheckboxes = Array.from(document.querySelectorAll('#scope .check-item input[type="checkbox"]'));
-      scopeCheckboxes.forEach((checkbox) => {
-        const syncAriaChecked = () => {
-          checkbox.setAttribute("aria-checked", String(checkbox.checked));
-        };
-
-        syncAriaChecked();
-        checkbox.addEventListener("change", syncAriaChecked);
-      });
-
-      const billingButtons = Array.from(document.querySelectorAll(".billing-select"));
+      const billingInputs = Array.from(document.querySelectorAll('input[name="billingModel"]'));
       const billingRows = Array.from(document.querySelectorAll(".billing-row"));
 
-      function selectBilling(model, shouldFocus) {
-        billingButtons.forEach((button, index) => {
-          const selected = button.dataset.model === model;
-          button.setAttribute("aria-checked", String(selected));
-          button.tabIndex = selected ? 0 : -1;
-          button.textContent = selected ? "Selected" : "Select";
-          billingRows[index].classList.toggle("is-selected", selected);
-          if (selected && shouldFocus) {
-            button.focus();
+      function syncBillingSelection() {
+        billingRows.forEach((row) => {
+          const radio = row.querySelector('input[name="billingModel"]');
+          const text = row.querySelector(".billing-choice-text");
+          const selected = Boolean(radio && radio.checked);
+          row.classList.toggle("is-selected", selected);
+          if (text) {
+            text.textContent = selected ? "Selected" : "Select";
           }
         });
       }
 
-      billingButtons.forEach((button, index) => {
-        button.addEventListener("click", () => {
-          selectBilling(button.dataset.model, false);
-        });
+      billingInputs.forEach((input) => {
+        input.addEventListener("change", syncBillingSelection);
+      });
 
-        button.addEventListener("keydown", (event) => {
-          const key = event.key;
-          let target = index;
-
-          if (key === "ArrowRight" || key === "ArrowDown") {
-            target = (index + 1) % billingButtons.length;
-            event.preventDefault();
-            selectBilling(billingButtons[target].dataset.model, true);
+      billingRows.forEach((row) => {
+        row.addEventListener("click", (event) => {
+          const target = event.target;
+          if (target instanceof Element && target.closest("input[type='radio']")) {
             return;
           }
-
-          if (key === "ArrowLeft" || key === "ArrowUp") {
-            target = (index - 1 + billingButtons.length) % billingButtons.length;
-            event.preventDefault();
-            selectBilling(billingButtons[target].dataset.model, true);
-            return;
-          }
-
-          if (key === "Home") {
-            event.preventDefault();
-            selectBilling(billingButtons[0].dataset.model, true);
-            return;
-          }
-
-          if (key === "End") {
-            event.preventDefault();
-            selectBilling(billingButtons[billingButtons.length - 1].dataset.model, true);
-            return;
-          }
-
-          if (key === "Enter" || key === " ") {
-            event.preventDefault();
-            selectBilling(button.dataset.model, true);
+          const radio = row.querySelector('input[name="billingModel"]');
+          if (radio && !radio.checked) {
+            radio.checked = true;
+            radio.dispatchEvent(new Event("change", { bubbles: true }));
           }
         });
       });
 
-      const selectedButton = billingButtons.find((button) => button.getAttribute("aria-checked") === "true") || billingButtons[0];
-      selectBilling(selectedButton.dataset.model, false);
+      syncBillingSelection();
 
       const requestButton = document.getElementById("requestButton");
       const printButton = document.getElementById("printButton");

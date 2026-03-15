@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShieldBox Security | Event Quote Request</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0e1116;
+      --surface: #151b24;
+      --surface-2: #1b2430;
+      --ink: #e7edf6;
+      --ink-soft: #b1bdd0;
+      --label-ink: #c4cedf;
+      --line: #2d3949;
+      --line-strong: #3d4c61;
+      --panel-border: #3a4a5f;
+      --field-bg: #1a2230;
+      --field-border: #3a4a5f;
+      --billing-selected-border: #b76a44;
+      --billing-selected-bg: #232f3f;
+      --scope-selected-border: #5b6c83;
+      --scope-selected-bg: #223044;
+      --footer-divider: #3b4a5f;
+      --accent: #b24b40;
+      --accent-soft: rgba(178, 75, 64, 0.14);
+      --ok: #4fa57f;
+      --warn: #c99647;
+      --radius: 10px;
+      --shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    body[data-theme="editorial"] {
+      --bg: #f4f1eb;
+      --surface: #ffffff;
+      --surface-2: #f7f4ef;
+      --ink: #1f1b17;
+      --ink-soft: #61594f;
+      --label-ink: #6f675d;
+      --line: #d8d0c4;
+      --line-strong: #baaea0;
+      --panel-border: #d7d1c6;
+      --field-bg: #fbfaf7;
+      --field-border: #d7d1c6;
+      --billing-selected-border: #a85734;
+      --billing-selected-bg: #f8f3ef;
+      --scope-selected-border: #ccbfae;
+      --scope-selected-bg: #f8f3ef;
+      --footer-divider: #e2dbd0;
+      --accent: #8e3a30;
+      --accent-soft: rgba(142, 58, 48, 0.1);
+      --ok: #3d725e;
+      --warn: #9d6f2b;
+      --shadow-soft: 0 10px 24px rgba(26, 17, 12, 0.08);
+    }
+
+    body[data-theme="slate"] {
+      --bg: #12151d;
+      --surface: #1a212d;
+      --surface-2: #212b3a;
+      --ink: #e6ecf6;
+      --ink-soft: #b1bfd4;
+      --label-ink: #c1cee2;
+      --line: #314055;
+      --line-strong: #3d506a;
+      --panel-border: #41546e;
+      --field-bg: #1e2939;
+      --field-border: #41546e;
+      --billing-selected-border: #5f7fa9;
+      --billing-selected-bg: #233146;
+      --scope-selected-border: #5f7fa9;
+      --scope-selected-bg: #233146;
+      --footer-divider: #4a5f7d;
+      --accent: #2f5d9b;
+      --accent-soft: rgba(47, 93, 155, 0.16);
+      --ok: #4b9b83;
+      --warn: #b7934b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Libre Franklin", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration-color: color-mix(in srgb, var(--accent) 65%, transparent);
+      text-underline-offset: 2px;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    button,
+    select,
+    input {
+      font: inherit;
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .demo-nav {
+      position: sticky;
+      top: 0;
+      z-index: 70;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      height: 36px;
+      padding: 0 12px;
+      background: rgba(0, 0, 0, 0.82);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      overflow-x: auto;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .demo-nav a {
+      color: rgba(255, 255, 255, 0.58);
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      padding: 0 10px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+    }
+
+    .demo-nav a:hover {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+
+    .demo-nav .demo-nav-home {
+      color: rgba(255, 255, 255, 0.74);
+      font-weight: 600;
+    }
+
+    .demo-nav .demo-nav-sep {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.14);
+      flex-shrink: 0;
+    }
+
+    .demo-nav a.demo-nav-active {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 44px 28px 72px;
+    }
+
+    .theme-switcher {
+      position: fixed;
+      top: 48px;
+      right: 16px;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .theme-switcher label {
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+
+    .theme-switcher select {
+      border: none;
+      background: transparent;
+      min-width: 100px;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 24px;
+      margin-bottom: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .overline {
+      font-size: 0.71rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 4px;
+    }
+
+    .brand-mark {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+
+    .brand-wordmark {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.75rem;
+      line-height: 1;
+      font-weight: 700;
+      text-transform: lowercase;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-wordmark span {
+      color: var(--accent);
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-top: 4px;
+    }
+
+    h1 {
+      font-family: "Libre Baskerville", serif;
+      font-size: clamp(2.24rem, 4.6vw, 3.5rem);
+      line-height: 1.14;
+      letter-spacing: -0.015em;
+    }
+
+    .hero-sub {
+      max-width: 780px;
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+      line-height: 1.75;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 15px;
+      border-top: 1px solid var(--line);
+    }
+
+    .meta-chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.74rem;
+      color: var(--ink-soft);
+      background: var(--surface);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ok);
+    }
+
+    .ops-note {
+      border: 1px solid color-mix(in srgb, var(--warn) 35%, var(--line));
+      border-left: 3px solid var(--warn);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--warn) 8%, var(--surface));
+      padding: 13px 15px;
+      margin-bottom: 20px;
+    }
+
+    .ops-note-title {
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--warn);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .ops-note p {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 292px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .side-stack {
+      position: sticky;
+      top: 56px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .side-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 13px 14px;
+      box-shadow: none;
+    }
+
+    .side-title {
+      font-size: 0.71rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--label-ink);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .side-list {
+      display: grid;
+      gap: 6px;
+      font-size: 0.86rem;
+      color: var(--ink-soft);
+    }
+
+    .side-list a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .side-list a:hover {
+      color: var(--accent);
+    }
+
+    .summary-list {
+      margin-left: 18px;
+      display: grid;
+      gap: 5px;
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .section {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .section-head {
+      margin-top: 6px;
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .section-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.74rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .section-note {
+      margin-left: auto;
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-soft);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      background: var(--surface);
+    }
+
+    .section-body {
+      padding: 14px 15px;
+    }
+
+    .intro-copy {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      border-top: 1px solid var(--panel-border);
+      border-left: 1px solid var(--panel-border);
+    }
+
+    .property {
+      border-right: 1px solid var(--panel-border);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 12px;
+      min-height: 70px;
+    }
+
+    .property-label {
+      color: var(--label-ink);
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .property-value {
+      font-size: 0.92rem;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 0.74rem;
+      color: var(--ink-soft);
+      background: var(--surface-2);
+    }
+
+    .notes-box {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      padding: 12px 13px;
+    }
+
+    .notes-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--label-ink);
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .notes-copy {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    .simple-table-wrap {
+      border: 1px solid var(--field-border);
+      border-radius: var(--radius);
+      overflow: auto;
+      background: var(--field-bg);
+    }
+
+    .simple-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 580px;
+    }
+
+    .simple-table th,
+    .simple-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--field-border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .simple-table th {
+      background: color-mix(in srgb, var(--field-bg) 90%, var(--surface-2));
+      color: var(--label-ink);
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+
+    .simple-table td {
+      background: var(--field-bg);
+    }
+
+    .simple-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .value-muted {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    .core-fields {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .core-chip {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 0.72rem;
+      color: var(--ink-soft);
+      background: var(--surface-2);
+    }
+
+    .intake-form {
+      margin-bottom: 12px;
+      border: 1px solid var(--field-border);
+      border-radius: var(--radius);
+      background: var(--field-bg);
+      padding: 12px;
+    }
+
+    .form-title {
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .form-help {
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      margin-bottom: 10px;
+      line-height: 1.55;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 4px;
+    }
+
+    .form-field label {
+      color: var(--label-ink);
+      font-size: 0.67rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+
+    .form-field input {
+      width: 100%;
+      border: 1px solid var(--field-border);
+      border-radius: 6px;
+      background: var(--field-bg);
+      color: var(--ink);
+      padding: 8px 10px;
+      font-size: 0.87rem;
+      line-height: 1.4;
+    }
+
+    .form-field input::placeholder {
+      color: color-mix(in srgb, var(--ink-soft) 68%, transparent);
+    }
+
+    .form-field input:invalid {
+      border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
+    }
+
+    .form-actions {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tiny-action {
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink-soft);
+      padding: 6px 11px;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tiny-action:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .validation-msg {
+      font-size: 0.79rem;
+      color: var(--ink-soft);
+      line-height: 1.4;
+    }
+
+    .validation-msg.is-ok {
+      color: var(--ok);
+    }
+
+    .validation-msg.is-warn {
+      color: var(--warn);
+    }
+
+    .check-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .check-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 9px 11px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
+      background: var(--surface);
+    }
+
+    .check-item input[type="checkbox"] {
+      accent-color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .check-label {
+      font-size: 0.9rem;
+      color: var(--ink);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .check-copy {
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.55;
+      margin-top: 1px;
+    }
+
+    .tip-box {
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      padding: 10px 12px;
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .risk-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 9px 11px;
+      background: var(--surface);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
+      min-height: 46px;
+    }
+
+    .risk-name {
+      color: color-mix(in srgb, var(--ink) 78%, var(--ink-soft));
+      font-size: 0.86rem;
+      line-height: 1.35;
+    }
+
+    .risk-level {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.67rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .is-high {
+      color: var(--accent);
+      border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
+      background: color-mix(in srgb, var(--accent) 22%, transparent);
+    }
+
+    .is-medium {
+      color: var(--warn);
+      border-color: color-mix(in srgb, var(--warn) 58%, var(--line));
+      background: color-mix(in srgb, var(--warn) 20%, transparent);
+    }
+
+    .is-low {
+      color: var(--ok);
+      border-color: color-mix(in srgb, var(--ok) 58%, var(--line));
+      background: color-mix(in srgb, var(--ok) 20%, transparent);
+    }
+
+    .recommend-box {
+      border: 1px solid var(--line);
+      border-left: 4px solid color-mix(in srgb, var(--accent) 72%, var(--line));
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--surface-2) 90%, var(--surface));
+      padding: 14px 15px;
+    }
+
+    .recommend-title {
+      color: var(--accent);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .recommend-list {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 10px;
+    }
+
+    .recommend-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .recommend-row span:last-child {
+      font-family: "Libre Baskerville", serif;
+      font-weight: 700;
+    }
+
+    .recommend-note {
+      color: color-mix(in srgb, var(--ink-soft) 90%, var(--ink));
+      font-size: 0.8rem;
+      line-height: 1.62;
+      font-style: italic;
+    }
+
+    .billing-table-wrap {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: auto;
+      margin-bottom: 10px;
+    }
+
+    .billing-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+
+    .billing-table th,
+    .billing-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .billing-table th {
+      background: var(--surface-2);
+      color: var(--ink-soft);
+      font-size: 0.66rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+
+    .billing-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .billing-row.is-selected {
+      background: transparent;
+    }
+
+    .billing-row td {
+      background: var(--surface);
+    }
+
+    .billing-row.is-selected td {
+      background: var(--billing-selected-bg);
+      border-top: 2px solid var(--billing-selected-border);
+      border-bottom: 2px solid var(--billing-selected-border);
+    }
+
+    .billing-row.is-selected td:first-child {
+      border-left: 2px solid var(--billing-selected-border);
+    }
+
+    .billing-row.is-selected td:last-child {
+      border-right: 2px solid var(--billing-selected-border);
+    }
+
+    .billing-model {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    .billing-desc {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .billing-select {
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--surface);
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--ink-soft);
+    }
+
+    .billing-select[aria-checked="true"] {
+      border-color: var(--accent);
+      color: #ffffff;
+      background: var(--accent);
+    }
+
+    .billing-note {
+      color: var(--ink-soft);
+      font-size: 0.86rem;
+      line-height: 1.65;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      padding: 10px 12px;
+    }
+
+    .promise-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      padding: 15px;
+    }
+
+    .promise-title {
+      color: var(--accent);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .promise-lead {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.2rem;
+      line-height: 1.46;
+      margin-bottom: 10px;
+    }
+
+    .promise-points {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 10px;
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+    }
+
+    .promise-copy {
+      color: var(--ink-soft);
+      font-size: 0.87rem;
+      line-height: 1.68;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+
+    .next-step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--surface) 92%, var(--surface-2));
+      border-top: 2px solid var(--line-strong);
+      padding: 20px 18px 18px;
+      text-align: center;
+    }
+
+    .next-title {
+      font-family: "Libre Baskerville", serif;
+      font-size: clamp(1.72rem, 3.35vw, 2.28rem);
+      margin-bottom: 12px;
+      line-height: 1.28;
+    }
+
+    .next-copy {
+      color: var(--ink-soft);
+      font-size: 0.91rem;
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto 18px;
+    }
+
+    .cta {
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 11px 22px;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+    }
+
+    .cta:hover {
+      background: color-mix(in srgb, var(--accent) 82%, #000000);
+      border-color: color-mix(in srgb, var(--accent) 82%, #000000);
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line-strong);
+    }
+
+    .cta-secondary:hover {
+      background: var(--surface-2);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .next-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .next-turnaround {
+      margin-top: 12px;
+      color: var(--ink-soft);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-note {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    .prompt-title {
+      color: var(--accent);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .prompt-copy {
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .site-footer {
+      margin-top: 16px;
+      border-top: 1px solid var(--footer-divider);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    #scope .check-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    #scope .check-item:hover {
+      border-color: color-mix(in srgb, var(--line-strong) 72%, var(--line));
+      background: color-mix(in srgb, var(--surface-2) 34%, var(--surface));
+    }
+
+    #scope .check-item:has(input:checked) {
+      border-color: color-mix(in srgb, var(--scope-selected-border) 88%, var(--line));
+      background: var(--scope-selected-bg);
+    }
+
+    #scope .check-item:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 42%, transparent);
+    }
+
+    #scope .check-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+      accent-color: var(--accent);
+    }
+
+    .footer-brand {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      line-height: 1.72;
+    }
+
+    .footer-name {
+      color: var(--ink);
+      font-family: "Libre Baskerville", serif;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .footer-note {
+      max-width: 360px;
+      color: var(--ink-soft);
+      font-size: 0.75rem;
+      line-height: 1.66;
+      text-align: right;
+    }
+
+    #toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 80;
+      width: min(340px, calc(100vw - 26px));
+      border: 1px solid color-mix(in srgb, var(--ok) 55%, var(--line));
+      border-left: 3px solid var(--ok);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--ok) 16%, var(--surface));
+      color: color-mix(in srgb, var(--ok) 72%, var(--ink));
+      padding: 11px 12px;
+      box-shadow: var(--shadow-soft);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #toast strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .side-stack {
+        position: static;
+        order: -1;
+      }
+
+      .wrap {
+        padding: 24px 16px 56px;
+      }
+
+      .theme-switcher {
+        position: static;
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      .risk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-note {
+        text-align: left;
+        max-width: none;
+      }
+
+      .site-footer {
+        flex-direction: column;
+      }
+    }
+
+    @media print {
+      :root {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --surface-2: #f7f7f7;
+        --ink: #141414;
+        --ink-soft: #444444;
+        --line: #cfcfcf;
+        --line-strong: #b6b6b6;
+        --accent: #333333;
+        --accent-soft: #f0f0f0;
+        --ok: #444444;
+        --warn: #555555;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      .demo-nav,
+      .theme-switcher,
+      .side-stack,
+      .next-actions,
+      #toast {
+        display: none !important;
+      }
+
+      .wrap {
+        max-width: none;
+        padding: 0;
+      }
+
+      .section,
+      .ops-note,
+      .promise-card,
+      .next-step {
+        break-inside: avoid;
+      }
+
+      .billing-select {
+        border-color: #8f8f8f;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      @page {
+        margin: 14mm;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="demo-nav" aria-label="Template navigation">
+    <a href="index.html" class="demo-nav-home">Layouts</a>
+    <div class="demo-nav-sep"></div>
+    <a href="prompt_engineering_ref.html" data-nav="prompt_engineering_ref.html">Prompt Eng</a>
+    <a href="live_event_gear_map.html" data-nav="live_event_gear_map.html">Event Gear</a>
+    <a href="home_automation_map.html" data-nav="home_automation_map.html">Home Auto</a>
+    <a href="layout_decision_matrix.html" data-nav="layout_decision_matrix.html">Decision Matrix</a>
+    <a href="layout_phase_roadmap.html" data-nav="layout_phase_roadmap.html">Roadmap</a>
+    <a href="layout_status_board.html" data-nav="layout_status_board.html">Status Board</a>
+    <a href="layout_directory_index.html" data-nav="layout_directory_index.html">Directory</a>
+    <a href="shieldbox-security-event-quote-request.html" data-nav="shieldbox-security-event-quote-request.html">ShieldBox</a>
+  </nav>
+
+  <script>
+    document.querySelectorAll(".demo-nav a[data-nav]").forEach((anchor) => {
+      if (location.pathname.endsWith(anchor.dataset.nav)) {
+        anchor.classList.add("demo-nav-active");
+      }
+    });
+  </script>
+
+  <main class="wrap">
+    <div class="theme-switcher">
+      <label for="themeSelect">Scheme</label>
+      <select id="themeSelect" aria-label="Select color scheme">
+        <option value="default">Dark Ops</option>
+        <option value="editorial">Editorial</option>
+        <option value="slate">Slate</option>
+      </select>
+    </div>
+
+    <header class="hero">
+      <div class="overline">ShieldBox Client Portal - Event Intake</div>
+
+      <div class="brand-row">
+        <svg class="brand-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M32 4L10 14V30C10 45 20 56 32 60C44 56 54 45 54 30V14L32 4Z" stroke="var(--ink)" stroke-width="2.5" />
+          <path d="M32 13L18 20V30C18 40 24 48 32 52C40 48 46 40 46 30V20L32 13Z" stroke="var(--line-strong)" stroke-width="2.2" />
+        </svg>
+        <div>
+          <div class="brand-wordmark">shield<span>box</span></div>
+          <div class="brand-sub">Security</div>
+        </div>
+      </div>
+
+      <h1>ShieldBox Security | Event Quote Request</h1>
+      <p class="hero-sub">
+        First step toward a formal security proposal. Complete this intake sheet with schedule, scope, and preferred billing model. ShieldBox returns a tailored proposal within 24 hours.
+      </p>
+
+      <div class="meta-row">
+        <span class="meta-chip">Created: March 14, 2026</span>
+        <span class="meta-chip">Turnaround: 24 Hours</span>
+        <span class="meta-chip"><span class="meta-dot" aria-hidden="true"></span>Active Intake</span>
+        <span class="meta-chip">Ref: SBX-2026-0314-001</span>
+      </div>
+    </header>
+
+    <aside class="ops-note" aria-label="Internal note">
+      <div class="ops-note-title">Internal Note</div>
+      <p>Send this page link to the client, or export as PDF after the top section is customized.</p>
+    </aside>
+
+    <div class="layout">
+      <div class="stack">
+        <section class="section" aria-labelledby="summaryHeading">
+          <div class="section-head">
+            <span class="section-icon">R</span>
+            <h2 id="summaryHeading" class="section-title">Business Record - ShieldBox Security</h2>
+            <span class="section-note">Mock CRM Record</span>
+          </div>
+          <div class="section-body">
+            <div class="property-grid">
+              <div class="property">
+                <div class="property-label">Created</div>
+                <div class="property-value">March 14, 2026</div>
+              </div>
+              <div class="property">
+                <div class="property-label">Email</div>
+                <div class="property-value"><a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a></div>
+              </div>
+              <div class="property">
+                <div class="property-label">Industry</div>
+                <div class="property-value">Security</div>
+              </div>
+              <div class="property">
+                <div class="property-label">Phone</div>
+                <div class="property-value"><a href="tel:+12155550148">(215) 555-0148</a></div>
+              </div>
+              <div class="property">
+                <div class="property-label">Primary Contact</div>
+                <div class="property-value">Carl Mercer</div>
+              </div>
+              <div class="property">
+                <div class="property-label">Source</div>
+                <div class="property-value">Website</div>
+              </div>
+              <div class="property">
+                <div class="property-label">Status</div>
+                <div class="property-value"><span class="pill">Prospect</span></div>
+              </div>
+              <div class="property">
+                <div class="property-label">Type</div>
+                <div class="property-value"><span class="pill">Lead</span></div>
+              </div>
+              <div class="property">
+                <div class="property-label">Website</div>
+                <div class="property-value"><a href="https://shieldboxsecurity.co" target="_blank" rel="noopener noreferrer">shieldboxsecurity.co</a></div>
+              </div>
+            </div>
+
+            <div class="notes-box">
+              <div class="notes-title">Intake Notes</div>
+              <p class="notes-copy">
+                Inbound website inquiry for a private music event in Philadelphia. Attendance, alcohol service, and VIP presence were confirmed. Venue addendum and COI requirements are still pending. This asset is a mock client-facing intake layout generated from fictional values for workflow review.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="overview" aria-labelledby="overviewHeading">
+          <div class="section-head">
+            <span class="section-icon">A</span>
+            <h2 id="overviewHeading" class="section-title">Client &amp; Event Overview</h2>
+          </div>
+          <div class="section-body">
+            <form id="intakeForm" class="intake-form" novalidate aria-labelledby="intakeFormTitle">
+              <h3 id="intakeFormTitle" class="form-title">Required Intake Fields</h3>
+              <p class="form-help">Complete required values before sending the page to proposal ops.</p>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="fieldName">Name</label>
+                  <input id="fieldName" name="name" type="text" required value="Jenna Morales" autocomplete="name" />
+                </div>
+                <div class="form-field">
+                  <label for="fieldPhone">Phone</label>
+                  <input id="fieldPhone" name="phone" type="tel" required value="(267) 555-0192" autocomplete="tel" />
+                </div>
+                <div class="form-field">
+                  <label for="fieldEmail">Email</label>
+                  <input id="fieldEmail" name="email" type="email" required value="jenna@blacklineevents.co" autocomplete="email" />
+                </div>
+                <div class="form-field">
+                  <label for="fieldDate">Event Date</label>
+                  <input id="fieldDate" name="event_date" type="date" required value="2026-03-28" />
+                </div>
+                <div class="form-field">
+                  <label for="fieldLocation">Event Location</label>
+                  <input id="fieldLocation" name="event_location" type="text" required value="1425 American St, Philadelphia, PA 19147" />
+                </div>
+                <div class="form-field">
+                  <label for="fieldDuration">Event Duration</label>
+                  <input id="fieldDuration" name="event_duration" type="text" required value="6 hours main coverage" />
+                </div>
+                <div class="form-field">
+                  <label for="fieldAttendance">Expected Attendance</label>
+                  <input id="fieldAttendance" name="expected_attendance" type="number" min="1" required value="450" />
+                </div>
+              </div>
+              <div class="form-actions">
+                <button id="validateIntakeButton" class="tiny-action" type="button">Validate Required Fields</button>
+                <p id="validationMessage" class="validation-msg" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+
+            <div class="simple-table-wrap">
+              <table class="simple-table" aria-label="Client and event overview">
+                <thead>
+                  <tr>
+                    <th scope="col">Field</th>
+                    <th scope="col">Client Input</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Organization Name</td><td>Blackline Events Group</td></tr>
+                  <tr><td>Point of Contact</td><td>Jenna Morales</td></tr>
+                  <tr><td>Email</td><td><a href="mailto:jenna@blacklineevents.co">jenna@blacklineevents.co</a></td></tr>
+                  <tr><td>Phone</td><td>(267) 555-0192</td></tr>
+                  <tr><td>Event Name</td><td>Spring Warehouse Sessions</td></tr>
+                  <tr><td>Event Type</td><td>Private Music Event</td></tr>
+                  <tr><td>Venue Address</td><td>1425 American St, Philadelphia, PA 19147</td></tr>
+                  <tr><td>Expected Attendance</td><td>450</td></tr>
+                  <tr><td>Alcohol Served</td><td>Yes</td></tr>
+                  <tr><td>VIP or Talent Present</td><td>Yes</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="core-fields" aria-label="Core fields">
+              <span class="core-chip">Name</span>
+              <span class="core-chip">Phone</span>
+              <span class="core-chip">Email</span>
+              <span class="core-chip">Event Date</span>
+              <span class="core-chip">Event Location</span>
+              <span class="core-chip">Event Duration</span>
+              <span class="core-chip">Expected Attendance</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="schedule" aria-labelledby="scheduleHeading">
+          <div class="section-head">
+            <span class="section-icon">B</span>
+            <h2 id="scheduleHeading" class="section-title">Schedule &amp; Logistics</h2>
+          </div>
+          <div class="section-body">
+            <p class="intro-copy">Please list the specific windows where ShieldBox presence is required.</p>
+
+            <div class="check-grid" aria-label="Schedule coverage checklist">
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Load-In / Setup</span>
+                  <span class="check-copy">Mar 28, 2026 | 12:00 PM - 4:00 PM</span>
+                </span>
+              </label>
+
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Main Event Doors</span>
+                  <span class="check-copy">Mar 28, 2026 | 7:00 PM</span>
+                </span>
+              </label>
+
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Event Coverage Window</span>
+                  <span class="check-copy">Mar 28, 2026 | 6:30 PM - 12:30 AM</span>
+                </span>
+              </label>
+
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Load-Out / Strike</span>
+                  <span class="check-copy">Mar 29, 2026 | 12:30 AM - 2:30 AM</span>
+                </span>
+              </label>
+
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Overnight Gear Watch</span>
+                  <span class="check-copy">Yes | Mar 29, 2026 | 2:30 AM - 8:00 AM</span>
+                </span>
+              </label>
+            </div>
+
+            <aside class="tip-box" aria-label="Schedule tip">
+              Tip: Use the format Date | Start - End (example: Mar 28, 2026 | 12:00 PM - 4:00 PM).
+            </aside>
+          </div>
+        </section>
+
+        <section class="section" id="scope" aria-labelledby="scopeHeading">
+          <div class="section-head">
+            <span class="section-icon">C</span>
+            <h2 id="scopeHeading" class="section-title">Security Scope</h2>
+          </div>
+          <div class="section-body">
+            <p class="intro-copy">Select the primary functions required.</p>
+
+            <div class="check-grid" aria-label="Security scope checklist">
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Access Control</span>
+                  <span class="check-copy">VIP areas, backstage, and credentials.</span>
+                </span>
+              </label>
+
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Front of House</span>
+                  <span class="check-copy">Entry screening, bag checks, and metal detection.</span>
+                </span>
+              </label>
+
+              <label class="check-item">
+                <input type="checkbox" />
+                <span>
+                  <span class="check-label">Perimeter</span>
+                  <span class="check-copy">Roaming patrols to secure the venue boundary.</span>
+                </span>
+              </label>
+
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Talent or Executive Protection</span>
+                  <span class="check-copy">Dedicated 1-on-1 escort for speakers or artists.</span>
+                </span>
+              </label>
+
+              <label class="check-item">
+                <input type="checkbox" checked />
+                <span>
+                  <span class="check-label">Crowd Management</span>
+                  <span class="check-copy">High-density area monitoring and de-escalation.</span>
+                </span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="risk" aria-labelledby="riskHeading">
+          <div class="section-head">
+            <span class="section-icon">D</span>
+            <h2 id="riskHeading" class="section-title">Security Risk Snapshot</h2>
+            <span class="section-note">Auto Assessed</span>
+          </div>
+          <div class="section-body">
+            <div class="risk-grid" role="list" aria-label="Risk factors">
+              <div class="risk-item" role="listitem"><span class="risk-name">Attendance</span><span class="risk-level is-medium">Medium</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Alcohol</span><span class="risk-level is-high">High</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Crowd Energy</span><span class="risk-level is-high">High</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">VIP Presence</span><span class="risk-level is-medium">Medium</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Venue Complexity</span><span class="risk-level is-medium">Medium</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Overall Profile</span><span class="risk-level is-high">Moderate-High</span></div>
+            </div>
+
+            <div class="recommend-box">
+              <div class="recommend-title">Recommended Coverage</div>
+              <div class="recommend-list">
+                <div class="recommend-row"><span>1 Site Lead</span><span>x1</span></div>
+                <div class="recommend-row"><span>Event Security</span><span>x4</span></div>
+                <div class="recommend-row"><span>Entry Screeners</span><span>x2</span></div>
+                <div class="recommend-row"><span>Overnight Watch</span><span>x1</span></div>
+              </div>
+              <p class="recommend-note">Fictional estimates for mockup only. Final staffing is based on site conditions and final event brief.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="billing" aria-labelledby="billingHeading">
+          <div class="section-head">
+            <span class="section-icon">E</span>
+            <h2 id="billingHeading" class="section-title">Billing Preference</h2>
+          </div>
+          <div class="section-body">
+            <div class="billing-table-wrap">
+              <table class="billing-table" aria-label="Billing model selection">
+                <thead>
+                  <tr>
+                    <th scope="col">Model</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Selection</th>
+                  </tr>
+                </thead>
+                <tbody id="billingRows" role="radiogroup" aria-label="Billing preference options">
+                  <tr class="billing-row" data-model="hourly">
+                    <td><div class="billing-model">Hourly Rate</div></td>
+                    <td><div class="billing-desc">Best for flexible schedules ($42/hr per guard)</div></td>
+                    <td><button class="billing-select" role="radio" aria-checked="false" tabindex="-1" data-model="hourly" type="button">Select</button></td>
+                  </tr>
+                  <tr class="billing-row" data-model="person">
+                    <td><div class="billing-model">Per Guard / Shift</div></td>
+                    <td><div class="billing-desc">Fixed cost per guard per 8-hour shift ($325/pp)</div></td>
+                    <td><button class="billing-select" role="radio" aria-checked="false" tabindex="-1" data-model="person" type="button">Select</button></td>
+                  </tr>
+                  <tr class="billing-row is-selected" data-model="flat">
+                    <td><div class="billing-model">Flat Event Rate</div></td>
+                    <td><div class="billing-desc">All-inclusive single price for the full run ($2,950)</div></td>
+                    <td><button class="billing-select" role="radio" aria-checked="true" tabindex="0" data-model="flat" type="button">Selected</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="billing-note">
+              Final proposal pricing may vary based on site conditions, revised scope, venue rules, and client-driven schedule changes.
+            </p>
+          </div>
+        </section>
+
+        <section class="promise-card" id="promise" aria-labelledby="promiseHeading">
+          <div class="promise-title" id="promiseHeading">The ShieldBox Promise</div>
+          <p class="promise-lead">We do not outsource.</p>
+          <div class="promise-points">
+            <div>Owner present on-site for every event.</div>
+            <div>Trained in-house team and clear chain of command.</div>
+            <div>Fast coordination with venue and production contacts.</div>
+            <div>Formal proposal returned within 24 hours.</div>
+          </div>
+          <p class="promise-copy">
+            Unlike high-volume staffing agencies, ShieldBox operates as a focused team. This allows direct communication, tighter perimeter control, and consistent accountability through every phase of event operations.
+          </p>
+        </section>
+
+        <section class="next-step" id="next" aria-labelledby="nextHeading">
+          <h2 class="next-title" id="nextHeading">Next Step</h2>
+          <p class="next-copy">
+            Tag <strong>@[Your Name]</strong> on this page or email completed details to <a href="mailto:quotes@shieldboxsecurity.co">quotes@shieldboxsecurity.co</a>. A formal proposal is returned within <strong>24 hours</strong>.
+          </p>
+          <div class="next-actions">
+            <button id="requestButton" class="cta" type="button">Request Formal Proposal</button>
+            <button id="printButton" class="cta cta-secondary" type="button">Download as PDF</button>
+          </div>
+          <div class="next-turnaround">Guaranteed 24-hour turnaround | Ref: SBX-2026-0314-001</div>
+
+          <div class="prompt-note" id="prompt">
+            <div class="prompt-title">Prompt</div>
+            <p class="prompt-copy">Use your standalone HTML generation prompt to produce new client intake variants from this structure while preserving mock data and accessibility patterns.</p>
+          </div>
+        </section>
+
+        <footer class="site-footer">
+          <div class="footer-brand">
+            <div class="footer-name">ShieldBox Security</div>
+            Philadelphia, PA<br />
+            <a href="https://shieldboxsecurity.co" target="_blank" rel="noopener noreferrer">shieldboxsecurity.co</a><br />
+            <a href="mailto:quotes@shieldboxsecurity.co">quotes@shieldboxsecurity.co</a><br />
+            <a href="tel:+12155550148">(215) 555-0148</a>
+          </div>
+
+          <div class="footer-note">
+            Mockup concept for design and intake workflow review.<br />
+            All names, numbers, and operational values are fictional placeholders.
+          </div>
+        </footer>
+      </div>
+
+      <aside class="side-stack" aria-label="Quick reference">
+        <section class="side-card" aria-labelledby="quickNavHeading">
+          <h2 id="quickNavHeading" class="side-title">Quick Nav</h2>
+          <nav class="side-list" aria-label="Section quick links">
+            <a href="#schedule">1. Schedule &amp; Logistics</a>
+            <a href="#scope">2. Security Scope</a>
+            <a href="#billing">3. Billing Preference</a>
+            <a href="#promise">4. ShieldBox Promise</a>
+            <a href="#next">5. Next Step</a>
+            <a href="#prompt">6. Prompt</a>
+          </nav>
+        </section>
+
+        <section class="side-card" aria-labelledby="summaryHeadingAside">
+          <h2 id="summaryHeadingAside" class="side-title">Summary</h2>
+          <ul class="summary-list">
+            <li>Define coverage windows per phase (load-in, doors, strike, overnight).</li>
+            <li>Select primary security functions for the quote.</li>
+            <li>Pick billing model to anchor the proposal.</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite" hidden>
+    <strong>Request Sent</strong>
+    Intake details have been queued for proposal prep. Expect a formal quote within 24 hours.
+  </div>
+
+  <script>
+    (() => {
+      const themeSelect = document.getElementById("themeSelect");
+      const themeStorageKey = `layout-theme:${location.pathname.split("/").pop() || "shieldbox-security-event-quote-request.html"}`;
+
+      function applyTheme(value) {
+        if (value && value !== "default") {
+          document.body.dataset.theme = value;
+        } else {
+          document.body.removeAttribute("data-theme");
+        }
+        themeSelect.value = value || "default";
+      }
+
+      applyTheme(localStorage.getItem(themeStorageKey) || "default");
+
+      themeSelect.addEventListener("change", (event) => {
+        const value = event.target.value;
+        localStorage.setItem(themeStorageKey, value);
+        applyTheme(value);
+      });
+
+      const intakeForm = document.getElementById("intakeForm");
+      const validateIntakeButton = document.getElementById("validateIntakeButton");
+      const validationMessage = document.getElementById("validationMessage");
+
+      function setValidationMessage(text, state) {
+        validationMessage.textContent = text;
+        validationMessage.classList.remove("is-ok", "is-warn");
+        if (state) {
+          validationMessage.classList.add(state);
+        }
+      }
+
+      validateIntakeButton.addEventListener("click", () => {
+        const valid = intakeForm.checkValidity();
+        if (valid) {
+          setValidationMessage("All required intake fields are complete.", "is-ok");
+          return;
+        }
+
+        setValidationMessage("Please complete required fields before proposal handoff.", "is-warn");
+        intakeForm.reportValidity();
+      });
+
+      intakeForm.addEventListener("input", () => {
+        if (!validationMessage.textContent) {
+          return;
+        }
+        if (intakeForm.checkValidity()) {
+          setValidationMessage("All required intake fields are complete.", "is-ok");
+        } else {
+          setValidationMessage("Please complete required fields before proposal handoff.", "is-warn");
+        }
+      });
+
+      const scopeCheckboxes = Array.from(document.querySelectorAll('#scope .check-item input[type="checkbox"]'));
+      scopeCheckboxes.forEach((checkbox) => {
+        const syncAriaChecked = () => {
+          checkbox.setAttribute("aria-checked", String(checkbox.checked));
+        };
+
+        syncAriaChecked();
+        checkbox.addEventListener("change", syncAriaChecked);
+      });
+
+      const billingButtons = Array.from(document.querySelectorAll(".billing-select"));
+      const billingRows = Array.from(document.querySelectorAll(".billing-row"));
+
+      function selectBilling(model, shouldFocus) {
+        billingButtons.forEach((button, index) => {
+          const selected = button.dataset.model === model;
+          button.setAttribute("aria-checked", String(selected));
+          button.tabIndex = selected ? 0 : -1;
+          button.textContent = selected ? "Selected" : "Select";
+          billingRows[index].classList.toggle("is-selected", selected);
+          if (selected && shouldFocus) {
+            button.focus();
+          }
+        });
+      }
+
+      billingButtons.forEach((button, index) => {
+        button.addEventListener("click", () => {
+          selectBilling(button.dataset.model, false);
+        });
+
+        button.addEventListener("keydown", (event) => {
+          const key = event.key;
+          let target = index;
+
+          if (key === "ArrowRight" || key === "ArrowDown") {
+            target = (index + 1) % billingButtons.length;
+            event.preventDefault();
+            selectBilling(billingButtons[target].dataset.model, true);
+            return;
+          }
+
+          if (key === "ArrowLeft" || key === "ArrowUp") {
+            target = (index - 1 + billingButtons.length) % billingButtons.length;
+            event.preventDefault();
+            selectBilling(billingButtons[target].dataset.model, true);
+            return;
+          }
+
+          if (key === "Home") {
+            event.preventDefault();
+            selectBilling(billingButtons[0].dataset.model, true);
+            return;
+          }
+
+          if (key === "End") {
+            event.preventDefault();
+            selectBilling(billingButtons[billingButtons.length - 1].dataset.model, true);
+            return;
+          }
+
+          if (key === "Enter" || key === " ") {
+            event.preventDefault();
+            selectBilling(button.dataset.model, true);
+          }
+        });
+      });
+
+      const selectedButton = billingButtons.find((button) => button.getAttribute("aria-checked") === "true") || billingButtons[0];
+      selectBilling(selectedButton.dataset.model, false);
+
+      const requestButton = document.getElementById("requestButton");
+      const printButton = document.getElementById("printButton");
+      const toast = document.getElementById("toast");
+      let toastTimeout;
+
+      function showToast() {
+        clearTimeout(toastTimeout);
+        toast.hidden = false;
+        requestAnimationFrame(() => {
+          toast.classList.add("show");
+        });
+
+        toastTimeout = window.setTimeout(() => {
+          toast.classList.remove("show");
+          window.setTimeout(() => {
+            toast.hidden = true;
+          }, 200);
+        }, 2800);
+      }
+
+      requestButton.addEventListener("click", showToast);
+      printButton.addEventListener("click", () => {
+        window.print();
+      });
+    })();
+  </script>
+</body>
+</html>

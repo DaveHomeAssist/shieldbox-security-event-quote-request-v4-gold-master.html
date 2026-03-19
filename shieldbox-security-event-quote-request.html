@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShieldBox Security | Event Quote Request</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       CSS VARIABLES & RESET
+    ========================================================= */
+    :root {
+      --bg-base:       #0d0f11;
+      --bg-surface:    #13171b;
+      --bg-card:       #181d22;
+      --bg-elevated:   #1e242b;
+      --bg-input:      #141820;
+
+      --border:        #252c35;
+      --border-light:  #2e3740;
+      --border-strong: #3a444f;
+
+      --text-primary:  #e8ecf0;
+      --text-secondary:#8a97a4;
+      --text-muted:    #4e5d6a;
+      --text-dim:      #374350;
+
+      --red:           #c0392b;
+      --red-bright:    #e74c3c;
+      --red-dim:       #7d1f17;
+      --red-glow:      rgba(192,57,43,0.15);
+      --red-subtle:    rgba(192,57,43,0.08);
+
+      --amber:         #e67e22;
+      --amber-dim:     rgba(230,126,34,0.12);
+
+      --green:         #27ae60;
+      --green-dim:     rgba(39,174,96,0.12);
+
+      --blue:          #2980b9;
+      --blue-dim:      rgba(41,128,185,0.12);
+
+      --font-display:  'Barlow Condensed', sans-serif;
+      --font-body:     'Barlow', sans-serif;
+      --font-mono:     'DM Mono', monospace;
+
+      --radius:        6px;
+      --radius-lg:     10px;
+
+      --shadow-card:   0 1px 3px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
+      --shadow-deep:   0 8px 32px rgba(0,0,0,0.6);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* =========================================================
+       LAYOUT UTILITIES
+    ========================================================= */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-gap { margin-bottom: 28px; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-header-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--red-subtle);
+      border: 1px solid var(--red-dim);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-header-icon svg { width: 14px; height: 14px; fill: var(--red-bright); }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .card-badge {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    /* =========================================================
+       HEADER / HERO
+    ========================================================= */
+    .site-header {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .site-header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+    }
+
+    .site-header::after {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, var(--red-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-inner {
+      padding: 36px 24px 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .shield-emblem {
+      width: 52px;
+      height: 56px;
+      flex-shrink: 0;
+    }
+
+    .logo-text-group { }
+
+    .logo-wordmark {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .logo-wordmark span { color: var(--red-bright); }
+
+    .logo-tagline {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.65;
+    }
+
+    .header-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .meta-item svg { width: 12px; height: 12px; opacity: 0.5; }
+
+    .meta-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      flex-shrink: 0;
+    }
+
+    /* =========================================================
+       INTERNAL NOTE BANNER
+    ========================================================= */
+    .internal-banner {
+      background: rgba(230,126,34,0.06);
+      border: 1px solid rgba(230,126,34,0.25);
+      border-left: 3px solid var(--amber);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .internal-banner-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+    .internal-banner-text {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--amber);
+      line-height: 1.55;
+    }
+
+    .internal-banner-label {
+      font-weight: 500;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    /* =========================================================
+       SUMMARY CARD / PROPERTY LAYOUT
+    ========================================================= */
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0;
+    }
+
+    .property-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    .property-item:nth-child(odd):last-child,
+    .property-item:last-child { border-right: none; }
+
+    .property-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .property-value {
+      font-size: 13.5px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .property-value a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 9px;
+      border-radius: 20px;
+    }
+
+    .badge-prospect {
+      background: var(--amber-dim);
+      border: 1px solid rgba(230,126,34,0.3);
+      color: var(--amber);
+    }
+
+    .badge-lead {
+      background: var(--blue-dim);
+      border: 1px solid rgba(41,128,185,0.3);
+      color: var(--blue);
+    }
+
+    .notes-block {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-top: 18px;
+    }
+
+    .notes-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .notes-text {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       FORM / INTAKE TABLE
+    ========================================================= */
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field-grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+    .field-grid.single { grid-template-columns: 1fr; }
+    .field-grid .full { grid-column: 1 / -1; }
+
+    .field-item { }
+
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .field-value {
+      background: var(--bg-input);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 9px 12px;
+      font-size: 13.5px;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+    }
+
+    .field-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+    }
+
+    .pill-yes {
+      background: var(--green-dim);
+      border: 1px solid rgba(39,174,96,0.3);
+      color: var(--green);
+    }
+
+    .pill-no {
+      background: rgba(80,80,80,0.12);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+    }
+
+    /* =========================================================
+       SCHEDULE SECTION
+    ========================================================= */
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+
+    .schedule-table thead tr {
+      border-bottom: 1px solid var(--border-strong);
+    }
+
+    .schedule-table th {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .schedule-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .schedule-table tr:last-child td { border-bottom: none; }
+
+    .schedule-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .time-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-light);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-primary);
+    }
+
+    .phase-label {
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* =========================================================
+       SECURITY SCOPE / CHECKBOXES
+    ========================================================= */
+    .scope-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .scope-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+
+    .scope-item.active {
+      background: var(--red-subtle);
+      border-color: var(--red-dim);
+    }
+
+    .scope-item:hover { border-color: var(--border-strong); }
+    .scope-item.active:hover { border-color: var(--red); }
+
+    .scope-checkbox {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border-strong);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .scope-item.active .scope-checkbox {
+      background: var(--red);
+      border-color: var(--red);
+    }
+
+    .scope-checkbox svg { width: 10px; height: 10px; fill: #fff; opacity: 0; transition: opacity 0.1s; }
+    .scope-item.active .scope-checkbox svg { opacity: 1; }
+
+    .scope-text { flex: 1; }
+
+    .scope-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .scope-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       RISK MATRIX
+    ========================================================= */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .risk-item {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .risk-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .risk-level {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .level-high {
+      background: rgba(192,57,43,0.15);
+      border: 1px solid rgba(192,57,43,0.35);
+      color: var(--red-bright);
+    }
+
+    .level-medium {
+      background: var(--amber-dim);
+      border: 1px solid rgba(230,126,34,0.3);
+      color: var(--amber);
+    }
+
+    .level-low {
+      background: var(--green-dim);
+      border: 1px solid rgba(39,174,96,0.3);
+      color: var(--green);
+    }
+
+    .recommendation-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border-light);
+      border-left: 3px solid var(--red);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+
+    .rec-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--red-bright);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .rec-title::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--red-bright);
+    }
+
+    .rec-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .rec-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13.5px;
+    }
+
+    .rec-role { color: var(--text-secondary); }
+
+    .rec-count {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-light);
+      padding: 1px 8px;
+      border-radius: 4px;
+    }
+
+    .rec-disclaimer {
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* =========================================================
+       BILLING / PRICING TABLE
+    ========================================================= */
+    .billing-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .billing-option {
+      background: var(--bg-elevated);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+      position: relative;
+    }
+
+    .billing-option:hover { border-color: var(--border-strong); }
+
+    .billing-option.selected {
+      background: var(--red-subtle);
+      border-color: var(--red);
+    }
+
+    .billing-option.selected::after {
+      content: '✓ Selected';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .billing-type {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .billing-price {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .billing-unit {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .billing-note {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       PROMISE / BRAND CALLOUT
+    ========================================================= */
+    .promise-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, #1a0e0c 100%);
+      border: 1px solid var(--red-dim);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promise-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(192,57,43,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .promise-header {
+      margin-bottom: 20px;
+    }
+
+    .promise-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--red-bright);
+      margin-bottom: 6px;
+    }
+
+    .promise-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .promise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .promise-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .promise-check {
+      width: 20px; height: 20px;
+      background: var(--red-subtle);
+      border: 1px solid var(--red-dim);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .promise-check svg { width: 10px; height: 10px; fill: var(--red-bright); }
+
+    .promise-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .promise-text strong { color: var(--text-primary); }
+
+    .promise-body {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    /* =========================================================
+       NEXT STEPS / CTA
+    ========================================================= */
+    .next-steps-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .next-steps-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .next-steps-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .next-steps-body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+
+    .next-steps-body a {
+      color: var(--red-bright);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: var(--radius);
+      padding: 14px 32px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      position: relative;
+    }
+
+    .cta-btn:hover { background: var(--red-bright); }
+    .cta-btn:active { transform: scale(0.98); }
+
+    .cta-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+    .turnaround-note {
+      margin-top: 16px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+
+    /* =========================================================
+       SECTION DIVIDER
+    ========================================================= */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-letter {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      background: var(--red-subtle);
+      border: 1px solid var(--red-dim);
+      width: 26px; height: 26px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-name {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    .site-footer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      margin-top: 40px;
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .footer-brand { }
+
+    .footer-name {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .footer-details {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+
+    .footer-details a { color: var(--text-muted); text-decoration: none; }
+
+    .footer-disclaimer {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      text-align: right;
+      line-height: 1.7;
+      max-width: 300px;
+    }
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #0d1a0f;
+      border: 1px solid rgba(39,174,96,0.5);
+      border-left: 3px solid var(--green);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--green);
+      box-shadow: var(--shadow-deep);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+      max-width: 300px;
+      line-height: 1.6;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #toast strong { display: block; margin-bottom: 2px; font-size: 13px; }
+
+    /* =========================================================
+       DIVIDER
+    ========================================================= */
+    .h-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 22px 0;
+    }
+
+    /* =========================================================
+       MAIN LAYOUT
+    ========================================================= */
+    .page-body {
+      padding: 32px 24px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+    @media (max-width: 680px) {
+      .hero-title { font-size: 26px; }
+      .field-grid { grid-template-columns: 1fr; }
+      .field-grid.three-col { grid-template-columns: 1fr; }
+      .scope-grid { grid-template-columns: 1fr; }
+      .risk-grid { grid-template-columns: 1fr; }
+      .billing-options { grid-template-columns: 1fr; }
+      .property-grid { grid-template-columns: 1fr; }
+      .property-item { border-right: none; }
+      .schedule-table { font-size: 12px; }
+      .schedule-table th, .schedule-table td { padding: 8px 8px; }
+    }
+
+    /* =========================================================
+       PRINT STYLES
+    ========================================================= */
+    @media print {
+      :root {
+        --bg-base: #fff;
+        --bg-surface: #f5f6f8;
+        --bg-card: #fff;
+        --bg-elevated: #f0f2f5;
+        --bg-input: #f5f6f8;
+        --border: #d0d4da;
+        --border-light: #dde0e6;
+        --border-strong: #bcc0c8;
+        --text-primary: #0d0f11;
+        --text-secondary: #3a4550;
+        --text-muted: #6a7580;
+        --text-dim: #9aa4ad;
+        --red: #b03020;
+        --red-bright: #c0392b;
+        --red-dim: #e8c5be;
+        --red-glow: transparent;
+        --red-subtle: #fdf0ee;
+        --amber: #b06010;
+        --amber-dim: #fdf5e8;
+        --green: #1a7a3a;
+        --green-dim: #eafaf0;
+        --blue: #1a6090;
+        --blue-dim: #e8f4fb;
+      }
+
+      body { background: #fff; color: #0d0f11; }
+
+      #toast, .internal-banner { display: none !important; }
+
+      .cta-btn { display: none; }
+
+      .site-header::after { display: none; }
+
+      .promise-card { background: #fdf0ee; }
+
+      @page { margin: 18mm 16mm; }
+
+      .card { box-shadow: none; border: 1px solid #d0d4da; }
+
+      .page-body { padding: 16px 0 24px; }
+
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER / HERO
+  ========================================================= -->
+  <header class="site-header">
+    <div class="header-inner container">
+
+      <div class="logo-row">
+        <!-- Shield Emblem SVG -->
+        <svg class="shield-emblem" viewBox="0 0 52 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M26 2L4 11V28C4 40 14 50.5 26 54C38 50.5 48 40 48 28V11L26 2Z" fill="#1a0c0a" stroke="#c0392b" stroke-width="1.5"/>
+          <path d="M26 8L10 15V28C10 37.5 17 46 26 49C35 46 42 37.5 42 28V15L26 8Z" fill="#200e0b" stroke="#7d1f17" stroke-width="1"/>
+          <rect x="18" y="20" width="16" height="3" rx="1.5" fill="#c0392b"/>
+          <rect x="18" y="26" width="11" height="3" rx="1.5" fill="#e74c3c"/>
+          <rect x="18" y="32" width="16" height="3" rx="1.5" fill="#c0392b"/>
+          <circle cx="36" cy="35" r="2" fill="#e74c3c" opacity="0.7"/>
+        </svg>
+
+        <div class="logo-text-group">
+          <div class="logo-wordmark">Shield<span>Box</span> Security</div>
+          <div class="logo-tagline">Philadelphia, PA &bull; Event Security &bull; Private + Corporate</div>
+        </div>
+      </div>
+
+      <h1 class="hero-title">Event Quote Request</h1>
+      <p class="hero-subtitle">
+        Complete this intake form to receive a formal security proposal. ShieldBox reviews every event personally and returns a detailed quote within 24 hours. All rates, staffing, and scope are tailored to your specific event.
+      </p>
+
+      <div class="header-meta-row">
+        <div class="meta-item">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M5 0h6v2H5V0zM2 2h12v2H2V2zM0 4h16v12H0V4zm2 2v8h12V6H2z"/></svg>
+          Created: March 14, 2026
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm.5 4v4.5l3.5 2-.7 1.2-4-2.3V4h1.2z"/></svg>
+          Proposal Turnaround: 24 Hours
+        </div>
+        <div class="meta-item">
+          <div class="meta-dot"></div>
+          Active Intake
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h12v12H2V2zm2 2v8h8V4H4z"/></svg>
+          Ref: SBX-2026-0314-001
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       PAGE BODY
+  ========================================================= -->
+  <main class="page-body">
+
+    <!-- INTERNAL NOTE BANNER -->
+    <div class="internal-banner" role="note" aria-label="Internal operations note">
+      <div class="internal-banner-icon">⚠</div>
+      <div class="internal-banner-text">
+        <div class="internal-banner-label">Internal Ops Note</div>
+        Send this page link to the client, or export as PDF after customizing the top summary section. Pre-filled values are mock data for design review. Replace with live intake data before sending to a real prospect.
+      </div>
+    </div>
+
+    <!-- =========================================================
+         SECTION: BUSINESS RECORD / SUMMARY CARD
+    ========================================================= -->
+    <section class="card section-gap" aria-labelledby="summary-heading">
+      <div class="card-header">
+        <div class="card-header-icon">
+          <svg viewBox="0 0 16 16"><path d="M2 2h4v4H2V2zm0 8h4v4H2v-4zm8-8h4v4h-4V2zm0 8h4v4h-4v-4z"/></svg>
+        </div>
+        <h2 class="card-title" id="summary-heading">Business Record — ShieldBox Security</h2>
+        <span class="card-badge">CRM · AUTO-GENERATED</span>
+      </div>
+
+      <div class="property-grid">
+        <div class="property-item">
+          <div class="property-label">Created</div>
+          <div class="property-value">March 14, 2026</div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Email</div>
+          <div class="property-value"><a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a></div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Industry</div>
+          <div class="property-value">Security</div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Phone</div>
+          <div class="property-value"><a href="tel:+12155550148">(215) 555-0148</a></div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Primary Contact</div>
+          <div class="property-value">Carl Mercer</div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Source</div>
+          <div class="property-value">Website</div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Status</div>
+          <div class="property-value">
+            <span class="status-badge badge-prospect">Prospect</span>
+          </div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Type</div>
+          <div class="property-value">
+            <span class="status-badge badge-lead">Lead</span>
+          </div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Website</div>
+          <div class="property-value"><a href="https://shieldboxsecurity.co" target="_blank" rel="noopener">shieldboxsecurity.co</a></div>
+        </div>
+        <div class="property-item">
+          <div class="property-label">Coordinator</div>
+          <div class="property-value">Carl Mercer / Owner</div>
+        </div>
+      </div>
+
+      <div class="notes-block">
+        <div class="notes-label">Intake Notes</div>
+        <p class="notes-text">
+          Inbound website inquiry received March 14, 2026 via the ShieldBox quote request form. Client is planning a mid-size private music event at an indoor industrial venue in Philadelphia. Attendance, alcohol service, and VIP presence all confirmed at intake. Formal venue contact and client contract not yet on file. Insurance certificate and venue security addendum will be required before proposal is finalized. Awaiting confirmation of artist rider requirements for talent protection scope.
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION A: CLIENT & EVENT OVERVIEW
+    ========================================================= -->
+    <section class="card section-gap" aria-labelledby="section-a-heading">
+      <div class="card-header">
+        <div class="card-header-icon">
+          <svg viewBox="0 0 16 16"><path d="M8 0a4 4 0 100 8A4 4 0 008 0zM2 14c0-3.3 2.7-6 6-6s6 2.7 6 6H2z"/></svg>
+        </div>
+        <div class="section-label" style="margin-bottom:0;">
+          <div class="section-letter">A</div>
+          <h2 class="section-name" id="section-a-heading">Client &amp; Event Overview</h2>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field-item">
+          <div class="field-label">Organization Name</div>
+          <div class="field-value">Blackline Events Group</div>
+        </div>
+        <div class="field-item">
+          <div class="field-label">Point of Contact</div>
+          <div class="field-value">Jenna Morales</div>
+        </div>
+        <div class="field-item">
+          <div class="field-label">Email</div>
+          <div class="field-value"><a href="mailto:jenna@blacklineevents.co" style="color:var(--blue); text-decoration:none;">jenna@blacklineevents.co</a></div>
+        </div>
+        <div class="field-item">
+          <div class="field-label">Phone</div>
+          <div class="field-value">(267) 555-0192</div>
+        </div>
+        <div class="field-item full">
+          <div class="field-label">Event Name</div>
+          <div class="field-value" style="font-weight:600;">Spring Warehouse Sessions</div>
+        </div>
+        <div class="field-item">
+          <div class="field-label">Event Type</div>
+          <div class="field-value">Private Music Event</div>
+        </div>
+        <div class="field-item">
+          <div class="field-label">Expected Attendance</div>
+          <div class="field-value">450 guests</div>
+        </div>
+        <div class="field-item full">
+          <div class="field-label">Venue Address</div>
+          <div class="field-value">1425 American St, Philadelphia, PA 19147</div>
+        </div>
+        <div class="field-item">
+          <div class="field-label">Venue Type</div>
+          <div class="field-value">Indoor Industrial Venue</div>
+        </div>
+        <div class="field-item"></div>
+        <div class="field-item">
+          <div class="field-label">Alcohol Served</div>
+          <div class="field-value"><span class="field-pill pill-yes">✓ Yes</span></div>
+        </div>
+        <div class="field-item">
+          <div class="field-label">VIP or Talent Present</div>
+          <div class="field-value"><span class="field-pill pill-yes">✓ Yes</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION B: SCHEDULE & LOGISTICS
+    ========================================================= -->
+    <section class="card section-gap" aria-labelledby="section-b-heading">
+      <div class="card-header">
+        <div class="card-header-icon">
+          <svg viewBox="0 0 16 16"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm.5 4v4.5l3.5 2-.7 1.2-4-2.3V4h1.2z"/></svg>
+        </div>
+        <div class="section-label" style="margin-bottom:0;">
+          <div class="section-letter">B</div>
+          <h2 class="section-name" id="section-b-heading">Schedule &amp; Logistics</h2>
+        </div>
+        <span class="card-badge">March 28, 2026</span>
+      </div>
+
+      <div style="overflow-x:auto;">
+        <table class="schedule-table" aria-label="Event schedule">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Date</th>
+              <th>Window</th>
+              <th>Duration</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="phase-label">Load In / Setup</span></td>
+              <td><span class="time-badge">Mar 28</span></td>
+              <td><span class="time-badge">12:00 PM – 4:00 PM</span></td>
+              <td style="color:var(--text-muted);font-family:var(--font-mono);font-size:12px;">4 hrs</td>
+              <td style="color:var(--text-muted);font-size:12.5px;">Gear staging, perimeter walk, vendor access</td>
+            </tr>
+            <tr>
+              <td><span class="phase-label">Doors Open</span></td>
+              <td><span class="time-badge">Mar 28</span></td>
+              <td><span class="time-badge">7:00 PM</span></td>
+              <td style="color:var(--text-muted);font-family:var(--font-mono);font-size:12px;">—</td>
+              <td style="color:var(--text-muted);font-size:12.5px;">Entry screening active, front of house deployed</td>
+            </tr>
+            <tr>
+              <td><span class="phase-label">Event Coverage</span></td>
+              <td><span class="time-badge">Mar 28</span></td>
+              <td><span class="time-badge">6:30 PM – 12:30 AM</span></td>
+              <td style="color:var(--text-muted);font-family:var(--font-mono);font-size:12px;">6 hrs</td>
+              <td style="color:var(--text-muted);font-size:12.5px;">Full staffing, all zones active, command post live</td>
+            </tr>
+            <tr>
+              <td><span class="phase-label">Load Out / Strike</span></td>
+              <td><span class="time-badge">Mar 29</span></td>
+              <td><span class="time-badge">12:30 AM – 2:30 AM</span></td>
+              <td style="color:var(--text-muted);font-family:var(--font-mono);font-size:12px;">2 hrs</td>
+              <td style="color:var(--text-muted);font-size:12.5px;">Crowd egress control, vendor depart sweep</td>
+            </tr>
+            <tr>
+              <td><span class="phase-label" style="color:var(--amber);">Overnight Watch</span></td>
+              <td><span class="time-badge">Mar 29</span></td>
+              <td><span class="time-badge" style="border-color:rgba(230,126,34,0.3); color:var(--amber);">2:30 AM – 8:00 AM</span></td>
+              <td style="color:var(--text-muted);font-family:var(--font-mono);font-size:12px;">5.5 hrs</td>
+              <td style="color:var(--text-muted);font-size:12.5px;"><span class="field-pill pill-yes" style="font-size:11px;">✓ Confirmed</span> — 1 watch, equipment &amp; venue secure</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION C: SECURITY SCOPE
+    ========================================================= -->
+    <section class="card section-gap" aria-labelledby="section-c-heading">
+      <div class="card-header">
+        <div class="card-header-icon">
+          <svg viewBox="0 0 16 16"><path d="M8 0L1 3v6c0 4 3 7.5 7 8 4-.5 7-4 7-8V3L8 0z"/></svg>
+        </div>
+        <div class="section-label" style="margin-bottom:0;">
+          <div class="section-letter">C</div>
+          <h2 class="section-name" id="section-c-heading">Security Scope</h2>
+        </div>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Select all services applicable to this event. Pre-selection reflects the confirmed scope based on intake information.</p>
+
+      <div class="scope-grid" role="group" aria-label="Security services">
+        <label class="scope-item active" id="scope-ac">
+          <div class="scope-checkbox" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="scope-text">
+            <div class="scope-name">Access Control</div>
+            <div class="scope-desc">Managed entry and exit points with credential verification and guest list enforcement.</div>
+          </div>
+        </label>
+        <label class="scope-item active" id="scope-foh">
+          <div class="scope-checkbox" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="scope-text">
+            <div class="scope-name">Front of House</div>
+            <div class="scope-desc">Visible personnel at the main entrance managing crowd flow and first impressions.</div>
+          </div>
+        </label>
+        <label class="scope-item" id="scope-per">
+          <div class="scope-checkbox" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="scope-text">
+            <div class="scope-name">Perimeter Security</div>
+            <div class="scope-desc">Active patrol of the venue exterior and adjacent loading areas throughout the event.</div>
+          </div>
+        </label>
+        <label class="scope-item active" id="scope-vip">
+          <div class="scope-checkbox" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="scope-text">
+            <div class="scope-name">Talent / Executive Protection</div>
+            <div class="scope-desc">Dedicated close-protection for performers, VIP guests, or principals on site.</div>
+          </div>
+        </label>
+        <label class="scope-item active" id="scope-cm">
+          <div class="scope-checkbox" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="scope-text">
+            <div class="scope-name">Crowd Management</div>
+            <div class="scope-desc">Floor presence with trained personnel managing movement, queues, and incident response.</div>
+          </div>
+        </label>
+        <label class="scope-item" id="scope-ow">
+          <div class="scope-checkbox" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="scope-text">
+            <div class="scope-name">Overnight Gear Watch</div>
+            <div class="scope-desc">Stationary overnight guard for venue equipment, staging, and production assets.</div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION D: SECURITY RISK SNAPSHOT
+    ========================================================= -->
+    <section class="card section-gap" aria-labelledby="section-d-heading">
+      <div class="card-header">
+        <div class="card-header-icon">
+          <svg viewBox="0 0 16 16"><path d="M8 1l7 13H1L8 1zm0 3L3 13h10L8 4zM7 7h2v3H7V7zm0 4h2v2H7v-2z"/></svg>
+        </div>
+        <div class="section-label" style="margin-bottom:0;">
+          <div class="section-letter">D</div>
+          <h2 class="section-name" id="section-d-heading">Security Risk Snapshot</h2>
+        </div>
+        <span class="card-badge">AUTO-SCORED</span>
+      </div>
+
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Risk profile based on intake data. Final assessment may be revised after site walkthrough.</p>
+
+      <div class="risk-grid" role="list" aria-label="Risk factors">
+        <div class="risk-item" role="listitem">
+          <span class="risk-name">Attendance (450 guests)</span>
+          <span class="risk-level level-medium">Medium</span>
+        </div>
+        <div class="risk-item" role="listitem">
+          <span class="risk-name">Alcohol Service</span>
+          <span class="risk-level level-high">High</span>
+        </div>
+        <div class="risk-item" role="listitem">
+          <span class="risk-name">Crowd Energy</span>
+          <span class="risk-level level-high">High</span>
+        </div>
+        <div class="risk-item" role="listitem">
+          <span class="risk-name">VIP / Talent Present</span>
+          <span class="risk-level level-medium">Medium</span>
+        </div>
+        <div class="risk-item" role="listitem">
+          <span class="risk-name">Venue Complexity</span>
+          <span class="risk-level level-medium">Medium</span>
+        </div>
+        <div class="risk-item" role="listitem">
+          <span class="risk-name">Overall Risk Profile</span>
+          <span class="risk-level level-high">Moderate–High</span>
+        </div>
+      </div>
+
+      <div class="recommendation-box" aria-label="Recommended staffing">
+        <div class="rec-title">Recommended Coverage — Spring Warehouse Sessions</div>
+        <div class="rec-list">
+          <div class="rec-item">
+            <span class="rec-role">Site Lead (Owner Present)</span>
+            <span class="rec-count">×1</span>
+          </div>
+          <div class="rec-item">
+            <span class="rec-role">Event Security / Floor</span>
+            <span class="rec-count">×4</span>
+          </div>
+          <div class="rec-item">
+            <span class="rec-role">Entry Screeners</span>
+            <span class="rec-count">×2</span>
+          </div>
+          <div class="rec-item">
+            <span class="rec-role">Talent Protection</span>
+            <span class="rec-count">×1</span>
+          </div>
+          <div class="rec-item">
+            <span class="rec-role">Overnight Watch</span>
+            <span class="rec-count">×1</span>
+          </div>
+        </div>
+        <div class="rec-disclaimer">* Fictional estimates for mockup only. Actual staffing determined after full site assessment and client consultation.</div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION E: BILLING PREFERENCE
+    ========================================================= -->
+    <section class="card section-gap" aria-labelledby="section-e-heading">
+      <div class="card-header">
+        <div class="card-header-icon">
+          <svg viewBox="0 0 16 16"><path d="M0 4h16v2H0V4zm0 4h16v6H0V8zm2 2v2h4v-2H2zm6 0v2h6v-2H8z"/></svg>
+        </div>
+        <div class="section-label" style="margin-bottom:0;">
+          <div class="section-letter">E</div>
+          <h2 class="section-name" id="section-e-heading">Billing Preference</h2>
+        </div>
+      </div>
+
+      <div class="billing-options" id="billing-options" role="radiogroup" aria-label="Billing model options">
+        <div class="billing-option" data-billing="hourly" tabindex="0" role="radio" aria-checked="false">
+          <div class="billing-type">Hourly Rate</div>
+          <div class="billing-price">$42</div>
+          <div class="billing-unit">per guard / per hour</div>
+        </div>
+        <div class="billing-option" data-billing="shift" tabindex="0" role="radio" aria-checked="false">
+          <div class="billing-type">Per Guard / Shift</div>
+          <div class="billing-price">$325</div>
+          <div class="billing-unit">per 8-hour shift</div>
+        </div>
+        <div class="billing-option selected" data-billing="flat" tabindex="0" role="radio" aria-checked="true">
+          <div class="billing-type">Flat Event Rate</div>
+          <div class="billing-price">$2,950</div>
+          <div class="billing-unit">all-inclusive</div>
+        </div>
+      </div>
+
+      <div class="billing-note">
+        Pricing above reflects standard ShieldBox rates for this event tier. Final proposal pricing may vary based on confirmed headcount, site conditions, revised scope, or overnight extensions. A detailed line-item breakdown will be included in the formal proposal.
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SHIELDBOX PROMISE
+    ========================================================= -->
+    <section class="promise-card section-gap" aria-labelledby="promise-heading">
+      <div class="promise-header">
+        <div class="promise-eyebrow">The ShieldBox Standard</div>
+        <h2 class="promise-title" id="promise-heading">What You Get With Every Event</h2>
+      </div>
+
+      <div class="promise-list">
+        <div class="promise-item">
+          <div class="promise-check" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="#e74c3c" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="promise-text"><strong>Owner on site, every event.</strong> Carl Mercer leads from the floor. No delegate management, no subcontracted strangers.</div>
+        </div>
+        <div class="promise-item">
+          <div class="promise-check" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="#e74c3c" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="promise-text"><strong>Trained, in-house team.</strong> Every ShieldBox guard is vetted, trained, and familiar with the standards of our operation.</div>
+        </div>
+        <div class="promise-item">
+          <div class="promise-check" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="#e74c3c" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="promise-text"><strong>Clear chain of command.</strong> Every post knows their role, their escalation path, and their supervisor before doors open.</div>
+        </div>
+        <div class="promise-item">
+          <div class="promise-check" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="#e74c3c" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="promise-text"><strong>Fast, direct communication with venue staff.</strong> We coordinate with your production team and venue contacts before the event, not during a problem.</div>
+        </div>
+        <div class="promise-item">
+          <div class="promise-check" aria-hidden="true">
+            <svg viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke="#e74c3c" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="promise-text"><strong>Proposal returned within 24 hours.</strong> You receive a detailed, itemized quote — not a template with your name swapped in.</div>
+        </div>
+      </div>
+
+      <p class="promise-body">
+        ShieldBox Security is not a mass staffing agency. We are a small, specialized team that takes on a limited number of events each month. That means your event gets our full attention, from the initial intake call through post-event debrief. Every client gets Carl's personal number. Every event gets a pre-site walkthrough when possible.
+      </p>
+    </section>
+
+    <!-- =========================================================
+         NEXT STEPS / CTA
+    ========================================================= -->
+    <section class="next-steps-card section-gap" aria-labelledby="next-heading">
+      <div class="next-steps-eyebrow">Ready to Move Forward?</div>
+      <h2 class="next-steps-title" id="next-heading">Request Your Formal Proposal</h2>
+      <p class="next-steps-body">
+        Send completed event details to <a href="mailto:quotes@shieldboxsecurity.co">quotes@shieldboxsecurity.co</a> or reply directly to your intake coordinator. A formal, itemized proposal will be returned within 24 hours.
+      </p>
+      <button class="cta-btn" id="cta-btn" type="button" aria-label="Request formal proposal from ShieldBox Security">
+        <svg viewBox="0 0 16 16"><path d="M0 2l16 6-16 6V9l10-1L0 7V2z"/></svg>
+        Request Formal Proposal
+      </button>
+      <div class="turnaround-note">Guaranteed 24-hour proposal turnaround · Ref: SBX-2026-0314-001</div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-name">ShieldBox Security</div>
+        <div class="footer-details">
+          Philadelphia, PA<br>
+          <a href="https://shieldboxsecurity.co">shieldboxsecurity.co</a><br>
+          <a href="mailto:quotes@shieldboxsecurity.co">quotes@shieldboxsecurity.co</a><br>
+          <a href="tel:+12155550148">(215) 555-0148</a>
+        </div>
+      </div>
+      <div class="footer-disclaimer">
+        ShieldBox Security · Philadelphia Event Security<br>
+        Licensed &amp; Insured · PA Act 235 Certified Team<br>
+        <br>
+        ⚠ Mockup concept for design and intake<br>
+        workflow review only. All data is fictional.
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast" role="status" aria-live="polite">
+    <strong>✓ Request Sent</strong>
+    Your intake has been forwarded to quotes@shieldboxsecurity.co. Expect your formal proposal within 24 hours.
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================= -->
+  <script>
+    // -------------------------------------------------------
+    // Scope checkbox toggles
+    // -------------------------------------------------------
+    document.querySelectorAll('.scope-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        this.classList.toggle('active');
+      });
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.classList.toggle('active');
+        }
+      });
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('role', 'checkbox');
+      item.setAttribute('aria-checked', item.classList.contains('active') ? 'true' : 'false');
+    });
+
+    // Update aria-checked on toggle
+    document.querySelectorAll('.scope-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        this.setAttribute('aria-checked', this.classList.contains('active') ? 'true' : 'false');
+      });
+    });
+
+    // -------------------------------------------------------
+    // Billing option selection
+    // -------------------------------------------------------
+    document.querySelectorAll('.billing-option').forEach(function(opt) {
+      opt.addEventListener('click', function() {
+        document.querySelectorAll('.billing-option').forEach(function(o) {
+          o.classList.remove('selected');
+          o.setAttribute('aria-checked', 'false');
+        });
+        this.classList.add('selected');
+        this.setAttribute('aria-checked', 'true');
+      });
+      opt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+
+    // -------------------------------------------------------
+    // CTA toast notification
+    // -------------------------------------------------------
+    var toast = document.getElementById('toast');
+    var ctaBtn = document.getElementById('cta-btn');
+    var toastTimer;
+
+    ctaBtn.addEventListener('click', function() {
+      clearTimeout(toastTimer);
+      toast.classList.add('show');
+      toastTimer = setTimeout(function() {
+        toast.classList.remove('show');
+      }, 4500);
+    });
+  </script>
+
+</body>
+</html>

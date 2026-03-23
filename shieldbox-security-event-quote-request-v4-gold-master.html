@@ -266,6 +266,17 @@
     }
     .nav-brand:hover { color: var(--ink); }
 
+    .nav-back {
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+      text-decoration: none;
+      margin-right: 14px;
+      opacity: 0.55;
+      transition: opacity 0.15s;
+    }
+    .nav-back:hover { opacity: 1; }
+
     .nav-wordmark {
       font-family: "Libre Franklin", sans-serif;
       font-size: 1.05rem; font-weight: 600;
@@ -296,7 +307,7 @@
        LANDING HERO
     ========================================================= */
     .landing {
-      min-height: calc(100vh - 56px);
+      min-height: min(60vh, 560px);
       display: flex; flex-direction: column;
       justify-content: center; align-items: center;
       text-align: center;
@@ -409,9 +420,16 @@
       font-size: 1.5rem; font-weight: 700;
       color: var(--ink);
     }
+    .gallery-copy {
+      max-width: 720px;
+      margin: 10px auto 0;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
     }
     .gallery-img {
@@ -429,6 +447,194 @@
     @media (max-width: 700px) {
       .gallery-grid { grid-template-columns: 1fr; }
       .gallery-img { height: 220px; }
+    }
+
+    /* =========================================================
+       SMART QUOTE ASSIST
+    ========================================================= */
+    .assist-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 14px;
+    }
+
+    .assist-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--surface-2) 74%, var(--surface));
+      padding: 14px;
+    }
+
+    .assist-card-title {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .assist-copy {
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .assist-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .assist-field-full {
+      grid-column: 1 / -1;
+    }
+
+    .field-help {
+      color: var(--ink-soft);
+      font-size: 0.76rem;
+      line-height: 1.5;
+    }
+
+    .venue-profile {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 12px;
+    }
+
+    .venue-profile[hidden] {
+      display: none;
+    }
+
+    .venue-profile-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .venue-profile-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .venue-profile-pill,
+    .estimate-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      padding: 4px 9px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .venue-profile-pill.is-repeat,
+    .estimate-pill.is-standard {
+      color: var(--ok);
+      border-color: color-mix(in srgb, var(--ok) 60%, var(--line));
+      background: color-mix(in srgb, var(--ok) 14%, transparent);
+    }
+
+    .venue-profile-pill.is-new,
+    .estimate-pill.is-review {
+      color: var(--warn);
+      border-color: color-mix(in srgb, var(--warn) 60%, var(--line));
+      background: color-mix(in srgb, var(--warn) 16%, transparent);
+    }
+
+    .estimate-pill.is-critical {
+      color: #fff;
+      border-color: color-mix(in srgb, var(--accent) 72%, var(--line));
+      background: color-mix(in srgb, var(--accent) 82%, #000);
+    }
+
+    .venue-profile-grid,
+    .estimate-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .mini-label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--label-ink);
+      font-size: 0.64rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+
+    .venue-profile-value,
+    .estimate-stat strong {
+      color: var(--ink);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .venue-profile-note {
+      margin-top: 10px;
+      color: var(--ink-soft);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .estimate-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .estimate-kicker {
+      color: var(--label-ink);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+
+    .estimate-value {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.4rem;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-right: auto;
+    }
+
+    .estimate-stat {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      padding: 10px;
+    }
+
+    .estimate-flags {
+      margin-top: 12px;
+      display: grid;
+      gap: 7px;
+      padding-left: 18px;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .estimate-footnote {
+      margin-top: 12px;
+      color: var(--ink-soft);
+      font-size: 0.76rem;
+      line-height: 1.55;
     }
 
     /* =========================================================
@@ -1130,12 +1336,14 @@
     @media (max-width: 980px) {
       .layout { grid-template-columns: 1fr; }
       .side-stack { position: static; order: -1; }
+      .assist-grid { grid-template-columns: 1fr; }
       .theme-switcher {
         position: static; width: 100%;
         justify-content: space-between; margin-bottom: 14px;
       }
       .risk-grid { grid-template-columns: 1fr; }
       .form-grid { grid-template-columns: 1fr; }
+      .assist-fields { grid-template-columns: 1fr; }
       .footer-note { text-align: left; max-width: none; }
       .site-footer { flex-direction: column; }
       .services-grid { grid-template-columns: 1fr; }
@@ -1143,7 +1351,18 @@
 
     @media (max-width: 640px) {
       .trust-strip { grid-template-columns: repeat(2, 1fr); }
-      .nav-links .nav-link-desktop { display: none; }
+      .nav-links {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px;
+        flex-shrink: 1;
+        min-width: 0;
+      }
+      .nav-links a {
+        white-space: nowrap;
+        flex-shrink: 0;
+        font-size: 0.7rem;
+      }
     }
 
     /* =========================================================
@@ -1159,7 +1378,7 @@
 
       body { background: #fff; }
 
-      .site-nav, .landing, .trust-strip, .services,
+      .site-nav, .landing, .trust-strip, .gallery, .services,
       .section-divider, .quote-intro,
       .theme-switcher, .side-stack, .next-actions,
       #toast { display: none !important; }
@@ -1184,11 +1403,7 @@
        SITE NAV
   ========================================================= -->
   <nav class="site-nav" aria-label="Main navigation">
-    <a href="https://davehomeassist.github.io/"
-       style="font-size:.7rem;letter-spacing:.04em;color:var(--ink-soft);
-              text-decoration:none;margin-right:14px;opacity:.55;transition:opacity .15s;"
-       onmouseover="this.style.opacity='1'"
-       onmouseout="this.style.opacity='.55'">&larr; All Projects</a>
+    <a href="https://davehomeassist.github.io/" class="nav-back">&larr; All Projects</a>
     <a class="nav-brand" href="#">
       <svg width="24" height="28" viewBox="0 0 48 56" fill="none" aria-hidden="true">
         <path d="M24 2C24 2 4 10 4 10V28C4 42 14 52 24 54C34 52 44 42 44 28V10L24 2Z" stroke="var(--ink)" stroke-width="1.8" fill="none" />
@@ -1249,12 +1464,12 @@
     <div class="gallery-head">
       <div class="gallery-overline">On the Ground</div>
       <h2 class="gallery-title">Our Team in Action</h2>
+      <p class="gallery-copy">Real ShieldBox team members managing entry, wristbands, and guest flow during live event operations. No stock photography.</p>
     </div>
     <div class="gallery-grid">
-      <img class="gallery-img" src="BoxPics/IMG_2594-web.jpeg" alt="ShieldBox security checking credentials at venue entrance" loading="lazy" />
-      <img class="gallery-img" src="BoxPics/IMG_3336.jpeg" alt="ShieldBox officer applying wristbands during event check-in" loading="lazy" />
-      <img class="gallery-img" src="BoxPics/att.ZxHeEFy_psJsMVVjKHGzZxhRyE7DzwXEGz6AKdxzMIM.jpeg" alt="ShieldBox security team coordinating at venue staging area" loading="lazy" />
-      <img class="gallery-img" src="BoxPics/IMG_4091-web.jpeg" alt="ShieldBox security presence supporting event operations on site" loading="lazy" />
+      <img class="gallery-img" src="BoxPics/IMG_2594-web.jpeg" alt="ShieldBox security team member checking credentials outside a live event entrance" loading="lazy" />
+      <img class="gallery-img" src="BoxPics/IMG_3336.jpeg" alt="ShieldBox team member applying a wristband during event entry operations" loading="lazy" />
+      <img class="gallery-img" src="BoxPics/IMG_4091-web.jpeg" alt="ShieldBox security member verifying guest credentials during nighttime check-in" loading="lazy" />
     </div>
   </section>
 
@@ -1328,6 +1543,136 @@
 
     <div class="layout">
       <div class="stack">
+
+        <!-- SMART QUOTE ASSIST -->
+        <section class="section" id="instantEstimate" aria-labelledby="instantEstimateHeading">
+          <div class="section-head">
+            <span class="section-icon">0</span>
+            <h2 id="instantEstimateHeading" class="section-title">Instant Venue &amp; Risk Preview</h2>
+            <span class="section-note">Smart Assist</span>
+          </div>
+          <div class="section-body">
+            <p class="intro-copy">Choose a known venue or fill in a few event details to get a preliminary risk index, staffing ratio, and non-binding price range before the formal quote review.</p>
+            <div class="assist-grid">
+              <div class="assist-card">
+                <div class="assist-card-title">Address-Driven Venue Profile Lookup</div>
+                <div class="assist-fields">
+                  <div class="form-field assist-field-full">
+                    <label for="venueLookup">Venue or address</label>
+                    <input id="venueLookup" type="text" list="venueSuggestions" placeholder="Start typing a venue name or address" autocomplete="off" />
+                    <datalist id="venueSuggestions"></datalist>
+                    <p class="field-help">Known venue profiles prefill the location, attendance, ZIP, and event settings below.</p>
+                  </div>
+                  <div class="form-field">
+                    <label for="estimateEventType">Event Type</label>
+                    <select id="estimateEventType">
+                      <option value="private-music" selected>Private Music Event</option>
+                      <option value="concert">Concert / Club Night</option>
+                      <option value="corporate">Corporate Event</option>
+                      <option value="festival">Outdoor Festival</option>
+                      <option value="wedding">Wedding / Private Party</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="estimateVenueSetting">Venue Setting</label>
+                    <select id="estimateVenueSetting">
+                      <option value="indoor" selected>Indoor</option>
+                      <option value="outdoor">Outdoor</option>
+                      <option value="hybrid">Hybrid</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="estimateAttendance">Expected Attendance</label>
+                    <input id="estimateAttendance" type="number" min="1" value="450" />
+                  </div>
+                  <div class="form-field">
+                    <label for="estimateCoverageHours">Coverage Hours</label>
+                    <input id="estimateCoverageHours" type="number" min="1" step="0.5" value="6" />
+                  </div>
+                  <div class="form-field">
+                    <label for="estimateAlcohol">Alcohol Service</label>
+                    <select id="estimateAlcohol">
+                      <option value="yes" selected>Alcohol served</option>
+                      <option value="no">No alcohol</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="estimateVip">VIP / Talent Presence</label>
+                    <select id="estimateVip">
+                      <option value="yes" selected>VIP or talent on site</option>
+                      <option value="no">No VIP component</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label for="estimateZip">ZIP Code</label>
+                    <input id="estimateZip" type="text" inputmode="numeric" maxlength="5" pattern="[0-9]*" value="19147" />
+                  </div>
+                  <div class="form-field">
+                    <label for="estimateEndTime">Event End Time</label>
+                    <input id="estimateEndTime" type="time" value="00:30" />
+                  </div>
+                </div>
+                <div class="venue-profile" id="venueProfile" hidden>
+                  <div class="venue-profile-head">
+                    <div class="venue-profile-name" id="venueProfileName">Known venue profile matched</div>
+                    <span class="venue-profile-pill" id="venueProfilePill">Repeat venue</span>
+                  </div>
+                  <div class="venue-profile-grid">
+                    <div>
+                      <span class="mini-label">Address</span>
+                      <span class="venue-profile-value" id="venueProfileAddress">-</span>
+                    </div>
+                    <div>
+                      <span class="mini-label">Venue Type</span>
+                      <span class="venue-profile-value" id="venueProfileType">-</span>
+                    </div>
+                    <div>
+                      <span class="mini-label">Typical Capacity</span>
+                      <span class="venue-profile-value" id="venueProfileCapacity">-</span>
+                    </div>
+                    <div>
+                      <span class="mini-label">Perimeter Complexity</span>
+                      <span class="venue-profile-value" id="venueProfileComplexity">-</span>
+                    </div>
+                  </div>
+                  <p class="venue-profile-note" id="venueProfileNote">Venue intelligence will appear here when a saved venue is recognized.</p>
+                </div>
+              </div>
+
+              <div class="assist-card">
+                <div class="assist-card-title">Dynamic Threat Assessment Pricing</div>
+                <p class="assist-copy">This is a planning estimate, not a final contract price. ShieldBox ops still reviews every submission before issuing the formal quote.</p>
+                <div class="estimate-head">
+                  <span class="estimate-kicker">Risk Index</span>
+                  <strong class="estimate-value" id="riskIndexValue">High</strong>
+                  <span class="estimate-pill is-review" id="reviewLanePill">Ops review recommended</span>
+                </div>
+                <div class="estimate-grid">
+                  <div class="estimate-stat">
+                    <span class="mini-label">Recommended Guards</span>
+                    <strong id="recommendedGuards">7</strong>
+                  </div>
+                  <div class="estimate-stat">
+                    <span class="mini-label">Guard Ratio</span>
+                    <strong id="guardRatio">1.6 / 100</strong>
+                  </div>
+                  <div class="estimate-stat">
+                    <span class="mini-label">Estimated Range</span>
+                    <strong id="priceRange">$2,650 – $3,250</strong>
+                  </div>
+                  <div class="estimate-stat">
+                    <span class="mini-label">Review Lane</span>
+                    <strong id="reviewLane">Manual review</strong>
+                  </div>
+                </div>
+                <ul class="estimate-flags" id="estimateFlags">
+                  <li>Late-night, alcohol-served events automatically move into manual review.</li>
+                </ul>
+                <p class="estimate-footnote">Based on attendance, alcohol service, venue setting, end time, VIP presence, and local complexity banding.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <!-- BUSINESS RECORD -->
         <section class="section" aria-labelledby="summaryHeading">
@@ -1415,11 +1760,11 @@
                 </div>
                 <div class="form-field">
                   <label for="fieldDuration">Event Duration</label>
-                  <input id="fieldDuration" name="event_duration" type="text" required value="6 hours main coverage" />
+                  <input id="fieldDuration" name="event_duration" type="number" min="1" max="72" step="0.5" required value="6" placeholder="Hours" />
                 </div>
                 <div class="form-field">
                   <label for="fieldAttendance">Expected Attendance</label>
-                  <input id="fieldAttendance" name="expected_attendance" type="number" min="1" required value="450" />
+                  <input id="fieldAttendance" name="expected_attendance" type="number" min="1" max="10000" required value="450" />
                 </div>
               </div>
               <div class="form-actions">
@@ -1473,35 +1818,35 @@
             <p class="intro-copy">Please list the specific windows where ShieldBox presence is required.</p>
             <div class="check-grid" aria-label="Schedule coverage checklist">
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="schedule_loadin" checked />
                 <span>
                   <span class="check-label">Load-In / Setup</span>
                   <span class="check-copy">Mar 28, 2026 | 12:00 PM - 4:00 PM</span>
                 </span>
               </label>
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="schedule_doors" checked />
                 <span>
                   <span class="check-label">Main Event Doors</span>
                   <span class="check-copy">Mar 28, 2026 | 7:00 PM</span>
                 </span>
               </label>
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="schedule_coverage" checked />
                 <span>
                   <span class="check-label">Event Coverage Window</span>
                   <span class="check-copy">Mar 28, 2026 | 6:30 PM - 12:30 AM</span>
                 </span>
               </label>
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="schedule_loadout" checked />
                 <span>
                   <span class="check-label">Load-Out / Strike</span>
                   <span class="check-copy">Mar 29, 2026 | 12:30 AM - 2:30 AM</span>
                 </span>
               </label>
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="schedule_overnight" checked />
                 <span>
                   <span class="check-label">Overnight Gear Watch</span>
                   <span class="check-copy">Yes | Mar 29, 2026 | 2:30 AM - 8:00 AM</span>
@@ -1524,35 +1869,35 @@
             <p class="intro-copy">Select the primary functions required.</p>
             <div class="check-grid" aria-label="Security scope checklist">
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="scope_access" checked />
                 <span>
                   <span class="check-label">Access Control</span>
                   <span class="check-copy">VIP areas, backstage, and credentials.</span>
                 </span>
               </label>
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="scope_frontofhouse" checked />
                 <span>
                   <span class="check-label">Front of House</span>
                   <span class="check-copy">Entry screening, bag checks, and metal detection.</span>
                 </span>
               </label>
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" name="scope_perimeter" />
                 <span>
                   <span class="check-label">Perimeter</span>
                   <span class="check-copy">Roaming patrols to secure the venue boundary.</span>
                 </span>
               </label>
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="scope_talent" checked />
                 <span>
                   <span class="check-label">Talent or Executive Protection</span>
                   <span class="check-copy">Dedicated 1-on-1 escort for speakers or artists.</span>
                 </span>
               </label>
               <label class="check-item">
-                <input type="checkbox" checked />
+                <input type="checkbox" name="scope_crowd" checked />
                 <span>
                   <span class="check-label">Crowd Management</span>
                   <span class="check-copy">High-density area monitoring and de-escalation.</span>
@@ -1571,22 +1916,22 @@
           </div>
           <div class="section-body">
             <div class="risk-grid" role="list" aria-label="Risk factors">
-              <div class="risk-item" role="listitem"><span class="risk-name">Attendance</span><span class="risk-level is-medium">MEDIUM</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">Alcohol</span><span class="risk-level is-high">HIGH</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">Crowd Energy</span><span class="risk-level is-high">HIGH</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">VIP Presence</span><span class="risk-level is-medium">MEDIUM</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">Venue Complexity</span><span class="risk-level is-medium">MEDIUM</span></div>
-              <div class="risk-item" role="listitem"><span class="risk-name">Overall Profile</span><span class="risk-level is-high">MODERATE TO HIGH</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Attendance</span><span class="risk-level is-medium" id="riskAttendance">MEDIUM</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Alcohol</span><span class="risk-level is-high" id="riskAlcohol">HIGH</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Crowd Energy</span><span class="risk-level is-high" id="riskCrowd">HIGH</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">VIP Presence</span><span class="risk-level is-medium" id="riskVip">MEDIUM</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Venue Complexity</span><span class="risk-level is-medium" id="riskVenueComplexity">MEDIUM</span></div>
+              <div class="risk-item" role="listitem"><span class="risk-name">Overall Profile</span><span class="risk-level is-high" id="riskOverall">MODERATE TO HIGH</span></div>
             </div>
             <div class="recommend-box">
               <div class="recommend-title">Recommended Coverage</div>
               <div class="recommend-list">
-                <div class="recommend-row"><span>1 Site Lead</span><span>x1</span></div>
-                <div class="recommend-row"><span>Event Security</span><span>x4</span></div>
-                <div class="recommend-row"><span>Entry Screeners</span><span>x2</span></div>
-                <div class="recommend-row"><span>Overnight Watch</span><span>x1</span></div>
+                <div class="recommend-row"><span>1 Site Lead</span><span id="staffSiteLead">x1</span></div>
+                <div class="recommend-row"><span>Event Security</span><span id="staffEventSecurity">x4</span></div>
+                <div class="recommend-row"><span>Entry Screeners</span><span id="staffEntryScreeners">x2</span></div>
+                <div class="recommend-row"><span>Overnight Watch</span><span id="staffOvernight">x1</span></div>
               </div>
-              <p class="recommend-note">Fictional estimates for mockup only. Final staffing is based on site conditions and final event brief.</p>
+              <p class="recommend-note" id="recommendNote">Preliminary staffing recommendation generated from intake signals. Final staffing is confirmed during ops review.</p>
             </div>
           </div>
         </section>
@@ -1675,16 +2020,20 @@
         <section class="side-card" aria-labelledby="quickNavHeading">
           <h2 id="quickNavHeading" class="side-title">Quick Nav</h2>
           <nav class="side-list" aria-label="Section quick links">
-            <a href="#schedule">1. Schedule &amp; Logistics</a>
-            <a href="#scope">2. Security Scope</a>
-            <a href="#billing">3. Billing Preference</a>
-            <a href="#promise">4. ShieldBox Promise</a>
-            <a href="#next">5. Next Step</a>
+            <a href="#instantEstimate">0. Instant Estimate</a>
+            <a href="#overview">A. Client &amp; Event</a>
+            <a href="#schedule">B. Schedule</a>
+            <a href="#scope">C. Scope</a>
+            <a href="#risk">D. Risk Snapshot</a>
+            <a href="#billing">E. Billing</a>
+            <a href="#promise">Promise</a>
+            <a href="#next">Next Step</a>
           </nav>
         </section>
         <section class="side-card" aria-labelledby="summaryHeadingAside">
           <h2 id="summaryHeadingAside" class="side-title">Summary</h2>
           <ul class="summary-list">
+            <li>Use venue intelligence to prefill location, ZIP, and event assumptions.</li>
             <li>Define coverage windows per phase (load-in, doors, strike, overnight).</li>
             <li>Select primary security functions for the quote.</li>
             <li>Pick billing model to anchor the proposal.</li>
@@ -1759,11 +2108,310 @@
       const intakeForm = document.getElementById("intakeForm");
       const validateBtn = document.getElementById("validateIntakeButton");
       const valMsg = document.getElementById("validationMessage");
+      const fieldLocation = document.getElementById("fieldLocation");
+      const fieldAttendance = document.getElementById("fieldAttendance");
+
+      /* Smart quote assist */
+      const venueLookup = document.getElementById("venueLookup");
+      const venueSuggestions = document.getElementById("venueSuggestions");
+      const estimateEventType = document.getElementById("estimateEventType");
+      const estimateVenueSetting = document.getElementById("estimateVenueSetting");
+      const estimateAttendance = document.getElementById("estimateAttendance");
+      const estimateCoverageHours = document.getElementById("estimateCoverageHours");
+      const estimateAlcohol = document.getElementById("estimateAlcohol");
+      const estimateVip = document.getElementById("estimateVip");
+      const estimateZip = document.getElementById("estimateZip");
+      const estimateEndTime = document.getElementById("estimateEndTime");
+
+      const venueProfileEl = document.getElementById("venueProfile");
+      const venueProfileName = document.getElementById("venueProfileName");
+      const venueProfileAddress = document.getElementById("venueProfileAddress");
+      const venueProfileType = document.getElementById("venueProfileType");
+      const venueProfileCapacity = document.getElementById("venueProfileCapacity");
+      const venueProfileComplexity = document.getElementById("venueProfileComplexity");
+      const venueProfileNote = document.getElementById("venueProfileNote");
+      const venueProfilePill = document.getElementById("venueProfilePill");
+
+      const riskIndexValue = document.getElementById("riskIndexValue");
+      const reviewLanePill = document.getElementById("reviewLanePill");
+      const recommendedGuardsEl = document.getElementById("recommendedGuards");
+      const guardRatioEl = document.getElementById("guardRatio");
+      const priceRangeEl = document.getElementById("priceRange");
+      const reviewLaneEl = document.getElementById("reviewLane");
+      const estimateFlags = document.getElementById("estimateFlags");
+
+      const riskAttendance = document.getElementById("riskAttendance");
+      const riskAlcohol = document.getElementById("riskAlcohol");
+      const riskCrowd = document.getElementById("riskCrowd");
+      const riskVip = document.getElementById("riskVip");
+      const riskVenueComplexity = document.getElementById("riskVenueComplexity");
+      const riskOverall = document.getElementById("riskOverall");
+      const staffSiteLead = document.getElementById("staffSiteLead");
+      const staffEventSecurity = document.getElementById("staffEventSecurity");
+      const staffEntryScreeners = document.getElementById("staffEntryScreeners");
+      const staffOvernight = document.getElementById("staffOvernight");
+      const recommendNote = document.getElementById("recommendNote");
+
+      const venueProfiles = [
+        {
+          search: "905 spring garden",
+          label: "905 Spring Garden",
+          address: "905 Spring Garden St, Philadelphia, PA 19123",
+          zip: "19123",
+          eventType: "concert",
+          setting: "indoor",
+          attendance: 320,
+          hours: 5,
+          endTime: "01:00",
+          alcohol: "yes",
+          vip: "no",
+          capacity: "320 guests",
+          complexity: "Street queue + single front entrance",
+          note: "Known live-room setup with visible front-door pressure and ID checks.",
+          repeat: true
+        },
+        {
+          search: "american street warehouse",
+          label: "American Street Warehouse",
+          address: "1425 American St, Philadelphia, PA 19147",
+          zip: "19147",
+          eventType: "private-music",
+          setting: "indoor",
+          attendance: 450,
+          hours: 6,
+          endTime: "00:30",
+          alcohol: "yes",
+          vip: "yes",
+          capacity: "450 guests",
+          complexity: "Warehouse entry with VIP split and after-hours load-out",
+          note: "Best fit for owner-led site command plus entry control and overnight coverage.",
+          repeat: true
+        },
+        {
+          search: "riverfront festival lot",
+          label: "Riverfront Festival Lot",
+          address: "301 S Christopher Columbus Blvd, Philadelphia, PA 19106",
+          zip: "19106",
+          eventType: "festival",
+          setting: "outdoor",
+          attendance: 1500,
+          hours: 8,
+          endTime: "23:30",
+          alcohol: "yes",
+          vip: "no",
+          capacity: "1,500+ guests",
+          complexity: "Open perimeter with multiple ingress points",
+          note: "Requires perimeter staffing and crowd-control heavy deployment.",
+          repeat: false
+        },
+        {
+          search: "broad street ballroom",
+          label: "Broad Street Ballroom",
+          address: "1100 S Broad St, Philadelphia, PA 19147",
+          zip: "19147",
+          eventType: "corporate",
+          setting: "indoor",
+          attendance: 220,
+          hours: 4,
+          endTime: "22:00",
+          alcohol: "no",
+          vip: "yes",
+          capacity: "220 guests",
+          complexity: "Corporate ingress, guest list enforcement, lobby coverage",
+          note: "Lower crowd volatility, but VIP arrival windows still require controlled access.",
+          repeat: false
+        }
+      ];
+
+      const zipWeights = {
+        "19106": 4,
+        "19107": 3,
+        "19121": 5,
+        "19123": 4,
+        "19125": 5,
+        "19130": 3,
+        "19147": 4
+      };
+
+      const eventTypeWeights = {
+        "private-music": 18,
+        "concert": 20,
+        "corporate": 8,
+        "festival": 25,
+        "wedding": 10
+      };
 
       function setVal(text, state) {
         valMsg.textContent = text;
         valMsg.classList.remove("is-ok", "is-warn");
         if (state) valMsg.classList.add(state);
+      }
+
+      function setRiskBadge(el, tone, text) {
+        if (!el) return;
+        el.classList.remove("is-low", "is-medium", "is-high");
+        if (tone === "low") el.classList.add("is-low");
+        else if (tone === "medium") el.classList.add("is-medium");
+        else el.classList.add("is-high");
+        el.textContent = text;
+      }
+
+      function getRiskTone(score) {
+        if (score >= 78) return { tone: "high", label: "CRITICAL" };
+        if (score >= 56) return { tone: "high", label: "HIGH" };
+        if (score >= 34) return { tone: "medium", label: "MEDIUM" };
+        return { tone: "low", label: "LOW" };
+      }
+
+      function parseTimeMinutes(value) {
+        if (!value || !value.includes(":")) return null;
+        const [hours, minutes] = value.split(":").map(Number);
+        return (hours * 60) + minutes;
+      }
+
+      function populateVenueSuggestions() {
+        if (!venueSuggestions) return;
+        venueSuggestions.innerHTML = "";
+        venueProfiles.forEach(profile => {
+          const option = document.createElement("option");
+          option.value = `${profile.label} — ${profile.address}`;
+          venueSuggestions.appendChild(option);
+        });
+      }
+
+      function findVenueProfile(value) {
+        const normalized = value.trim().toLowerCase();
+        if (!normalized) return null;
+        return venueProfiles.find(profile => normalized.includes(profile.search) || normalized === `${profile.label} — ${profile.address}`.toLowerCase()) || null;
+      }
+
+      function fillFromVenue(profile) {
+        if (!profile) return;
+        estimateEventType.value = profile.eventType;
+        estimateVenueSetting.value = profile.setting;
+        estimateAttendance.value = profile.attendance;
+        estimateCoverageHours.value = profile.hours;
+        estimateAlcohol.value = profile.alcohol;
+        estimateVip.value = profile.vip;
+        estimateZip.value = profile.zip;
+        estimateEndTime.value = profile.endTime;
+        if (fieldLocation) fieldLocation.value = profile.address;
+        if (fieldAttendance) fieldAttendance.value = profile.attendance;
+      }
+
+      function renderVenueProfile(profile) {
+        if (!profile) {
+          venueProfileEl.hidden = true;
+          venueProfilePill.className = "venue-profile-pill";
+          return;
+        }
+        venueProfileEl.hidden = false;
+        venueProfileName.textContent = profile.label;
+        venueProfileAddress.textContent = profile.address;
+        venueProfileType.textContent = profile.eventType.replace(/-/g, " ");
+        venueProfileCapacity.textContent = profile.capacity;
+        venueProfileComplexity.textContent = profile.complexity;
+        venueProfileNote.textContent = profile.note;
+        venueProfilePill.textContent = profile.repeat ? "Repeat venue" : "New venue";
+        venueProfilePill.className = `venue-profile-pill ${profile.repeat ? "is-repeat" : "is-new"}`;
+      }
+
+      function currency(value) {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0
+        }).format(value);
+      }
+
+      function updateEstimate() {
+        const attendance = Math.max(1, Number(estimateAttendance.value || 0));
+        const hours = Math.max(1, Number(estimateCoverageHours.value || 0));
+        const eventType = estimateEventType.value;
+        const setting = estimateVenueSetting.value;
+        const alcohol = estimateAlcohol.value === "yes";
+        const vip = estimateVip.value === "yes";
+        const zip = String(estimateZip.value || "").slice(0, 5);
+        const endMinutes = parseTimeMinutes(estimateEndTime.value);
+
+        let score = 10 + (eventTypeWeights[eventType] || 0);
+
+        if (attendance >= 1000) score += 30;
+        else if (attendance >= 600) score += 22;
+        else if (attendance >= 300) score += 14;
+        else if (attendance >= 150) score += 8;
+        else score += 3;
+
+        if (setting === "outdoor") score += 12;
+        else if (setting === "hybrid") score += 8;
+        else score += 4;
+
+        if (alcohol) score += 15;
+        if (vip) score += 10;
+        score += zipWeights[zip] || 2;
+
+        if (endMinutes !== null) {
+          if (endMinutes < 240) score += 16;
+          else if (endMinutes >= 1380) score += 10;
+        }
+
+        const overall = getRiskTone(score);
+        const attendanceRisk = getRiskTone(attendance >= 1000 ? 80 : attendance >= 600 ? 62 : attendance >= 300 ? 45 : attendance >= 150 ? 32 : 18);
+        const alcoholRisk = getRiskTone(alcohol ? 64 : 18);
+        const crowdScore = Math.min(90, (eventTypeWeights[eventType] || 0) + (attendance >= 600 ? 24 : attendance >= 300 ? 16 : 8) + (alcohol ? 8 : 0));
+        const crowdRisk = getRiskTone(crowdScore);
+        const vipRisk = getRiskTone(vip ? 50 : 14);
+        const complexityScore = (setting === "outdoor" ? 58 : setting === "hybrid" ? 45 : 28) + (zipWeights[zip] || 2);
+        const complexityRisk = getRiskTone(complexityScore);
+
+        const ratio = overall.label === "CRITICAL" ? 2.4 : overall.label === "HIGH" ? 1.8 : overall.label === "MEDIUM" ? 1.3 : 0.9;
+        const recommendedGuards = Math.max(overall.label === "CRITICAL" ? 8 : overall.label === "HIGH" ? 5 : overall.label === "MEDIUM" ? 3 : 2, Math.ceil((attendance / 100) * ratio));
+        const siteLead = attendance >= 250 || overall.label === "HIGH" || overall.label === "CRITICAL" ? 1 : 0;
+        const entryScreeners = alcohol || attendance >= 300 ? Math.max(1, Math.ceil(recommendedGuards / 3)) : 0;
+        const overnight = endMinutes !== null && endMinutes < 180 ? 1 : 0;
+        const eventSecurity = Math.max(2, recommendedGuards - entryScreeners);
+
+        const hourlyBase = overall.label === "CRITICAL" ? 68 : overall.label === "HIGH" ? 58 : overall.label === "MEDIUM" ? 48 : 40;
+        const siteLeadCost = siteLead ? 425 : 0;
+        const rangeLow = Math.round((recommendedGuards * hours * hourlyBase) + siteLeadCost + (entryScreeners * 60));
+        const rangeHigh = Math.round(rangeLow * (overall.label === "CRITICAL" ? 1.24 : overall.label === "HIGH" ? 1.18 : 1.12));
+
+        const flags = [];
+        if (attendance < 75) flags.push("Small event: verify minimum deployment before issuing a formal quote.");
+        if (attendance >= 1000) flags.push("Large-capacity event: senior ops review recommended before commitment.");
+        if (setting === "outdoor" && attendance >= 500) flags.push("Outdoor perimeter exposure increases ingress, egress, and patrol coverage needs.");
+        if (endMinutes !== null && endMinutes < 240) flags.push("After-midnight coverage increases staffing pressure and requires manual review.");
+        if (vip && alcohol && attendance >= 300) flags.push("VIP presence plus alcohol service elevates access-control and escort requirements.");
+        if (!flags.length) flags.push("Standard intake lane: suitable for fast-turn quote review.");
+
+        riskIndexValue.textContent = overall.label;
+        recommendedGuardsEl.textContent = String(recommendedGuards);
+        guardRatioEl.textContent = `${ratio.toFixed(1)} / 100`;
+        priceRangeEl.textContent = `${currency(rangeLow)} – ${currency(rangeHigh)}`;
+        reviewLaneEl.textContent = flags.length > 1 ? "Manual review" : "Standard review";
+
+        reviewLanePill.textContent = overall.label === "CRITICAL" ? "Critical review" : flags.length > 1 ? "Ops review recommended" : "Standard review lane";
+        reviewLanePill.className = `estimate-pill ${overall.label === "CRITICAL" ? "is-critical" : flags.length > 1 ? "is-review" : "is-standard"}`;
+
+        estimateFlags.innerHTML = "";
+        flags.forEach(flag => {
+          const item = document.createElement("li");
+          item.textContent = flag;
+          estimateFlags.appendChild(item);
+        });
+
+        setRiskBadge(riskAttendance, attendanceRisk.tone, attendanceRisk.label);
+        setRiskBadge(riskAlcohol, alcoholRisk.tone, alcoholRisk.label);
+        setRiskBadge(riskCrowd, crowdRisk.tone, crowdRisk.label);
+        setRiskBadge(riskVip, vipRisk.tone, vipRisk.label);
+        setRiskBadge(riskVenueComplexity, complexityRisk.tone, complexityRisk.label);
+        setRiskBadge(riskOverall, overall.tone, overall.label === "CRITICAL" ? "CRITICAL" : overall.label === "HIGH" ? "HIGH" : overall.label === "MEDIUM" ? "MODERATE" : "LOW");
+
+        staffSiteLead.textContent = siteLead ? "x1" : "x0";
+        staffEventSecurity.textContent = `x${eventSecurity}`;
+        staffEntryScreeners.textContent = `x${entryScreeners}`;
+        staffOvernight.textContent = `x${overnight}`;
+        recommendNote.textContent = `Preliminary coverage assumes ${hours} hours of active coverage with ${attendance} expected attendees. Final staffing is confirmed after ops review.`;
       }
 
       validateBtn.addEventListener("click", () => {
@@ -1779,6 +2427,34 @@
         if (!valMsg.textContent) return;
         if (intakeForm.checkValidity()) setVal("All required intake fields are complete.", "is-ok");
         else setVal("Please complete required fields before proposal handoff.", "is-warn");
+      });
+
+      populateVenueSuggestions();
+      venueLookup.addEventListener("change", e => {
+        const profile = findVenueProfile(e.target.value);
+        renderVenueProfile(profile);
+        if (profile) fillFromVenue(profile);
+        updateEstimate();
+      });
+      venueLookup.addEventListener("blur", e => {
+        const profile = findVenueProfile(e.target.value);
+        renderVenueProfile(profile);
+        if (profile) fillFromVenue(profile);
+        updateEstimate();
+      });
+
+      [
+        estimateEventType,
+        estimateVenueSetting,
+        estimateAttendance,
+        estimateCoverageHours,
+        estimateAlcohol,
+        estimateVip,
+        estimateZip,
+        estimateEndTime
+      ].forEach(input => {
+        input.addEventListener("input", updateEstimate);
+        input.addEventListener("change", updateEstimate);
       });
 
       /* Billing radios */
@@ -1809,6 +2485,22 @@
       });
 
       syncBilling();
+      billingRows.forEach(row => {
+        row.setAttribute('tabindex', '0');
+        row.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const radio = row.querySelector('input[name="billingModel"]');
+            if (radio && !radio.checked) {
+              radio.checked = true;
+              radio.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
+        });
+      });
+      document.getElementById('billingRows').setAttribute('role', 'radiogroup');
+      renderVenueProfile(findVenueProfile(venueLookup.value));
+      updateEstimate();
 
       /* CTA toast */
       const toast = document.getElementById("toast");

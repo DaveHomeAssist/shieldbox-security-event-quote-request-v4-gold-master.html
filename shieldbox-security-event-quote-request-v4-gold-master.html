@@ -468,6 +468,103 @@
     }
 
     /* =========================================================
+       BRAND STATEMENT
+    ========================================================= */
+    .brand-story {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 42px 28px 12px;
+    }
+
+    .brand-story-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .brand-aside,
+    .brand-message {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 20px 18px;
+    }
+
+    .brand-aside {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 90%, var(--surface)) 0%, var(--surface) 100%);
+    }
+
+    .brand-mark {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+
+    .brand-name {
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .brand-title {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.45rem;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+
+    .brand-meta {
+      color: var(--ink-soft);
+      font-size: 0.84rem;
+      line-height: 1.7;
+    }
+
+    .brand-kicker {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .brand-headline {
+      font-family: "Libre Baskerville", serif;
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      line-height: 1.24;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+
+    .brand-copy {
+      color: var(--ink-soft);
+      font-size: 0.94rem;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .brand-quote {
+      border-left: 3px solid var(--accent);
+      padding-left: 14px;
+      color: var(--ink);
+      font-family: "Libre Baskerville", serif;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .services-copy {
+      max-width: 720px;
+      margin: 12px auto 0;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
        PHOTO GALLERY
     ========================================================= */
     .gallery {
@@ -870,26 +967,85 @@
     }
 
     /* =========================================================
-       THEME SWITCHER
+       THEME PICKER
     ========================================================= */
-    .theme-switcher {
-      position: fixed; top: 16px; right: 16px; z-index: 60;
-      display: none; align-items: center; gap: 10px;
-      padding: 10px 14px;
+    .theme-picker-toggle {
+      position: fixed; bottom: 20px; right: 20px; z-index: 70;
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 14px;
       border: 1px solid var(--line); border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink-soft);
+      font-family: inherit; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .theme-picker-toggle:hover,
+    .theme-picker-toggle:focus-visible {
+      border-color: var(--accent); color: var(--ink);
+      outline: none;
+    }
+    .theme-picker-toggle .tp-icon {
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .theme-picker-panel {
+      position: fixed; bottom: 60px; right: 20px; z-index: 70;
+      display: none;
+      width: 280px; max-height: calc(100dvh - 100px);
+      overflow-y: auto;
+      padding: 12px;
+      border: 1px solid var(--line); border-radius: var(--radius);
       background: var(--surface);
       box-shadow: var(--shadow-soft);
     }
-    .theme-switcher.is-visible { display: flex; }
+    .theme-picker-panel.is-open { display: block; }
 
-    .theme-switcher label {
-      font-size: 0.66rem; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--ink-soft); font-weight: 600;
+    .theme-picker-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      list-style: none; margin: 0; padding: 0;
     }
 
-    .theme-switcher select {
-      border: none; background: transparent;
-      min-width: 100px; font-size: 0.86rem; cursor: pointer;
+    .theme-swatch {
+      display: flex; flex-direction: column;
+      border: 2px solid var(--line); border-radius: 8px;
+      overflow: hidden; cursor: pointer;
+      background: none; padding: 0; font-family: inherit;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+    .theme-swatch:hover,
+    .theme-swatch:focus-visible {
+      border-color: var(--ink-soft);
+      outline: none;
+    }
+    .theme-swatch[aria-pressed="true"] {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .swatch-strip {
+      display: flex; height: 22px;
+    }
+    .swatch-strip span {
+      flex: 1;
+    }
+    .swatch-label {
+      padding: 5px 6px;
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--ink-soft); text-align: center;
+      background: var(--surface);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    @media (max-width: 400px) {
+      .theme-picker-panel { width: calc(100vw - 32px); right: 16px; bottom: 56px; }
+      .theme-picker-toggle { bottom: 14px; right: 14px; }
     }
 
     /* =========================================================
@@ -1641,14 +1797,12 @@
        RESPONSIVE
     ========================================================= */
     @media (max-width: 980px) {
+      .brand-story-grid { grid-template-columns: 1fr; }
       .layout { grid-template-columns: 1fr; }
       .side-stack { position: static; order: -1; }
       .assist-grid { grid-template-columns: 1fr; }
       .quote-flow { grid-template-columns: 1fr; }
-      .theme-switcher {
-        position: static; width: 100%;
-        justify-content: space-between; margin-bottom: 14px;
-      }
+      /* theme picker uses fixed position, no override needed */
       .risk-grid { grid-template-columns: 1fr; }
       .form-grid { grid-template-columns: 1fr; }
       .assist-fields { grid-template-columns: 1fr; }
@@ -1683,6 +1837,7 @@
 
       /* Global spacing reduction */
       .site-nav { padding: 0 16px; }
+      .brand-story { padding: 28px 16px 8px; }
       .gallery { padding: 32px 16px 36px; }
       .services { padding: 36px 16px; }
       .quote-section { padding: 36px 16px 48px; }
@@ -1786,6 +1941,9 @@
       .gallery-title { font-size: 1.25rem; }
       .gallery-copy { font-size: 0.84rem; }
       .gallery-img { height: 180px; }
+      .brand-title { font-size: 1.2rem; }
+      .brand-headline { font-size: 1.35rem; }
+      .brand-copy, .brand-meta, .services-copy { font-size: 0.84rem; }
 
       /* Services title */
       .services-title { font-size: 1.3rem; }
@@ -1877,7 +2035,7 @@
 
       .site-nav, .landing, .trust-strip, .gallery, .services,
       .section-divider, .quote-intro,
-      .theme-switcher, .side-stack, .next-actions,
+      .theme-picker-toggle, .theme-picker-panel, .side-stack, .next-actions,
       #toast { display: none !important; }
 
       .quote-section { padding: 0; max-width: none; }
@@ -1965,6 +2123,23 @@
     </div>
   </div>
 
+  <section class="brand-story" aria-label="ShieldBox local credibility">
+    <div class="brand-story-grid">
+      <aside class="brand-aside">
+        <div class="brand-mark" aria-hidden="true">🛡️</div>
+        <div class="brand-name">ShieldBox Security Solutions</div>
+        <h2 class="brand-title">South Philadelphia's Most Trusted Name in Protection</h2>
+        <p class="brand-meta">Since 2004 · Licensed · Bonded · Insured · Local</p>
+      </aside>
+      <div class="brand-message">
+        <div class="brand-kicker">Straight Talk</div>
+        <h2 class="brand-headline">We Keep It Safe. That's It. That's the Job.</h2>
+        <p class="brand-copy">You got a venue, a storefront, a job site, or an event? We got a guy. Actually, we got a whole crew. Born and raised in South Philly, working every corner of the city for 20 years.</p>
+        <blockquote class="brand-quote">“You don't need a corporation. You need someone who shows up.”</blockquote>
+      </div>
+    </div>
+  </section>
+
   <!-- =========================================================
        PHOTO GALLERY
   ========================================================= -->
@@ -1987,13 +2162,14 @@
   <section class="services" id="services">
     <div class="services-head">
       <div class="services-overline">What We Do</div>
-      <h2 class="services-title">Event Security Services</h2>
+      <h2 class="services-title">Security Services</h2>
+      <p class="services-copy">Event coverage is still the core offer on this page, but ShieldBox also handles storefronts, warehouses, strip malls, and other boots-on-the-ground assignments across South Philadelphia.</p>
     </div>
     <div class="services-grid">
       <div class="svc-card">
-        <div class="svc-icon">🚪</div>
-        <div class="svc-name">Access Control</div>
-        <div class="svc-desc">Credential verification, guest list enforcement, and managed entry for VIP areas and backstage.</div>
+        <div class="svc-icon">🏢</div>
+        <div class="svc-name">Commercial &amp; Retail Security</div>
+        <div class="svc-desc">Storefronts, warehouses, strip malls, and other commercial properties that need a reliable physical presence.</div>
       </div>
       <div class="svc-card">
         <div class="svc-icon">👥</div>
@@ -2058,18 +2234,11 @@
       </div>
     </div>
 
-    <div class="theme-switcher" id="themeSwitcher" aria-hidden="true">
-      <label for="themeSelect">Scheme</label>
-      <select id="themeSelect" aria-label="Select color scheme">
-        <option value="default">Dark Ops</option>
-        <option value="editorial">Editorial</option>
-        <option value="slate">Slate</option>
-        <option value="obsidian">Obsidian</option>
-        <option value="arctic">Arctic</option>
-        <option value="midnight">Midnight</option>
-        <option value="concrete">Concrete</option>
-        <option value="parchment">Parchment</option>
-      </select>
+    <button class="theme-picker-toggle" id="themeToggle" aria-expanded="false" aria-controls="themePanel" title="Change color theme">
+      <span class="tp-icon" aria-hidden="true"></span> Theme
+    </button>
+    <div class="theme-picker-panel" id="themePanel" role="dialog" aria-label="Theme picker">
+      <ul class="theme-picker-grid" role="listbox" aria-label="Color themes" id="themeGrid"></ul>
     </div>
 
     <div class="layout">
@@ -2647,17 +2816,44 @@
   <!-- JS -->
   <script>
     (() => {
-      /* Theme controls are admin-only: use ?admin=1 or localStorage.sb-admin-theme=1 */
-      const themeSelect = document.getElementById("themeSelect");
-      const themeSwitcher = document.getElementById("themeSwitcher");
+      /* ---- Theme Picker ---- */
       const themeKey = `sb-theme:${location.pathname.split("/").pop() || "shieldbox"}`;
-      const themeParam = new URLSearchParams(location.search).get("admin");
-      const validThemes = ["default", "editorial", "slate", "obsidian", "arctic", "midnight", "concrete", "parchment"];
+      const themes = [
+        { id: "default",   name: "Dark Ops",   bg: "#0e1116", accent: "#b24b40", ink: "#e7edf6" },
+        { id: "editorial", name: "Editorial",   bg: "#f4f1eb", accent: "#8e3a30", ink: "#1f1b17" },
+        { id: "slate",     name: "Slate",       bg: "#12151d", accent: "#2f5d9b", ink: "#e6ecf6" },
+        { id: "obsidian",  name: "Obsidian",    bg: "#0f0d0b", accent: "#b56a2c", ink: "#e8e2d8" },
+        { id: "arctic",    name: "Arctic",      bg: "#f5f7fa", accent: "#2b6aaa", ink: "#141c2b" },
+        { id: "midnight",  name: "Midnight",    bg: "#090d18", accent: "#cc8820", ink: "#e2e8f4" },
+        { id: "concrete",  name: "Concrete",    bg: "#1a1c1e", accent: "#2e8a4e", ink: "#dcdfe2" },
+        { id: "parchment", name: "Parchment",   bg: "#f0ebe0", accent: "#7c2e22", ink: "#2a2018" }
+      ];
+      const validThemes = themes.map(t => t.id);
 
-      if (themeParam === "1") localStorage.setItem("sb-admin-theme", "1");
-      if (themeParam === "0") localStorage.removeItem("sb-admin-theme");
+      const themeToggle = document.getElementById("themeToggle");
+      const themePanel  = document.getElementById("themePanel");
+      const themeGrid   = document.getElementById("themeGrid");
 
-      const adminThemeEnabled = localStorage.getItem("sb-admin-theme") === "1";
+      /* Build swatch cards */
+      themes.forEach(t => {
+        const li = document.createElement("li");
+        li.setAttribute("role", "option");
+        const btn = document.createElement("button");
+        btn.className = "theme-swatch";
+        btn.dataset.theme = t.id;
+        btn.setAttribute("role", "option");
+        btn.setAttribute("aria-pressed", "false");
+        btn.setAttribute("aria-label", t.name);
+        btn.innerHTML =
+          `<span class="swatch-strip">` +
+            `<span style="background:${t.bg}"></span>` +
+            `<span style="background:${t.accent}"></span>` +
+            `<span style="background:${t.ink}"></span>` +
+          `</span>` +
+          `<span class="swatch-label">${t.name}</span>`;
+        li.appendChild(btn);
+        themeGrid.appendChild(li);
+      });
 
       function applyTheme(v) {
         if (v && v !== "default") {
@@ -2665,24 +2861,71 @@
         } else {
           document.body.removeAttribute("data-theme");
         }
-        if (themeSelect) themeSelect.value = v || "default";
+        themeGrid.querySelectorAll(".theme-swatch").forEach(b => {
+          b.setAttribute("aria-pressed", b.dataset.theme === (v || "default") ? "true" : "false");
+        });
       }
 
+      function selectTheme(v) {
+        localStorage.setItem(themeKey, v);
+        applyTheme(v);
+        closePanel();
+      }
+
+      function openPanel() {
+        themePanel.classList.add("is-open");
+        themeToggle.setAttribute("aria-expanded", "true");
+        /* Focus the active swatch */
+        const active = themePanel.querySelector('[aria-pressed="true"]');
+        if (active) active.focus();
+      }
+
+      function closePanel() {
+        themePanel.classList.remove("is-open");
+        themeToggle.setAttribute("aria-expanded", "false");
+        themeToggle.focus();
+      }
+
+      function togglePanel() {
+        themePanel.classList.contains("is-open") ? closePanel() : openPanel();
+      }
+
+      /* Restore saved theme */
       const storedTheme = localStorage.getItem(themeKey);
       if (storedTheme && !validThemes.includes(storedTheme)) localStorage.removeItem(themeKey);
+      applyTheme(localStorage.getItem(themeKey) || "default");
 
-      if (adminThemeEnabled) {
-        themeSwitcher.classList.add("is-visible");
-        themeSwitcher.setAttribute("aria-hidden", "false");
-        applyTheme(localStorage.getItem(themeKey) || "default");
-        themeSelect.addEventListener("change", e => {
-          localStorage.setItem(themeKey, e.target.value);
-          applyTheme(e.target.value);
-        });
-      } else {
-        themeSwitcher.setAttribute("aria-hidden", "true");
-        applyTheme("default");
-      }
+      /* Events */
+      themeToggle.addEventListener("click", togglePanel);
+
+      themeGrid.addEventListener("click", e => {
+        const btn = e.target.closest(".theme-swatch");
+        if (btn) selectTheme(btn.dataset.theme);
+      });
+
+      themeGrid.addEventListener("keydown", e => {
+        const btn = e.target.closest(".theme-swatch");
+        if (!btn) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          selectTheme(btn.dataset.theme);
+        }
+      });
+
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape" && themePanel.classList.contains("is-open")) {
+          closePanel();
+        }
+      });
+
+      /* Close when clicking outside */
+      document.addEventListener("click", e => {
+        if (themePanel.classList.contains("is-open") &&
+            !themePanel.contains(e.target) &&
+            !themeToggle.contains(e.target)) {
+          closePanel();
+        }
+      });
 
       /* Form validation */
       const intakeForm = document.getElementById("intakeForm");

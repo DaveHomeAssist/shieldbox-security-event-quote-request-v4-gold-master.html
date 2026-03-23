@@ -223,6 +223,7 @@
       background: var(--bg);
       color: var(--ink);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a {
@@ -960,7 +961,8 @@
       text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;
     }
 
-    .form-field input {
+    .form-field input,
+    .form-field select {
       width: 100%;
       border: 1px solid var(--field-border); border-radius: 6px;
       background: var(--field-bg); color: var(--ink);
@@ -1443,6 +1445,147 @@
         flex-shrink: 0;
         font-size: 0.7rem;
       }
+
+      /* Hero: reduce vertical space so CTA is visible without scrolling */
+      .landing {
+        min-height: auto;
+        padding: 36px 20px 44px;
+      }
+      .hero-shield { width: 52px; height: 52px; margin-bottom: 18px; }
+      .hero-sub { font-size: 0.95rem; margin-bottom: 24px; }
+
+      /* Global spacing reduction */
+      .site-nav { padding: 0 16px; }
+      .gallery { padding: 32px 16px 36px; }
+      .services { padding: 36px 16px; }
+      .quote-section { padding: 36px 16px 48px; }
+      .section-divider { padding: 0 16px; }
+      .site-footer { padding: 24px 16px 32px; }
+
+      /* Trust strip: less padding */
+      .trust-item { padding: 18px 14px; }
+      .trust-num { font-size: 1.3rem; }
+      .trust-label { font-size: 0.68rem; }
+
+      /* Touch targets: buttons minimum 44px height */
+      .btn { padding: 14px 24px; min-height: 44px; }
+      .cta { padding: 14px 22px; min-height: 44px; }
+      .tiny-action { padding: 10px 14px; min-height: 44px; }
+      .nav-cta { padding: 10px 16px; min-height: 44px; }
+
+      /* Form inputs: minimum 44px touch target */
+      .form-field input,
+      .form-field select,
+      .assist-fields input,
+      .assist-fields select {
+        padding: 10px 12px;
+        min-height: 44px;
+        font-size: 0.9rem;
+      }
+
+      /* Billing radio touch targets */
+      .billing-input { width: 20px; height: 20px; }
+      .billing-choice { min-height: 44px; }
+
+      /* Checkbox touch targets */
+      .check-item input[type="checkbox"] {
+        width: 20px; height: 20px;
+      }
+      #scope .check-item input[type="checkbox"] {
+        width: 22px; height: 22px;
+      }
+
+      /* Section body spacing */
+      .section-body { padding: 12px; }
+      .section-head { padding: 12px; }
+
+      /* Promise and next-step cards */
+      .promise-card { padding: 14px; }
+      .next-step { padding: 18px 14px 16px; }
+
+      /* Gallery images shorter on phone */
+      .gallery-img { height: 200px; }
+
+      /* Confirm grid: stack on small screens */
+      .confirm-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      /* Nav: hide non-CTA links, keep only Get a Quote */
+      .nav-link-desktop { display: none; }
+      .nav-back { display: none; }
+      .nav-links { gap: 0; }
+
+      /* Hero: tighten further for 375px */
+      .landing { padding: 28px 16px 36px; }
+      .hero-shield { width: 44px; height: 44px; margin-bottom: 14px; }
+      .hero-tagline { font-size: 0.66rem; margin-bottom: 10px; }
+      .hero-sub { font-size: 0.88rem; line-height: 1.65; margin-bottom: 20px; }
+
+      /* Hero actions stack vertically */
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+
+      /* Trust strip numbers */
+      .trust-item { padding: 14px 10px; }
+      .trust-num { font-size: 1.15rem; }
+      .trust-label { font-size: 0.64rem; letter-spacing: 0.04em; }
+
+      /* Sections: less internal padding */
+      .section-body { padding: 10px; }
+      .section-head { padding: 10px 12px; }
+      .intake-form { padding: 10px; }
+
+      /* Billing table: ensure no page-level overflow */
+      .billing-table-wrap { margin-left: -10px; margin-right: -10px; border-radius: 0; }
+
+      /* Simple table: also prevent page overflow */
+      .simple-table-wrap { margin-left: -10px; margin-right: -10px; border-radius: 0; }
+
+      /* Recommend box */
+      .recommend-box { padding: 12px; }
+      .recommend-row { font-size: 0.86rem; }
+
+      /* Quote intro */
+      .quote-intro-title { font-size: 1.3rem; }
+      .quote-intro-sub { font-size: 0.86rem; }
+
+      /* Gallery title */
+      .gallery-title { font-size: 1.25rem; }
+      .gallery-copy { font-size: 0.84rem; }
+      .gallery-img { height: 180px; }
+
+      /* Services title */
+      .services-title { font-size: 1.3rem; }
+
+      /* Promise card */
+      .promise-lead { font-size: 1.05rem; }
+
+      /* Next step title */
+      .next-step { padding: 16px 12px 14px; }
+      .next-copy { font-size: 0.86rem; }
+
+      /* Next actions stack */
+      .next-actions { flex-direction: column; width: 100%; }
+      .next-actions .cta { width: 100%; }
+
+      /* Footer */
+      .footer-brand { font-size: 0.84rem; }
+      .footer-note { font-size: 0.72rem; }
+
+      /* Venue profile grid: stack on tiny screens */
+      .venue-profile-grid,
+      .estimate-grid { grid-template-columns: 1fr; }
+
+      /* Property grid: single column */
+      .property-grid { grid-template-columns: 1fr; }
+
+      /* Assist card spacing */
+      .assist-card { padding: 12px; }
+      .assist-copy { font-size: 0.8rem; }
+
+      /* Toast: full width at bottom */
+      #toast { right: 8px; bottom: 8px; width: calc(100vw - 16px); }
     }
 
     /* =========================================================

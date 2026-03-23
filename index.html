@@ -9,6 +9,15 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon/favicon-16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/favicon/apple-touch-icon.png" />
+    <meta property="og:title" content="ShieldBox Security | Philadelphia Event Security">
+    <meta property="og:description" content="Request a quote for professional event security services in Philadelphia from ShieldBox Security.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://davehomeassist.github.io/shieldbox-security-event-quote-request-v4-gold-master.html/">
+    <meta property="og:image" content="https://davehomeassist.github.io/shieldbox-quote-request/assets/icons/favicon/android-chrome-512.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="ShieldBox Security | Philadelphia Event Security">
+    <meta name="twitter:description" content="Request a quote for professional event security services in Philadelphia from ShieldBox Security.">
+    <meta name="twitter:image" content="https://davehomeassist.github.io/shieldbox-quote-request/assets/icons/favicon/android-chrome-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -378,6 +387,48 @@
       font-size: 0.74rem; font-weight: 500;
       color: var(--ink-soft); letter-spacing: 0.06em;
       text-transform: uppercase;
+    }
+
+    /* =========================================================
+       PHOTO GALLERY
+    ========================================================= */
+    .gallery {
+      max-width: 1080px; margin: 0 auto;
+      padding: 48px 28px 56px;
+    }
+    .gallery-head {
+      text-align: center; margin-bottom: 32px;
+    }
+    .gallery-overline {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .gallery-title {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--ink);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .gallery-img {
+      width: 100%; height: 280px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      transition: transform 0.2s, filter 0.2s;
+      filter: grayscale(0.15);
+    }
+    .gallery-img:hover {
+      transform: scale(1.02);
+      filter: grayscale(0);
+    }
+    @media (max-width: 700px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-img { height: 220px; }
     }
 
     /* =========================================================
@@ -1189,6 +1240,21 @@
       <div class="trust-label">On Site Every Event</div>
     </div>
   </div>
+
+  <!-- =========================================================
+       PHOTO GALLERY
+  ========================================================= -->
+  <section class="gallery" aria-label="ShieldBox team in action">
+    <div class="gallery-head">
+      <div class="gallery-overline">On the Ground</div>
+      <h2 class="gallery-title">Our Team in Action</h2>
+    </div>
+    <div class="gallery-grid">
+      <img class="gallery-img" src="BoxPics/IMG_2594-web.jpeg" alt="ShieldBox security checking credentials at venue entrance" loading="lazy" />
+      <img class="gallery-img" src="BoxPics/IMG_3336.jpeg" alt="ShieldBox officer applying wristbands during event check-in" loading="lazy" />
+      <img class="gallery-img" src="BoxPics/att.ZxHeEFy_psJsMVVjKHGzZxhRyE7DzwXEGz6AKdxzMIM.jpeg" alt="ShieldBox security team coordinating at venue staging area" loading="lazy" />
+    </div>
+  </section>
 
   <!-- =========================================================
        SERVICES

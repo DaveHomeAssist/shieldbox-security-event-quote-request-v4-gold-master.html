@@ -411,7 +411,7 @@
     }
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 12px;
     }
     .gallery-img {
@@ -531,12 +531,13 @@
     ========================================================= */
     .theme-switcher {
       position: fixed; top: 16px; right: 16px; z-index: 60;
-      display: flex; align-items: center; gap: 10px;
+      display: none; align-items: center; gap: 10px;
       padding: 10px 14px;
       border: 1px solid var(--line); border-radius: 999px;
       background: var(--surface);
       box-shadow: var(--shadow-soft);
     }
+    .theme-switcher.is-visible { display: flex; }
 
     .theme-switcher label {
       font-size: 0.66rem; letter-spacing: 0.16em;
@@ -1253,6 +1254,7 @@
       <img class="gallery-img" src="BoxPics/IMG_2594-web.jpeg" alt="ShieldBox security checking credentials at venue entrance" loading="lazy" />
       <img class="gallery-img" src="BoxPics/IMG_3336.jpeg" alt="ShieldBox officer applying wristbands during event check-in" loading="lazy" />
       <img class="gallery-img" src="BoxPics/att.ZxHeEFy_psJsMVVjKHGzZxhRyE7DzwXEGz6AKdxzMIM.jpeg" alt="ShieldBox security team coordinating at venue staging area" loading="lazy" />
+      <img class="gallery-img" src="BoxPics/IMG_4091-web.jpeg" alt="ShieldBox security presence supporting event operations on site" loading="lazy" />
     </div>
   </section>
 
@@ -1310,7 +1312,7 @@
       <p class="quote-intro-sub">Fill out the details below and we'll return a tailored, itemized security proposal within 24 hours.</p>
     </div>
 
-    <div class="theme-switcher">
+    <div class="theme-switcher" id="themeSwitcher" aria-hidden="true">
       <label for="themeSelect">Scheme</label>
       <select id="themeSelect" aria-label="Select color scheme">
         <option value="default">Dark Ops</option>
@@ -1716,25 +1718,42 @@
   <!-- JS -->
   <script>
     (() => {
-      /* Theme */
+      /* Theme controls are admin-only: use ?admin=1 or localStorage.sb-admin-theme=1 */
       const themeSelect = document.getElementById("themeSelect");
+      const themeSwitcher = document.getElementById("themeSwitcher");
       const themeKey = `sb-theme:${location.pathname.split("/").pop() || "shieldbox"}`;
+      const themeParam = new URLSearchParams(location.search).get("admin");
+      const validThemes = ["default", "editorial", "slate", "obsidian", "arctic", "midnight", "concrete", "parchment"];
+
+      if (themeParam === "1") localStorage.setItem("sb-admin-theme", "1");
+      if (themeParam === "0") localStorage.removeItem("sb-admin-theme");
+
+      const adminThemeEnabled = localStorage.getItem("sb-admin-theme") === "1";
 
       function applyTheme(v) {
-        if (v && v !== "default") { document.body.dataset.theme = v; }
-        else { document.body.removeAttribute("data-theme"); }
-        themeSelect.value = v || "default";
+        if (v && v !== "default") {
+          document.body.dataset.theme = v;
+        } else {
+          document.body.removeAttribute("data-theme");
+        }
+        if (themeSelect) themeSelect.value = v || "default";
       }
 
-      /* Clear any stale theme from older versions */
-      if (!["default","editorial","slate","obsidian","arctic","midnight","concrete","parchment"].includes(localStorage.getItem(themeKey))) {
-        localStorage.removeItem(themeKey);
+      const storedTheme = localStorage.getItem(themeKey);
+      if (storedTheme && !validThemes.includes(storedTheme)) localStorage.removeItem(themeKey);
+
+      if (adminThemeEnabled) {
+        themeSwitcher.classList.add("is-visible");
+        themeSwitcher.setAttribute("aria-hidden", "false");
+        applyTheme(localStorage.getItem(themeKey) || "default");
+        themeSelect.addEventListener("change", e => {
+          localStorage.setItem(themeKey, e.target.value);
+          applyTheme(e.target.value);
+        });
+      } else {
+        themeSwitcher.setAttribute("aria-hidden", "true");
+        applyTheme("default");
       }
-      applyTheme(localStorage.getItem(themeKey) || "default");
-      themeSelect.addEventListener("change", e => {
-        localStorage.setItem(themeKey, e.target.value);
-        applyTheme(e.target.value);
-      });
 
       /* Form validation */
       const intakeForm = document.getElementById("intakeForm");

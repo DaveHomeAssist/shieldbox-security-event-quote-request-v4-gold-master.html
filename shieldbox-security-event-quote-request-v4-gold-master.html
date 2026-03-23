@@ -797,6 +797,14 @@
       color: var(--ink-soft); font-size: 0.84rem; line-height: 1.55;
     }
 
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0);
+      white-space: nowrap; border: 0;
+    }
+
     /* =========================================================
        SECTION CARDS
     ========================================================= */
@@ -1266,6 +1274,10 @@
       border-color: color-mix(in srgb, var(--accent) 82%, #000);
     }
 
+    .cta.is-loading {
+      opacity: 0.7; pointer-events: none;
+    }
+
     .cta-secondary {
       background: transparent; color: var(--ink); border-color: var(--line-strong);
     }
@@ -1281,6 +1293,67 @@
     .next-turnaround {
       margin-top: 12px; color: var(--ink-soft);
       font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    .submission-confirmation {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .quote-section.is-submitted .layout {
+      display: none;
+    }
+
+    .quote-section.is-submitted .submission-confirmation {
+      display: block;
+    }
+
+    .confirm-lead {
+      color: var(--ink-soft); font-size: 0.96rem;
+      line-height: 1.7; margin-bottom: 14px;
+      max-width: 720px;
+    }
+
+    .confirm-reference {
+      font-family: "Libre Baskerville", serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      line-height: 1.2; margin-bottom: 16px;
+      color: var(--ink);
+    }
+
+    .confirm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .confirm-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+      padding: 12px 13px;
+    }
+
+    .confirm-label {
+      color: var(--label-ink); font-size: 0.66rem;
+      text-transform: uppercase; letter-spacing: 0.13em;
+      margin-bottom: 5px; font-weight: 700;
+    }
+
+    .confirm-value {
+      color: var(--ink); font-size: 0.92rem; line-height: 1.55;
+      word-break: break-word;
+    }
+
+    .confirm-copy {
+      color: var(--ink-soft); font-size: 0.88rem;
+      line-height: 1.7; margin-bottom: 16px;
+    }
+
+    .confirm-actions {
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: 8px;
     }
 
     /* =========================================================
@@ -1329,6 +1402,13 @@
 
     #toast.show { opacity: 1; transform: translateY(0); }
     #toast strong { display: block; margin-bottom: 3px; }
+
+    #toast.is-error {
+      border-color: color-mix(in srgb, var(--accent) 52%, var(--line));
+      border-left-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+      color: color-mix(in srgb, var(--accent) 72%, var(--ink));
+    }
 
     /* =========================================================
        RESPONSIVE
@@ -1674,55 +1754,35 @@
           </div>
         </section>
 
-        <!-- BUSINESS RECORD -->
+        <!-- DIRECT OPS CONTACT -->
         <section class="section" aria-labelledby="summaryHeading">
           <div class="section-head">
             <span class="section-icon">R</span>
-            <h2 id="summaryHeading" class="section-title">Business Record</h2>
-            <span class="section-note">Client Record</span>
+            <h2 id="summaryHeading" class="section-title">ShieldBox Intake Desk</h2>
+            <span class="section-note">Direct Contact</span>
           </div>
           <div class="section-body">
             <div class="property-grid">
               <div class="property">
-                <div class="property-label">Created</div>
-                <div class="property-value">March 14, 2026</div>
+                <div class="property-label">Intake Email</div>
+                <div class="property-value"><a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a></div>
               </div>
               <div class="property">
-                <div class="property-label">Email</div>
-                <div class="property-value"><a href="mailto:intake@shieldboxsecurity.example">intake@shieldboxsecurity.example</a></div>
+                <div class="property-label">Response Time</div>
+                <div class="property-value">Within 24 hours</div>
               </div>
               <div class="property">
-                <div class="property-label">Industry</div>
-                <div class="property-value">Security</div>
+                <div class="property-label">Service Focus</div>
+                <div class="property-value">Private events, concerts, and corporate gatherings</div>
               </div>
               <div class="property">
-                <div class="property-label">Phone</div>
-                <div class="property-value"><a href="tel:+12155550148">(215) 555-0148</a></div>
-              </div>
-              <div class="property">
-                <div class="property-label">Primary Contact</div>
-                <div class="property-value">Carl Mercer</div>
-              </div>
-              <div class="property">
-                <div class="property-label">Source</div>
-                <div class="property-value">Website</div>
-              </div>
-              <div class="property">
-                <div class="property-label">Status</div>
-                <div class="property-value"><span class="pill">Prospect</span></div>
-              </div>
-              <div class="property">
-                <div class="property-label">Type</div>
-                <div class="property-value"><span class="pill">Lead</span></div>
-              </div>
-              <div class="property">
-                <div class="property-label">Website</div>
-                <div class="property-value"><a href="https://shieldboxsecurity.example" target="_blank" rel="noopener noreferrer">shieldboxsecurity.example</a></div>
+                <div class="property-label">Proposal Delivery</div>
+                <div class="property-value">Itemized staffing and pricing recommendation</div>
               </div>
             </div>
             <div class="notes-box">
-              <div class="notes-title">Intake Notes</div>
-              <p class="notes-copy">Inbound website inquiry for a private music event in Philadelphia. Attendance, alcohol service, and VIP presence were confirmed. Venue addendum and COI requirements are still pending. This record uses fictional values for concept review.</p>
+              <div class="notes-title">Submission Routing</div>
+              <p class="notes-copy">Use the form below to send your event requirements directly to ShieldBox operations. Include venue restrictions, insurance requirements, and any production contacts so the formal quote can be turned around without follow-up delays.</p>
             </div>
           </div>
         </section>
@@ -1736,36 +1796,48 @@
           <div class="section-body">
             <form id="intakeForm" class="intake-form" novalidate aria-labelledby="intakeFormTitle">
               <h3 id="intakeFormTitle" class="form-title">Required Intake Fields</h3>
-              <p class="form-help">Complete required values before sending the page to proposal ops.</p>
+              <p class="form-help">Complete the required values below. When you submit, the intake routes directly to ShieldBox proposal ops at <a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a>.</p>
               <div class="form-grid">
                 <div class="form-field">
+                  <label for="fieldOrganization">Organization / Client</label>
+                  <input id="fieldOrganization" name="organization" type="text" autocomplete="organization" placeholder="Company, venue group, or private client" />
+                </div>
+                <div class="form-field">
+                  <label for="fieldEventName">Event Name</label>
+                  <input id="fieldEventName" name="event_name" type="text" placeholder="Show, conference, or private event name" />
+                </div>
+                <div class="form-field">
                   <label for="fieldName">Name</label>
-                  <input id="fieldName" name="name" type="text" required value="Jenna Morales" autocomplete="name" />
+                  <input id="fieldName" name="name" type="text" required autocomplete="name" placeholder="Primary contact full name" />
                 </div>
                 <div class="form-field">
                   <label for="fieldPhone">Phone</label>
-                  <input id="fieldPhone" name="phone" type="tel" required value="(267) 555-0192" autocomplete="tel" />
+                  <input id="fieldPhone" name="phone" type="tel" required autocomplete="tel" placeholder="(267) 555-0192" />
                 </div>
                 <div class="form-field">
                   <label for="fieldEmail">Email</label>
-                  <input id="fieldEmail" name="email" type="email" required value="jenna@blacklineevents.example" autocomplete="email" />
+                  <input id="fieldEmail" name="email" type="email" required autocomplete="email" placeholder="name@company.com" />
                 </div>
                 <div class="form-field">
                   <label for="fieldDate">Event Date</label>
-                  <input id="fieldDate" name="event_date" type="date" required value="2026-03-28" />
+                  <input id="fieldDate" name="event_date" type="date" required />
                 </div>
                 <div class="form-field">
                   <label for="fieldLocation">Event Location</label>
-                  <input id="fieldLocation" name="event_location" type="text" required value="1425 American St, Philadelphia, PA 19147" />
+                  <input id="fieldLocation" name="event_location" type="text" required placeholder="Venue name or full street address" />
                 </div>
                 <div class="form-field">
                   <label for="fieldDuration">Event Duration</label>
-                  <input id="fieldDuration" name="event_duration" type="number" min="1" max="72" step="0.5" required value="6" placeholder="Hours" />
+                  <input id="fieldDuration" name="event_duration" type="number" min="1" max="72" step="0.5" required placeholder="Hours on site" />
                 </div>
                 <div class="form-field">
                   <label for="fieldAttendance">Expected Attendance</label>
-                  <input id="fieldAttendance" name="expected_attendance" type="number" min="1" max="10000" required value="450" />
+                  <input id="fieldAttendance" name="expected_attendance" type="number" min="1" max="10000" required placeholder="Estimated guest count" />
                 </div>
+              </div>
+              <div class="visually-hidden" aria-hidden="true">
+                <label for="fieldWebsiteTrap">Leave this field blank</label>
+                <input id="fieldWebsiteTrap" name="_honey" type="text" tabindex="-1" autocomplete="off" />
               </div>
               <div class="form-actions">
                 <button id="validateIntakeButton" class="tiny-action" type="button">Validate Required Fields</button>
@@ -1782,16 +1854,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>Organization Name</td><td>Blackline Events Group</td></tr>
-                  <tr><td>Point of Contact</td><td>Jenna Morales</td></tr>
-                  <tr><td>Email</td><td><a href="mailto:jenna@blacklineevents.example">jenna@blacklineevents.example</a></td></tr>
-                  <tr><td>Phone</td><td>(267) 555-0192</td></tr>
-                  <tr><td>Event Name</td><td>Spring Warehouse Sessions</td></tr>
-                  <tr><td>Event Type</td><td>Private Music Event</td></tr>
-                  <tr><td>Venue Address</td><td>1425 American St, Philadelphia, PA 19147</td></tr>
-                  <tr><td>Expected Attendance</td><td>450</td></tr>
-                  <tr><td>Alcohol Served</td><td>Yes</td></tr>
-                  <tr><td>VIP or Talent Present</td><td>Yes</td></tr>
+                  <tr><td>Organization / Client</td><td id="summaryOrganization">—</td></tr>
+                  <tr><td>Point of Contact</td><td id="summaryName">—</td></tr>
+                  <tr><td>Email</td><td id="summaryEmail">—</td></tr>
+                  <tr><td>Phone</td><td id="summaryPhone">—</td></tr>
+                  <tr><td>Event Name</td><td id="summaryEventName">—</td></tr>
+                  <tr><td>Event Type</td><td id="summaryEventType">Private Music Event</td></tr>
+                  <tr><td>Venue Address</td><td id="summaryLocation">—</td></tr>
+                  <tr><td>Event Date</td><td id="summaryDate">—</td></tr>
+                  <tr><td>Expected Attendance</td><td id="summaryAttendance">—</td></tr>
+                  <tr><td>Coverage Hours</td><td id="summaryDuration">—</td></tr>
+                  <tr><td>Alcohol Served</td><td id="summaryAlcohol">Alcohol served</td></tr>
+                  <tr><td>VIP or Talent Present</td><td id="summaryVip">VIP or talent on site</td></tr>
                 </tbody>
               </table>
             </div>
@@ -2006,12 +2080,12 @@
         <!-- NEXT STEP -->
         <section class="next-step" id="next" aria-labelledby="nextHeading">
           <h2 class="next-title" id="nextHeading">Next Step</h2>
-          <p class="next-copy">Email completed event details to <a href="mailto:quotes@shieldboxsecurity.example">quotes@shieldboxsecurity.example</a> or reply directly to your intake coordinator. A formal proposal is returned within <strong>24 hours</strong>.</p>
+          <p class="next-copy">When you request a formal proposal, your intake routes directly to <a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a>. ShieldBox reviews every request manually and follows up within <strong>24 hours</strong>.</p>
           <div class="next-actions">
             <button id="requestButton" class="cta" type="button">Request Formal Proposal</button>
             <button id="printButton" class="cta cta-secondary" type="button">Download as PDF</button>
           </div>
-          <div class="next-turnaround">Guaranteed 24-hour turnaround | Ref: SBX-2026-0314-001</div>
+          <div class="next-turnaround">Guaranteed 24-hour turnaround | Ref: <span id="referencePreview">Generating...</span></div>
         </section>
       </div>
 
@@ -2041,6 +2115,39 @@
         </section>
       </aside>
     </div>
+
+    <div class="submission-confirmation" id="submissionConfirmation" hidden>
+      <section class="section" aria-labelledby="confirmationHeading">
+        <div class="section-head">
+          <span class="section-icon">✓</span>
+          <h2 id="confirmationHeading" class="section-title" tabindex="-1">Quote Request Received</h2>
+          <span class="section-note">Proposal Queue</span>
+        </div>
+        <div class="section-body">
+          <p class="confirm-lead">Your intake has been sent to ShieldBox operations. Keep the reference below for any updates, venue addenda, or insurance requests you send after this step.</p>
+          <div class="confirm-reference" id="confirmationReference">SBX-00000000-0000</div>
+          <div class="confirm-grid">
+            <div class="confirm-item">
+              <div class="confirm-label">Ops Email</div>
+              <div class="confirm-value"><a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a></div>
+            </div>
+            <div class="confirm-item">
+              <div class="confirm-label">Follow-Up Window</div>
+              <div class="confirm-value">A ShieldBox team member will follow up within 24 hours.</div>
+            </div>
+            <div class="confirm-item">
+              <div class="confirm-label">Reply Contact</div>
+              <div class="confirm-value" id="confirmationClientEmail">—</div>
+            </div>
+          </div>
+          <p class="confirm-copy">If anything changes before the formal proposal is issued, email <a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a> and include the reference above so operations can update the same request.</p>
+          <div class="confirm-actions">
+            <button id="printConfirmationButton" class="cta cta-secondary" type="button">Download as PDF</button>
+            <button id="newRequestButton" class="cta" type="button">Start Another Quote</button>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 
   <!-- FOOTER -->
@@ -2048,20 +2155,19 @@
     <div class="footer-brand">
       <div class="footer-name">ShieldBox Security</div>
       Philadelphia, PA<br />
-      <a href="https://shieldboxsecurity.example" target="_blank" rel="noopener noreferrer">shieldboxsecurity.example</a><br />
-      <a href="mailto:quotes@shieldboxsecurity.example">quotes@shieldboxsecurity.example</a><br />
-      <a href="tel:+12155550148">(215) 555-0148</a>
+      <a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a><br />
+      Owner-led event security intake
     </div>
     <div class="footer-note">
-      Mockup concept for design and intake workflow review.<br />
-      All names, numbers, and operational values are fictional placeholders.
+      Public quote intake page for live proposal requests.<br />
+      Submissions route to ShieldBox operations for manual review and follow-up.
     </div>
   </footer>
 
   <!-- TOAST -->
   <div id="toast" role="status" aria-live="polite" hidden>
-    <strong>Demo Request Recorded</strong>
-    This mockup does not send data. In production, intake details would route to proposal ops.
+    <strong id="toastTitle">Submission status</strong>
+    <span id="toastMessage">Please try again or email shieldbox.sec@gmail.com.</span>
   </div>
 
   <!-- JS -->
@@ -2108,8 +2214,45 @@
       const intakeForm = document.getElementById("intakeForm");
       const validateBtn = document.getElementById("validateIntakeButton");
       const valMsg = document.getElementById("validationMessage");
+      const fieldOrganization = document.getElementById("fieldOrganization");
+      const fieldEventName = document.getElementById("fieldEventName");
+      const fieldName = document.getElementById("fieldName");
+      const fieldPhone = document.getElementById("fieldPhone");
+      const fieldEmail = document.getElementById("fieldEmail");
+      const fieldDate = document.getElementById("fieldDate");
       const fieldLocation = document.getElementById("fieldLocation");
+      const fieldDuration = document.getElementById("fieldDuration");
       const fieldAttendance = document.getElementById("fieldAttendance");
+      const requestBtn = document.getElementById("requestButton");
+      const printBtn = document.getElementById("printButton");
+      const quoteSection = document.getElementById("quoteStart");
+      const submissionConfirmation = document.getElementById("submissionConfirmation");
+      const confirmationHeading = document.getElementById("confirmationHeading");
+      const confirmationReference = document.getElementById("confirmationReference");
+      const confirmationClientEmail = document.getElementById("confirmationClientEmail");
+      const referencePreview = document.getElementById("referencePreview");
+      const printConfirmationButton = document.getElementById("printConfirmationButton");
+      const newRequestButton = document.getElementById("newRequestButton");
+      const toast = document.getElementById("toast");
+      const toastTitle = document.getElementById("toastTitle");
+      const toastMessage = document.getElementById("toastMessage");
+
+      const summaryOrganization = document.getElementById("summaryOrganization");
+      const summaryName = document.getElementById("summaryName");
+      const summaryEmail = document.getElementById("summaryEmail");
+      const summaryPhone = document.getElementById("summaryPhone");
+      const summaryEventName = document.getElementById("summaryEventName");
+      const summaryEventType = document.getElementById("summaryEventType");
+      const summaryLocation = document.getElementById("summaryLocation");
+      const summaryDate = document.getElementById("summaryDate");
+      const summaryAttendance = document.getElementById("summaryAttendance");
+      const summaryDuration = document.getElementById("summaryDuration");
+      const summaryAlcohol = document.getElementById("summaryAlcohol");
+      const summaryVip = document.getElementById("summaryVip");
+
+      const opsEmail = "shieldbox.sec@gmail.com";
+      const formSubmitEndpoint = "https://formsubmit.co/ajax/shieldbox.sec@gmail.com";
+      let currentReference = "";
 
       /* Smart quote assist */
       const venueLookup = document.getElementById("venueLookup");
@@ -2247,6 +2390,84 @@
         if (state) valMsg.classList.add(state);
       }
 
+      function buildReference() {
+        const d = new Date();
+        const pad = n => String(n).padStart(2, "0");
+        return `SBX-${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${String(Math.floor(1000 + (Math.random() * 9000)))}`;
+      }
+
+      function syncReference() {
+        if (referencePreview) referencePreview.textContent = currentReference;
+        if (confirmationReference) confirmationReference.textContent = currentReference;
+      }
+
+      function optionText(selectEl) {
+        if (!selectEl || selectEl.selectedIndex < 0) return "—";
+        return selectEl.options[selectEl.selectedIndex].textContent.trim();
+      }
+
+      function formatDate(value) {
+        if (!value) return "—";
+        const parsed = new Date(`${value}T00:00:00`);
+        if (Number.isNaN(parsed.getTime())) return value;
+        return parsed.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric"
+        });
+      }
+
+      function setNodeValue(node, value, href) {
+        if (!node) return;
+        node.textContent = "";
+        if (!value) {
+          node.textContent = "—";
+          return;
+        }
+        if (href) {
+          const link = document.createElement("a");
+          link.href = href;
+          link.textContent = value;
+          node.appendChild(link);
+          return;
+        }
+        node.textContent = value;
+      }
+
+      function syncOverviewSnapshot() {
+        setNodeValue(summaryOrganization, fieldOrganization && fieldOrganization.value.trim());
+        setNodeValue(summaryName, fieldName && fieldName.value.trim());
+        setNodeValue(summaryEmail, fieldEmail && fieldEmail.value.trim(), fieldEmail && fieldEmail.value.trim() ? `mailto:${fieldEmail.value.trim()}` : "");
+        setNodeValue(summaryPhone, fieldPhone && fieldPhone.value.trim());
+        setNodeValue(summaryEventName, fieldEventName && fieldEventName.value.trim());
+        setNodeValue(summaryEventType, optionText(estimateEventType));
+        setNodeValue(summaryLocation, fieldLocation && fieldLocation.value.trim());
+        setNodeValue(summaryDate, formatDate(fieldDate && fieldDate.value));
+        setNodeValue(summaryAttendance, fieldAttendance && fieldAttendance.value ? `${fieldAttendance.value} guests` : "");
+        setNodeValue(summaryDuration, fieldDuration && fieldDuration.value ? `${fieldDuration.value} hours` : "");
+        setNodeValue(summaryAlcohol, optionText(estimateAlcohol));
+        setNodeValue(summaryVip, optionText(estimateVip));
+      }
+
+      function collectCheckedLabels(selector) {
+        return Array.from(document.querySelectorAll(selector))
+          .filter(input => input.checked)
+          .map(input => {
+            const label = input.closest("label");
+            const text = label && label.querySelector(".check-label");
+            return text ? text.textContent.trim() : input.name;
+          })
+          .join(", ");
+      }
+
+      function selectedBillingModel() {
+        const checked = document.querySelector('input[name="billingModel"]:checked');
+        if (!checked) return "";
+        const row = checked.closest(".billing-row");
+        const model = row && row.querySelector(".billing-model");
+        return model ? model.textContent.trim() : checked.value;
+      }
+
       function setRiskBadge(el, tone, text) {
         if (!el) return;
         el.classList.remove("is-low", "is-medium", "is-high");
@@ -2297,6 +2518,7 @@
         estimateEndTime.value = profile.endTime;
         if (fieldLocation) fieldLocation.value = profile.address;
         if (fieldAttendance) fieldAttendance.value = profile.attendance;
+        syncOverviewSnapshot();
       }
 
       function renderVenueProfile(profile) {
@@ -2412,6 +2634,7 @@
         staffEntryScreeners.textContent = `x${entryScreeners}`;
         staffOvernight.textContent = `x${overnight}`;
         recommendNote.textContent = `Preliminary coverage assumes ${hours} hours of active coverage with ${attendance} expected attendees. Final staffing is confirmed after ops review.`;
+        syncOverviewSnapshot();
       }
 
       validateBtn.addEventListener("click", () => {
@@ -2427,6 +2650,22 @@
         if (!valMsg.textContent) return;
         if (intakeForm.checkValidity()) setVal("All required intake fields are complete.", "is-ok");
         else setVal("Please complete required fields before proposal handoff.", "is-warn");
+      });
+
+      [
+        fieldOrganization,
+        fieldEventName,
+        fieldName,
+        fieldPhone,
+        fieldEmail,
+        fieldDate,
+        fieldLocation,
+        fieldDuration,
+        fieldAttendance
+      ].forEach(input => {
+        if (!input) return;
+        input.addEventListener("input", syncOverviewSnapshot);
+        input.addEventListener("change", syncOverviewSnapshot);
       });
 
       populateVenueSuggestions();
@@ -2455,6 +2694,8 @@
       ].forEach(input => {
         input.addEventListener("input", updateEstimate);
         input.addEventListener("change", updateEstimate);
+        input.addEventListener("input", syncOverviewSnapshot);
+        input.addEventListener("change", syncOverviewSnapshot);
       });
 
       /* Billing radios */
@@ -2500,23 +2741,128 @@
       });
       document.getElementById('billingRows').setAttribute('role', 'radiogroup');
       renderVenueProfile(findVenueProfile(venueLookup.value));
+      currentReference = buildReference();
+      syncReference();
+      syncOverviewSnapshot();
       updateEstimate();
 
-      /* CTA toast */
-      const toast = document.getElementById("toast");
       let toastTimer;
 
-      document.getElementById("requestButton").addEventListener("click", () => {
+      function clearToast() {
+        toast.classList.remove("show", "is-error");
+        toast.hidden = true;
+      }
+
+      function showToast(title, message, tone = "ok") {
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
         clearTimeout(toastTimer);
         toast.hidden = false;
+        toast.classList.toggle("is-error", tone === "error");
         requestAnimationFrame(() => toast.classList.add("show"));
         toastTimer = setTimeout(() => {
           toast.classList.remove("show");
           setTimeout(() => { toast.hidden = true; }, 200);
-        }, 2800);
+        }, tone === "error" ? 4400 : 3000);
+      }
+
+      requestBtn.addEventListener("click", async () => {
+        if (!intakeForm.checkValidity()) {
+          setVal("Please complete required fields before proposal handoff.", "is-warn");
+          intakeForm.reportValidity();
+          return;
+        }
+
+        requestBtn.disabled = true;
+        requestBtn.classList.add("is-loading");
+        requestBtn.textContent = "Sending...";
+        setVal("All required intake fields are complete. Sending to ShieldBox ops.", "is-ok");
+
+        const submissionReference = currentReference || buildReference();
+        const data = new FormData(intakeForm);
+        data.append("_subject", `ShieldBox Quote Request ${submissionReference}`);
+        data.append("_replyto", fieldEmail.value.trim());
+        data.append("_template", "table");
+        data.append("_url", location.href);
+        data.append("reference", submissionReference);
+        data.append("event_type", optionText(estimateEventType));
+        data.append("venue_setting", optionText(estimateVenueSetting));
+        data.append("venue_lookup", venueLookup.value.trim());
+        data.append("alcohol_service", optionText(estimateAlcohol));
+        data.append("vip_or_talent", optionText(estimateVip));
+        data.append("zip_code", estimateZip.value.trim());
+        data.append("event_end_time", estimateEndTime.value || "");
+        data.append("schedule_windows", collectCheckedLabels('#schedule input[type="checkbox"]'));
+        data.append("scope_functions", collectCheckedLabels('#scope input[type="checkbox"]'));
+        data.append("billing_preference", selectedBillingModel());
+        data.append("risk_index", riskIndexValue.textContent.trim());
+        data.append("review_lane", reviewLaneEl.textContent.trim());
+        data.append("estimated_price_range", priceRangeEl.textContent.trim());
+        data.append("recommended_guards", recommendedGuardsEl.textContent.trim());
+        data.append(
+          "recommended_staffing",
+          [
+            `Site Lead ${staffSiteLead.textContent.trim()}`,
+            `Event Security ${staffEventSecurity.textContent.trim()}`,
+            `Entry Screeners ${staffEntryScreeners.textContent.trim()}`,
+            `Overnight ${staffOvernight.textContent.trim()}`
+          ].join(" | ")
+        );
+        data.append("ops_note", recommendNote.textContent.trim());
+        data.append("submitted_from", location.href);
+
+        try {
+          const resp = await fetch(formSubmitEndpoint, {
+            method: "POST",
+            body: data,
+            headers: { Accept: "application/json" }
+          });
+
+          const result = await resp.json().catch(() => ({}));
+          const success = resp.ok && (!Object.prototype.hasOwnProperty.call(result, "success") || result.success === true || result.success === "true");
+
+          if (!success) {
+            throw new Error(result.message || "Unable to submit the request.");
+          }
+
+          currentReference = submissionReference;
+          syncReference();
+          setNodeValue(confirmationClientEmail, fieldEmail.value.trim(), `mailto:${fieldEmail.value.trim()}`);
+          submissionConfirmation.hidden = false;
+          quoteSection.classList.add("is-submitted");
+          requestBtn.textContent = "Request Sent";
+          requestBtn.classList.remove("is-loading");
+          clearToast();
+
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          window.scrollTo({ top: quoteSection.offsetTop - 12, behavior: reduceMotion ? "auto" : "smooth" });
+          requestAnimationFrame(() => confirmationHeading.focus({ preventScroll: true }));
+        } catch (err) {
+          requestBtn.disabled = false;
+          requestBtn.classList.remove("is-loading");
+          requestBtn.textContent = "Request Formal Proposal";
+          showToast("Unable to send request", `Please try again or email ${opsEmail}.`, "error");
+          setVal("We could not send the request. Please try again or email ShieldBox directly.", "is-warn");
+        }
       });
 
-      document.getElementById("printButton").addEventListener("click", () => window.print());
+      printBtn.addEventListener("click", () => window.print());
+      printConfirmationButton.addEventListener("click", () => window.print());
+      newRequestButton.addEventListener("click", () => {
+        intakeForm.reset();
+        currentReference = buildReference();
+        syncReference();
+        submissionConfirmation.hidden = true;
+        quoteSection.classList.remove("is-submitted");
+        requestBtn.disabled = false;
+        requestBtn.classList.remove("is-loading");
+        requestBtn.textContent = "Request Formal Proposal";
+        setVal("", "");
+        syncOverviewSnapshot();
+        updateEstimate();
+        clearToast();
+        requestAnimationFrame(() => fieldName.focus());
+      });
     })();
   </script>
 </body>

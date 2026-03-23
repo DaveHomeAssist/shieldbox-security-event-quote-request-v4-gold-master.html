@@ -223,6 +223,7 @@
       background: var(--bg);
       color: var(--ink);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a {
@@ -296,6 +297,23 @@
     }
     .nav-links a:hover { color: var(--accent); }
 
+    .nav-feature {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border: 1px solid color-mix(in srgb, var(--accent) 48%, var(--line));
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent-soft) 85%, var(--surface));
+      color: var(--accent) !important;
+      font-weight: 700 !important;
+    }
+    .nav-feature:hover {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent-soft) 100%, var(--surface));
+    }
+
     .nav-cta {
       background: var(--accent); color: #fff !important;
       padding: 7px 16px; border-radius: 4px;
@@ -353,6 +371,55 @@
       display: flex; gap: 12px; flex-wrap: wrap;
       justify-content: center;
     }
+
+    .hero-spotlight {
+      width: min(760px, 100%);
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--surface-2) 82%, var(--surface));
+      padding: 16px 18px;
+      text-align: left;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-spotlight-kicker {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .hero-spotlight-title {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.2rem;
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .hero-spotlight-copy {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .hero-spotlight-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-inline-link {
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .hero-inline-link:hover { color: var(--accent); }
 
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
@@ -732,6 +799,76 @@
       line-height: 1.7;
     }
 
+    .quote-flow {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px auto 0;
+      max-width: 760px;
+    }
+
+    .quote-flow-step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 12px 14px;
+      text-align: left;
+    }
+
+    .quote-flow-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .quote-flow-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .quote-flow-copy {
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    .quote-jumpbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .quote-jumpbar label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--label-ink);
+    }
+
+    .quote-jumpbar select {
+      min-width: 240px;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid var(--field-border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+    }
+
     /* =========================================================
        THEME SWITCHER
     ========================================================= */
@@ -851,6 +988,25 @@
       line-height: 1.65; margin-bottom: 12px;
     }
 
+    .section-crumb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: color-mix(in srgb, var(--surface-2) 88%, var(--surface));
+      color: var(--ink-soft);
+      font-size: 0.74rem;
+      line-height: 1.4;
+    }
+
+    .section-crumb strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
     /* =========================================================
        PROPERTY GRID
     ========================================================= */
@@ -953,6 +1109,44 @@
       gap: 8px;
     }
 
+    .optional-fields {
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .optional-fields summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 12px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .optional-fields summary::-webkit-details-marker { display: none; }
+
+    .optional-fields summary span {
+      color: var(--ink-soft);
+      font-size: 0.76rem;
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .optional-fields[open] summary {
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+
+    .optional-fields-body {
+      padding: 12px;
+    }
+
     .form-field { display: grid; gap: 4px; }
 
     .form-field label {
@@ -960,7 +1154,8 @@
       text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;
     }
 
-    .form-field input {
+    .form-field input,
+    .form-field select {
       width: 100%;
       border: 1px solid var(--field-border); border-radius: 6px;
       background: var(--field-bg); color: var(--ink);
@@ -1012,10 +1207,11 @@
 
     .check-item {
       border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 9px 11px;
+      padding: 12px 13px;
       display: grid; grid-template-columns: auto 1fr;
       gap: 10px; align-items: start;
       background: var(--surface);
+      min-height: 56px;
     }
 
     .check-item input[type="checkbox"] {
@@ -1168,6 +1364,14 @@
     .billing-table tr:last-child td { border-bottom: none; }
 
     .billing-row td { background: var(--surface); }
+    .billing-row {
+      cursor: pointer;
+      transition: transform 0.14s ease, box-shadow 0.14s ease;
+    }
+    .billing-row:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    }
 
     .billing-row.is-selected td {
       background: var(--billing-selected-bg);
@@ -1191,7 +1395,9 @@
 
     .billing-choice {
       display: inline-flex; align-items: center;
-      gap: 6px; cursor: pointer;
+      gap: 8px; cursor: pointer;
+      min-height: 48px;
+      min-width: 120px;
     }
 
     .billing-input { accent-color: var(--accent); width: 16px; height: 16px; }
@@ -1211,6 +1417,18 @@
       border: 1px solid var(--line); border-radius: var(--radius);
       background: var(--surface-2); padding: 10px 12px;
     }
+
+    .billing-next-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .billing-next-link:hover { color: var(--ink); }
 
     /* =========================================================
        PROMISE
@@ -1288,6 +1506,13 @@
     .next-actions {
       display: flex; align-items: center; justify-content: center;
       gap: 8px; flex-wrap: wrap; margin-top: 2px;
+    }
+
+    .next-helper {
+      margin-top: 10px;
+      color: var(--ink-soft);
+      font-size: 0.82rem;
+      line-height: 1.6;
     }
 
     .next-turnaround {
@@ -1403,6 +1628,8 @@
     #toast.show { opacity: 1; transform: translateY(0); }
     #toast strong { display: block; margin-bottom: 3px; }
 
+    .mobile-action-dock { display: none; }
+
     #toast.is-error {
       border-color: color-mix(in srgb, var(--accent) 52%, var(--line));
       border-left-color: var(--accent);
@@ -1417,6 +1644,7 @@
       .layout { grid-template-columns: 1fr; }
       .side-stack { position: static; order: -1; }
       .assist-grid { grid-template-columns: 1fr; }
+      .quote-flow { grid-template-columns: 1fr; }
       .theme-switcher {
         position: static; width: 100%;
         justify-content: space-between; margin-bottom: 14px;
@@ -1442,6 +1670,195 @@
         white-space: nowrap;
         flex-shrink: 0;
         font-size: 0.7rem;
+      }
+
+      /* Hero: reduce vertical space so CTA is visible without scrolling */
+      .landing {
+        min-height: auto;
+        padding: 36px 20px 44px;
+      }
+      .hero-shield { width: 52px; height: 52px; margin-bottom: 18px; }
+      .hero-sub { font-size: 0.95rem; margin-bottom: 24px; }
+      .hero-spotlight { padding: 14px; }
+
+      /* Global spacing reduction */
+      .site-nav { padding: 0 16px; }
+      .gallery { padding: 32px 16px 36px; }
+      .services { padding: 36px 16px; }
+      .quote-section { padding: 36px 16px 48px; }
+      .section-divider { padding: 0 16px; }
+      .site-footer { padding: 24px 16px 32px; }
+
+      /* Trust strip: less padding */
+      .trust-item { padding: 18px 14px; }
+      .trust-num { font-size: 1.3rem; }
+      .trust-label { font-size: 0.68rem; }
+
+      /* Touch targets: buttons minimum 44px height */
+      .btn { padding: 14px 24px; min-height: 44px; }
+      .cta { padding: 14px 22px; min-height: 44px; }
+      .tiny-action { padding: 10px 14px; min-height: 44px; }
+      .nav-cta { padding: 10px 16px; min-height: 44px; }
+
+      /* Form inputs: minimum 44px touch target */
+      .form-field input,
+      .form-field select,
+      .assist-fields input,
+      .assist-fields select {
+        padding: 10px 12px;
+        min-height: 44px;
+        font-size: 0.9rem;
+      }
+
+      /* Billing radio touch targets */
+      .billing-input { width: 20px; height: 20px; }
+      .billing-choice { min-height: 44px; }
+      .quote-jumpbar { align-items: stretch; }
+      .quote-jumpbar label { width: 100%; text-align: left; }
+      .quote-jumpbar select { width: 100%; min-width: 0; }
+
+      /* Checkbox touch targets */
+      .check-item input[type="checkbox"] {
+        width: 20px; height: 20px;
+      }
+      #scope .check-item input[type="checkbox"] {
+        width: 22px; height: 22px;
+      }
+
+      /* Section body spacing */
+      .section-body { padding: 12px; }
+      .section-head { padding: 12px; }
+
+      /* Promise and next-step cards */
+      .promise-card { padding: 14px; }
+      .next-step { padding: 18px 14px 16px; }
+
+      /* Gallery images shorter on phone */
+      .gallery-img { height: 200px; }
+
+      /* Confirm grid: stack on small screens */
+      .confirm-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      /* Nav: hide non-CTA links, keep only Get a Quote */
+      .nav-link-desktop { display: none; }
+      .nav-back { display: none; }
+      .nav-links { gap: 0; }
+
+      /* Hero: tighten further for 375px */
+      .landing { padding: 28px 16px 36px; }
+      .hero-shield { width: 44px; height: 44px; margin-bottom: 14px; }
+      .hero-tagline { font-size: 0.66rem; margin-bottom: 10px; }
+      .hero-sub { font-size: 0.88rem; line-height: 1.65; margin-bottom: 20px; }
+
+      /* Hero actions stack vertically */
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .hero-spotlight-actions { flex-direction: column; align-items: stretch; }
+      .hero-spotlight-actions .btn { width: 100%; justify-content: center; }
+
+      /* Trust strip numbers */
+      .trust-item { padding: 14px 10px; }
+      .trust-num { font-size: 1.15rem; }
+      .trust-label { font-size: 0.64rem; letter-spacing: 0.04em; }
+
+      /* Sections: less internal padding */
+      .section-body { padding: 10px; }
+      .section-head { padding: 10px 12px; }
+      .intake-form { padding: 10px; }
+
+      /* Billing table: ensure no page-level overflow */
+      .billing-table-wrap { margin-left: -10px; margin-right: -10px; border-radius: 0; }
+
+      /* Simple table: also prevent page overflow */
+      .simple-table-wrap { margin-left: -10px; margin-right: -10px; border-radius: 0; }
+
+      /* Recommend box */
+      .recommend-box { padding: 12px; }
+      .recommend-row { font-size: 0.86rem; }
+
+      /* Quote intro */
+      .quote-intro-title { font-size: 1.3rem; }
+      .quote-intro-sub { font-size: 0.86rem; }
+
+      /* Gallery title */
+      .gallery-title { font-size: 1.25rem; }
+      .gallery-copy { font-size: 0.84rem; }
+      .gallery-img { height: 180px; }
+
+      /* Services title */
+      .services-title { font-size: 1.3rem; }
+
+      /* Promise card */
+      .promise-lead { font-size: 1.05rem; }
+
+      /* Next step title */
+      .next-step { padding: 16px 12px 14px; }
+      .next-copy { font-size: 0.86rem; }
+
+      /* Next actions stack */
+      .next-actions { flex-direction: column; width: 100%; }
+      .next-actions .cta { width: 100%; }
+
+      /* Footer */
+      .footer-brand { font-size: 0.84rem; }
+      .footer-note { font-size: 0.72rem; }
+
+      /* Venue profile grid: stack on tiny screens */
+      .venue-profile-grid,
+      .estimate-grid { grid-template-columns: 1fr; }
+
+      /* Property grid: single column */
+      .property-grid { grid-template-columns: 1fr; }
+
+      /* Assist card spacing */
+      .assist-card { padding: 12px; }
+      .assist-copy { font-size: 0.8rem; }
+
+      /* Toast: full width at bottom */
+      #toast { right: 8px; bottom: 8px; width: calc(100vw - 16px); }
+
+      /* Mobile dock */
+      body { padding-bottom: 84px; }
+      .mobile-action-dock {
+        position: fixed;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        z-index: 120;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: color-mix(in srgb, var(--bg) 94%, transparent);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: var(--shadow-soft);
+      }
+      .mobile-action-dock a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .mobile-action-dock .dock-secondary {
+        border: 1px solid var(--line-strong);
+        color: var(--ink);
+        background: var(--surface);
+      }
+      .mobile-action-dock .dock-primary {
+        border: 1px solid var(--accent);
+        color: #fff;
+        background: var(--accent);
       }
     }
 
@@ -1492,8 +1909,9 @@
       <span class="nav-wordmark">shield<span>box</span></span>
     </a>
     <div class="nav-links">
+      <a href="#instantEstimate" class="nav-feature">Instant Preview</a>
       <a href="#services" class="nav-link-desktop">Services</a>
-      <a href="#quoteStart" class="nav-link-desktop">How It Works</a>
+      <a href="#quoteStart" class="nav-link-desktop">Quote Flow</a>
       <a href="#quoteStart" class="nav-cta">Get a Quote</a>
     </div>
   </nav>
@@ -1510,8 +1928,18 @@
     <h1 class="hero-h1">Private security for events that matter.</h1>
     <p class="hero-sub">Owner-led coverage for private events, concerts, and corporate gatherings. No temp staffing. No subcontractors. One team, every time.</p>
     <div class="hero-actions">
-      <a href="#quoteStart" class="btn btn-primary">Request a Quote</a>
+      <a href="#instantEstimate" class="btn btn-primary">Get Instant Preview</a>
+      <a href="#quoteStart" class="btn btn-ghost">Request a Quote</a>
       <a href="#services" class="btn btn-ghost">Our Services</a>
+    </div>
+    <div class="hero-spotlight" aria-label="Featured quote preview tool">
+      <div class="hero-spotlight-kicker">Featured Tool</div>
+      <div class="hero-spotlight-title">Instant Venue &amp; Risk Preview</div>
+      <p class="hero-spotlight-copy">Get a fast staffing recommendation and planning range before filling the full request. It is the fastest way to understand fit, risk level, and likely coverage needs.</p>
+      <div class="hero-spotlight-actions">
+        <a href="#instantEstimate" class="btn btn-primary">Try the live preview</a>
+        <a href="#overview" class="hero-inline-link">Already know the scope? Go straight to request details.</a>
+      </div>
     </div>
   </section>
 
@@ -1605,6 +2033,29 @@
       <div class="quote-intro-overline">Start Here</div>
       <h2 class="quote-intro-title">Event Quote Request</h2>
       <p class="quote-intro-sub">Fill out the details below and we'll return a tailored, itemized security proposal within 24 hours.</p>
+      <div class="quote-flow" aria-label="Quote flow">
+        <div class="quote-flow-step">
+          <span class="quote-flow-num">1</span>
+          <div class="quote-flow-title">Get the instant preview</div>
+          <div class="quote-flow-copy">Check venue fit, risk level, and a planning-range estimate before committing to the full request.</div>
+        </div>
+        <div class="quote-flow-step">
+          <span class="quote-flow-num">2</span>
+          <div class="quote-flow-title">Submit the request</div>
+          <div class="quote-flow-copy">Complete the required contact fields, fine-tune scope if needed, and send everything to ShieldBox ops.</div>
+        </div>
+      </div>
+      <div class="quote-jumpbar">
+        <label for="sectionJump">Quick jump</label>
+        <select id="sectionJump" aria-label="Jump to a section in the quote flow">
+          <option value="#instantEstimate">Instant preview</option>
+          <option value="#overview">Request details</option>
+          <option value="#schedule">Schedule</option>
+          <option value="#scope">Scope</option>
+          <option value="#billing">Billing</option>
+          <option value="#next">Submit request</option>
+        </select>
+      </div>
     </div>
 
     <div class="theme-switcher" id="themeSwitcher" aria-hidden="true">
@@ -1632,6 +2083,7 @@
             <span class="section-note">Smart Assist</span>
           </div>
           <div class="section-body">
+            <div class="section-crumb"><strong>You are here</strong><span>Step 1 of 2: instant preview before full submission</span></div>
             <p class="intro-copy">Choose a known venue or fill in a few event details to get a preliminary risk index, staffing ratio, and non-binding price range before the formal quote review.</p>
             <div class="assist-grid">
               <div class="assist-card">
@@ -1751,6 +2203,10 @@
                 <p class="estimate-footnote">Based on attendance, alcohol service, venue setting, end time, VIP presence, and local complexity banding.</p>
               </div>
             </div>
+            <div class="hero-spotlight-actions" style="margin-top:16px;">
+              <a href="#overview" id="usePreviewButton" class="btn btn-primary">Use this preview in my quote</a>
+              <a href="#next" class="hero-inline-link">Already have the details? Skip ahead to submit.</a>
+            </div>
           </div>
         </section>
 
@@ -1794,18 +2250,11 @@
             <h2 id="overviewHeading" class="section-title">Client &amp; Event Overview</h2>
           </div>
           <div class="section-body">
+            <div class="section-crumb"><strong>Step 2 of 2</strong><span>Complete the required request details and submit to ShieldBox ops</span></div>
             <form id="intakeForm" class="intake-form" novalidate aria-labelledby="intakeFormTitle">
               <h3 id="intakeFormTitle" class="form-title">Required Intake Fields</h3>
               <p class="form-help">Complete the required values below. When you submit, the intake routes directly to ShieldBox proposal ops at <a href="mailto:shieldbox.sec@gmail.com">shieldbox.sec@gmail.com</a>.</p>
               <div class="form-grid">
-                <div class="form-field">
-                  <label for="fieldOrganization">Organization / Client</label>
-                  <input id="fieldOrganization" name="organization" type="text" autocomplete="organization" placeholder="Company, venue group, or private client" />
-                </div>
-                <div class="form-field">
-                  <label for="fieldEventName">Event Name</label>
-                  <input id="fieldEventName" name="event_name" type="text" placeholder="Show, conference, or private event name" />
-                </div>
                 <div class="form-field">
                   <label for="fieldName">Name</label>
                   <input id="fieldName" name="name" type="text" required autocomplete="name" placeholder="Primary contact full name" />
@@ -1835,6 +2284,24 @@
                   <input id="fieldAttendance" name="expected_attendance" type="number" min="1" max="10000" required placeholder="Estimated guest count" />
                 </div>
               </div>
+              <details class="optional-fields">
+                <summary>
+                  Add optional organizer details
+                  <span>Organization name and internal event name are helpful, but not required to get the request submitted.</span>
+                </summary>
+                <div class="optional-fields-body">
+                  <div class="form-grid">
+                    <div class="form-field">
+                      <label for="fieldOrganization">Organization / Client</label>
+                      <input id="fieldOrganization" name="organization" type="text" autocomplete="organization" placeholder="Company, venue group, or private client" />
+                    </div>
+                    <div class="form-field">
+                      <label for="fieldEventName">Event Name</label>
+                      <input id="fieldEventName" name="event_name" type="text" placeholder="Show, conference, or private event name" />
+                    </div>
+                  </div>
+                </div>
+              </details>
               <div class="visually-hidden" aria-hidden="true">
                 <label for="fieldWebsiteTrap">Leave this field blank</label>
                 <input id="fieldWebsiteTrap" name="_honey" type="text" tabindex="-1" autocomplete="off" />
@@ -2061,6 +2528,7 @@
               </table>
             </div>
             <p class="billing-note">Final proposal pricing may vary based on site conditions, revised scope, venue rules, and client-driven schedule changes.</p>
+            <a href="#next" class="billing-next-link">Continue to final submission step</a>
           </div>
         </section>
 
@@ -2085,6 +2553,7 @@
             <button id="requestButton" class="cta" type="button">Request Formal Proposal</button>
             <button id="printButton" class="cta cta-secondary" type="button">Download as PDF</button>
           </div>
+          <p class="next-helper">One primary action from here: submit the request. Everything above simply improves pricing accuracy and speeds ops review.</p>
           <div class="next-turnaround">Guaranteed 24-hour turnaround | Ref: <span id="referencePreview">Generating...</span></div>
         </section>
       </div>
@@ -2164,6 +2633,11 @@
     </div>
   </footer>
 
+  <div class="mobile-action-dock" aria-label="Quick mobile actions">
+    <a href="#instantEstimate" class="dock-secondary">Preview</a>
+    <a href="#next" class="dock-primary">Submit</a>
+  </div>
+
   <!-- TOAST -->
   <div id="toast" role="status" aria-live="polite" hidden>
     <strong id="toastTitle">Submission status</strong>
@@ -2233,6 +2707,8 @@
       const referencePreview = document.getElementById("referencePreview");
       const printConfirmationButton = document.getElementById("printConfirmationButton");
       const newRequestButton = document.getElementById("newRequestButton");
+      const sectionJump = document.getElementById("sectionJump");
+      const usePreviewButton = document.getElementById("usePreviewButton");
       const toast = document.getElementById("toast");
       const toastTitle = document.getElementById("toastTitle");
       const toastMessage = document.getElementById("toastMessage");
@@ -2432,6 +2908,16 @@
           return;
         }
         node.textContent = value;
+      }
+
+      function goToSection(target, focusEl) {
+        const el = typeof target === "string" ? document.querySelector(target) : target;
+        if (!el) return;
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        if (focusEl) {
+          requestAnimationFrame(() => focusEl.focus({ preventScroll: true }));
+        }
       }
 
       function syncOverviewSnapshot() {
@@ -2669,6 +3155,18 @@
       });
 
       populateVenueSuggestions();
+      if (sectionJump) {
+        sectionJump.addEventListener("change", e => {
+          if (!e.target.value) return;
+          goToSection(e.target.value);
+        });
+      }
+      if (usePreviewButton) {
+        usePreviewButton.addEventListener("click", e => {
+          e.preventDefault();
+          goToSection("#overview", fieldName);
+        });
+      }
       venueLookup.addEventListener("change", e => {
         const profile = findVenueProfile(e.target.value);
         renderVenueProfile(profile);
@@ -2712,7 +3210,12 @@
         });
       }
 
-      billingInputs.forEach(i => i.addEventListener("change", syncBilling));
+      billingInputs.forEach(i => i.addEventListener("change", () => {
+        syncBilling();
+        if (window.innerWidth <= 640) {
+          setTimeout(() => goToSection("#next"), 120);
+        }
+      }));
 
       billingRows.forEach(row => {
         row.addEventListener("click", e => {

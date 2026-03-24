@@ -437,6 +437,11 @@
       flex-wrap: wrap;
     }
 
+    .hero-inline-link-wrap {
+      margin-top: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--ink-soft);
+    }
     .hero-inline-link {
       color: var(--ink-soft);
       font-size: 0.82rem;
@@ -863,6 +868,11 @@
 
     .svc-icon {
       font-size: 1.4rem; margin-bottom: 10px;
+      color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
     }
 
     .svc-name {
@@ -2188,17 +2198,8 @@
     <div class="hero-actions">
       <a href="#instantEstimate" class="btn btn-primary">Get Instant Preview</a>
       <a href="#quoteStart" class="btn btn-ghost">Request a Quote</a>
-      <a href="#services" class="btn btn-ghost">Our Services</a>
     </div>
-    <div class="hero-spotlight" aria-label="Featured quote preview tool">
-      <div class="hero-spotlight-kicker">Featured Tool</div>
-      <div class="hero-spotlight-title">Instant Venue &amp; Risk Preview</div>
-      <p class="hero-spotlight-copy">Get a fast staffing recommendation and planning range before filling the full request. It is the fastest way to understand fit, risk level, and likely coverage needs.</p>
-      <div class="hero-spotlight-actions">
-        <a href="#instantEstimate" class="btn btn-primary">Try the live preview</a>
-        <a href="#overview" class="hero-inline-link">Already know the scope? Go straight to request details.</a>
-      </div>
-    </div>
+    <p class="hero-inline-link-wrap"><a href="#services" class="hero-inline-link">View services</a> · <a href="#overview" class="hero-inline-link">Skip to full request details</a></p>
   </section>
 
   <!-- =========================================================
@@ -2267,32 +2268,32 @@
     </div>
     <div class="services-grid">
       <div class="svc-card">
-        <div class="svc-icon">🏢</div>
+        <div class="svc-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg></div>
         <h3 class="svc-name">Commercial &amp; Retail Security</h3>
         <div class="svc-desc">Storefronts, warehouses, strip malls, and other commercial properties that need a reliable physical presence.</div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">👥</div>
+        <div class="svc-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3 class="svc-name">Crowd Management</h3>
         <div class="svc-desc">High-density monitoring, queue management, and de-escalation by trained floor personnel.</div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🛡</div>
+        <div class="svc-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3 class="svc-name">Talent Protection</h3>
         <div class="svc-desc">Dedicated close-protection escorts for performers, VIP guests, and principals on site.</div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🔍</div>
+        <div class="svc-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
         <h3 class="svc-name">Front of House</h3>
         <div class="svc-desc">Entry screening, bag checks, and visible security presence managing first impressions.</div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🏗</div>
+        <div class="svc-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg></div>
         <h3 class="svc-name">Perimeter Patrol</h3>
         <div class="svc-desc">Active roaming patrols securing venue exterior and adjacent loading areas throughout the event.</div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">🌙</div>
+        <div class="svc-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
         <h3 class="svc-name">Overnight Watch</h3>
         <div class="svc-desc">Stationary overnight guard for venue equipment, staging, and production assets after hours.</div>
       </div>
@@ -2837,12 +2838,12 @@
         <section class="side-card" aria-labelledby="quickNavHeading">
           <h2 id="quickNavHeading" class="side-title">Quick Nav</h2>
           <nav class="side-list" aria-label="Section quick links">
-            <a href="#instantEstimate">0. Instant Estimate</a>
-            <a href="#overview">A. Client &amp; Event</a>
-            <a href="#schedule">B. Schedule</a>
-            <a href="#scope">C. Scope</a>
-            <a href="#risk">D. Risk Snapshot</a>
-            <a href="#billing">E. Billing</a>
+            <a href="#instantEstimate">Instant Preview</a>
+            <a href="#overview">Client &amp; Event</a>
+            <a href="#schedule">Schedule</a>
+            <a href="#scope">Scope</a>
+            <a href="#risk">Risk Snapshot</a>
+            <a href="#billing">Billing</a>
             <a href="#promise">Promise</a>
             <a href="#next">Next Step</a>
           </nav>

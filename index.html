@@ -1376,7 +1376,8 @@
       color: color-mix(in srgb, var(--ink-soft) 68%, transparent);
     }
 
-    .form-field input:invalid {
+    .form-field input:not(:placeholder-shown):invalid,
+    .form-field input.touched:invalid {
       border-color: color-mix(in srgb, var(--accent) 58%, var(--line));
     }
 
@@ -3098,6 +3099,9 @@
       let durationColonHint = false;
 
       if (fieldDate) fieldDate.min = new Date().toISOString().split("T")[0];
+      intakeForm.querySelectorAll("input, select, textarea").forEach(el => {
+        el.addEventListener("blur", () => el.classList.add("touched"), { once: true });
+      });
       if (fieldSubmissionToken) {
         fieldSubmissionToken.value = Array.from(crypto.getRandomValues(new Uint8Array(4))).map(byte => byte.toString(16).padStart(2, "0")).join("");
       }

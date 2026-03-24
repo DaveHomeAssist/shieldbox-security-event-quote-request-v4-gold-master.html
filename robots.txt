@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://davehomeassist.github.io/shieldbox-quote-request/sitemap.xml

@@ -866,6 +866,86 @@
     }
 
     /* =========================================================
+       COMPANY COPY
+    ========================================================= */
+    .company-copy {
+      max-width: 1080px; margin: 0 auto;
+      padding: 56px 28px;
+    }
+
+    .company-copy-head {
+      text-align: center; margin-bottom: 36px;
+    }
+
+    .company-copy-overline {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+
+    .company-copy-title {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.6rem; font-weight: 700;
+    }
+
+    .company-copy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .company-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 28px 22px;
+    }
+
+    .company-card-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+
+    .company-card-heading {
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.08rem; font-weight: 700;
+      line-height: 1.35; margin-bottom: 12px;
+    }
+
+    .company-card p {
+      font-size: 0.86rem; color: var(--ink-soft);
+      line-height: 1.72; margin-bottom: 12px;
+    }
+
+    .company-card p:last-child { margin-bottom: 0; }
+
+    .company-card ul {
+      list-style: none; padding: 0; margin: 0;
+    }
+
+    .company-card ul li {
+      font-size: 0.86rem; color: var(--ink-soft);
+      line-height: 1.72;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .company-card ul li::before {
+      content: "";
+      position: absolute; left: 0; top: 10px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    @media (max-width: 800px) {
+      .company-copy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =========================================================
        QUOTE SECTION WRAPPER
     ========================================================= */
     .quote-section {
@@ -2196,6 +2276,51 @@
         <div class="svc-name">Overnight Watch</div>
         <div class="svc-desc">Stationary overnight guard for venue equipment, staging, and production assets after hours.</div>
       </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><hr /></div>
+
+  <!-- =========================================================
+       COMPANY COPY
+  ========================================================= -->
+  <section class="company-copy" id="about">
+    <div class="company-copy-head">
+      <div class="company-copy-overline">About Us</div>
+      <h2 class="company-copy-title">Who We Are</h2>
+    </div>
+    <div class="company-copy-grid">
+
+      <div class="company-card">
+        <div class="company-card-label">Company Overview</div>
+        <h3 class="company-card-heading">Professional, Client-Focused Protection</h3>
+        <p>Shield Box Security is a professional security services company dedicated to providing reliable, responsive, and client-focused protection. Built on a foundation of discipline, accountability, and real-world experience, we specialize in maintaining safe environments for events, venues, businesses, and private clients.</p>
+        <p>Our team consists of trained, unarmed security personnel who understand that presence, awareness, and communication are key to preventing incidents before they escalate. We take pride in delivering security services that are not only effective but also respectful and professional in every interaction.</p>
+        <p>At Shield Box Security, we don't just show up — we represent your brand, protect your people, and help create a safe, controlled environment where your operations can run smoothly.</p>
+      </div>
+
+      <div class="company-card">
+        <div class="company-card-label">Company History</div>
+        <h3 class="company-card-heading">Raising the Standard Since Day One</h3>
+        <p>Shield Box Security was founded with a clear vision: to raise the standard of professionalism in the security industry. After recognizing gaps in reliability, communication, and accountability within traditional security services, the company was built to offer a more hands-on and disciplined approach.</p>
+        <p>Starting with a small, dedicated team, Shield Box Security quickly established a reputation for being dependable, proactive, and ready to handle high-pressure situations. Through consistent performance and word-of-mouth referrals, the company has continued to grow, providing security for events, nightlife venues, and private functions.</p>
+        <p>Every step of our growth has been driven by a commitment to doing things the right way — staying alert, acting professionally, and putting the client first at all times.</p>
+      </div>
+
+      <div class="company-card">
+        <div class="company-card-label">Mission Statement</div>
+        <h3 class="company-card-heading">Safety, Prevention &amp; Peace of Mind</h3>
+        <p>At Shield Box Security, our mission is to provide dependable, professional security services that prioritize safety, prevention, and peace of mind.</p>
+        <p>We are committed to:</p>
+        <ul>
+          <li>Maintaining a strong, visible presence to deter potential threats</li>
+          <li>Responding quickly and effectively to any situation</li>
+          <li>Representing our clients with professionalism and respect</li>
+          <li>Creating safe environments without unnecessary force or escalation</li>
+        </ul>
+        <p>Our goal is simple: protect people, support our clients, and uphold a standard of security that others can't match.</p>
+      </div>
+
     </div>
   </section>
 

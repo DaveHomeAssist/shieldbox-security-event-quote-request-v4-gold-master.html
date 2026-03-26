@@ -2326,11 +2326,6 @@
       <div class="quote-flow" aria-label="Quote flow">
         <div class="quote-flow-step">
           <span class="quote-flow-num">1</span>
-          <div class="quote-flow-title">Get the instant preview</div>
-          <div class="quote-flow-copy">Check venue fit, risk level, and a planning-range estimate before committing to the full request.</div>
-        </div>
-        <div class="quote-flow-step">
-          <span class="quote-flow-num">2</span>
           <div class="quote-flow-title">Submit the request</div>
           <div class="quote-flow-copy">Complete the required contact fields, fine-tune scope if needed, and send everything to ShieldBox ops.</div>
         </div>
@@ -2338,7 +2333,6 @@
       <div class="quote-jumpbar">
         <label for="sectionJump">Quick jump</label>
         <select id="sectionJump" aria-label="Jump to a section in the quote flow">
-          <option value="#instantEstimate">Instant preview</option>
           <option value="#overview">Request details</option>
           <option value="#schedule">Schedule</option>
           <option value="#scope">Scope</option>
@@ -2357,141 +2351,6 @@
 
     <div class="layout">
       <div class="stack">
-
-        <!-- SMART QUOTE ASSIST -->
-        <section class="section" id="instantEstimate" aria-labelledby="instantEstimateHeading">
-          <div class="section-head">
-            <span class="section-icon">0</span>
-            <h2 id="instantEstimateHeading" class="section-title">Instant Venue &amp; Risk Preview</h2>
-            <span class="section-note">Smart Assist</span>
-          </div>
-          <div class="section-body">
-            <div class="section-crumb"><strong>You are here</strong><span>Step 1 of 2: instant preview before full submission</span></div>
-            <p class="intro-copy">Choose a known venue or fill in a few event details to get a preliminary risk index, staffing ratio, and non-binding price range before the formal quote review.</p>
-            <div class="assist-grid">
-              <div class="assist-card">
-                <div class="assist-card-title">Address-Driven Venue Profile Lookup</div>
-                <div class="assist-fields">
-                  <div class="form-field assist-field-full">
-                    <label for="venueLookup">Venue or address</label>
-                    <input id="venueLookup" type="text" list="venueSuggestions" placeholder="Start typing a venue name or address" autocomplete="off" />
-                    <datalist id="venueSuggestions"></datalist>
-                    <p class="field-help">Known venue profiles prefill the location, attendance, ZIP, and event settings below.</p>
-                  </div>
-                  <div class="form-field">
-                    <label for="estimateEventType">Event Type</label>
-                    <select id="estimateEventType">
-                      <option value="private-music" selected>Private Music Event</option>
-                      <option value="concert">Concert / Club Night</option>
-                      <option value="corporate">Corporate Event</option>
-                      <option value="festival">Outdoor Festival</option>
-                      <option value="wedding">Wedding / Private Party</option>
-                    </select>
-                  </div>
-                  <div class="form-field">
-                    <label for="estimateVenueSetting">Venue Setting</label>
-                    <select id="estimateVenueSetting">
-                      <option value="indoor" selected>Indoor</option>
-                      <option value="outdoor">Outdoor</option>
-                      <option value="hybrid">Hybrid</option>
-                    </select>
-                  </div>
-                  <div class="form-field">
-                    <label for="estimateAttendance">Expected Attendance</label>
-                    <input id="estimateAttendance" type="number" min="1" value="450" />
-                  </div>
-                  <div class="form-field">
-                    <label for="estimateCoverageHours">Coverage Hours</label>
-                    <input id="estimateCoverageHours" type="number" min="1" step="0.5" value="6" />
-                  </div>
-                  <div class="form-field">
-                    <label for="estimateAlcohol">Alcohol Service</label>
-                    <select id="estimateAlcohol">
-                      <option value="yes" selected>Alcohol served</option>
-                      <option value="no">No alcohol</option>
-                    </select>
-                  </div>
-                  <div class="form-field">
-                    <label for="estimateVip">VIP / Talent Presence</label>
-                    <select id="estimateVip">
-                      <option value="yes" selected>VIP or talent on site</option>
-                      <option value="no">No VIP component</option>
-                    </select>
-                  </div>
-                  <div class="form-field">
-                    <label for="estimateZip">ZIP Code</label>
-                    <input id="estimateZip" type="text" inputmode="numeric" maxlength="5" pattern="[0-9]*" value="19147" />
-                  </div>
-                  <div class="form-field">
-                    <label for="estimateEndTime">Event End Time</label>
-                    <input id="estimateEndTime" type="time" value="00:30" />
-                  </div>
-                </div>
-                <div class="venue-profile" id="venueProfile" hidden>
-                  <div class="venue-profile-head">
-                    <div class="venue-profile-name" id="venueProfileName">Known venue profile matched</div>
-                    <span class="venue-profile-pill" id="venueProfilePill">Repeat venue</span>
-                  </div>
-                  <div class="venue-profile-grid">
-                    <div>
-                      <span class="mini-label">Address</span>
-                      <span class="venue-profile-value" id="venueProfileAddress">-</span>
-                    </div>
-                    <div>
-                      <span class="mini-label">Venue Type</span>
-                      <span class="venue-profile-value" id="venueProfileType">-</span>
-                    </div>
-                    <div>
-                      <span class="mini-label">Typical Capacity</span>
-                      <span class="venue-profile-value" id="venueProfileCapacity">-</span>
-                    </div>
-                    <div>
-                      <span class="mini-label">Perimeter Complexity</span>
-                      <span class="venue-profile-value" id="venueProfileComplexity">-</span>
-                    </div>
-                  </div>
-                  <p class="venue-profile-note" id="venueProfileNote">Venue intelligence will appear here when a saved venue is recognized.</p>
-                </div>
-              </div>
-
-              <div class="assist-card">
-                <div class="assist-card-title">Dynamic Threat Assessment Pricing</div>
-                <p class="assist-copy">This is a planning estimate, not a final contract price. ShieldBox ops still reviews every submission before issuing the formal quote.</p>
-                <div class="estimate-head">
-                  <span class="estimate-kicker">Risk Index</span>
-                  <strong class="estimate-value" id="riskIndexValue">High</strong>
-                  <span class="estimate-pill is-review" id="reviewLanePill">Ops review recommended</span>
-                </div>
-                <div class="estimate-grid">
-                  <div class="estimate-stat">
-                    <span class="mini-label">Recommended Guards</span>
-                    <strong id="recommendedGuards">7</strong>
-                  </div>
-                  <div class="estimate-stat">
-                    <span class="mini-label">Guard Ratio</span>
-                    <strong id="guardRatio">1.6 / 100</strong>
-                  </div>
-                  <div class="estimate-stat">
-                    <span class="mini-label">Estimated Range</span>
-                    <strong id="priceRange">$2,650 – $3,250</strong>
-                  </div>
-                  <div class="estimate-stat">
-                    <span class="mini-label">Review Lane</span>
-                    <strong id="reviewLane">Manual review</strong>
-                  </div>
-                </div>
-                <ul class="estimate-flags" id="estimateFlags">
-                  <li>Late-night, alcohol-served events automatically move into manual review.</li>
-                </ul>
-                <p class="estimate-footnote">Based on attendance, alcohol service, venue setting, end time, VIP presence, and local complexity banding.</p>
-              </div>
-            </div>
-            <div class="hero-spotlight-actions" style="margin-top:16px;">
-              <a href="#overview" id="usePreviewButton" class="btn btn-primary">Use this preview in my quote</a>
-              <a href="#next" class="hero-inline-link">Already have the details? Skip ahead to submit.</a>
-            </div>
-          </div>
-        </section>
 
         <!-- DIRECT OPS CONTACT -->
         <section class="section" aria-labelledby="summaryHeading">
@@ -2846,7 +2705,6 @@
         <section class="side-card" aria-labelledby="quickNavHeading">
           <h2 id="quickNavHeading" class="side-title">Quick Nav</h2>
           <nav class="side-list" aria-label="Section quick links">
-            <a href="#instantEstimate">0. Instant Estimate</a>
             <a href="#overview">A. Client &amp; Event</a>
             <a href="#schedule">B. Schedule</a>
             <a href="#scope">C. Scope</a>
